@@ -2,6 +2,13 @@
   "name": "postcss-font-family-system-ui",
   "version": "1.0.1",
   "description": "PostCSS plugin to transform W3C CSS font-family: system-ui to a practical font-family list",
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-plugin",
+    "font-family",
+    "system-ui"
+  ],
   "main": "lib/index.js",
   "repository": "https://github.com/JLHwung/postcss-font-family-system-ui.git",
   "author": "Junliang Huang <i@jhuang.me>",
