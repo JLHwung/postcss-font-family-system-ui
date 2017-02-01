@@ -39,6 +39,9 @@ jspm_packages
 # IntelliJ IDEA
 .idea
 
-# Built lib
-/lib/
-/test/fixtures/font-family-system-ui.actual.css
+# src and test
+/src/
+/test/
+
+# appveyor config
+/appveyor.yml

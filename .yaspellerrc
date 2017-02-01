@@ -1,0 +1,20 @@
+{
+  "lang": "en",
+  "dictionary": [
+    "PostCSS",
+    "W3C",
+    "postcss",
+    "ui"
+  ],
+  "excludeFiles": [
+    ".git",
+    "lib",
+    "node_modules"
+  ],
+  "fileExtensions": [
+    ".md"
+  ],
+  "ignoreText": [
+    "\\([a-f0-9]+\\)"
+  ]
+}
