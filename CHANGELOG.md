@@ -1,3 +1,17 @@
+#### 1.0.1 (2017-2-2)
+
+##### Documentation Changes
+
+* **readme:**
+  * add missing semicolon to sample (7caa4897)
+  * add Greenkeeper badge (a45179e3)
+  * add badges (f8d2be69)
+
+##### Tests
+
+* **yaspeller:** ignore CHANGELOG.md (533a37a3)
+* **travis:** drop node_js 0.12 in support matrix (b71e98cb)
+
 ## 1.0.0 (2017-2-2)
 
 ##### New Features
