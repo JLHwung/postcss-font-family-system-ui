@@ -9,7 +9,8 @@
   "excludeFiles": [
     ".git",
     "lib",
-    "node_modules"
+    "node_modules",
+    "CHANGELOG.md"
   ],
   "fileExtensions": [
     ".md"
