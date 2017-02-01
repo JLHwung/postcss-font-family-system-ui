@@ -1,4 +1,9 @@
 # postcss-font-family-system-ui
+
+[![npm version](https://img.shields.io/npm/v/postcss-font-family-system-ui.svg?style=flat-square)](https://www.npmjs.com/package/postcss-font-family-system-ui)
+[![Build Status](https://img.shields.io/travis/JLHwung/postcss-font-family-system-ui.svg?style=flat-square)](https://travis-ci.org/JLHwung/postcss-font-family-system-ui)
+[![Coverage Status](https://img.shields.io/coveralls/JLHwung/postcss-font-family-system-ui.svg?style=flat-square)](https://coveralls.io/github/JLHwung/postcss-font-family-system-ui)
+
 > [PostCSS](https://github.com/postcss/postcss) plugin to transform W3C CSS generic font-family [system-ui](https://drafts.csswg.org/css-fonts-4/#valdef-font-family-system-ui) to a practical font-family list
 
 ## Installation
