@@ -28,10 +28,9 @@ const transformFontFamilySystemUI = (nodes) => {
 }
 
 const transform = () => (decl) => {
-  let tree
   if (decl.type === 'decl') {
     if (decl.prop === 'font-family' || decl.prop === 'font') {
-      tree = valueParser(decl.value)
+      const tree = valueParser(decl.value)
       tree.nodes = transformFontFamilySystemUI(tree.nodes)
       decl.value = tree.toString()
     }
