@@ -1,3 +1,17 @@
+#### 1.0.2 (2017-2-6)
+
+##### Chores
+
+* **package:**
+  * update postcss to version 5.2.12 (22a4c13b)
+  * remove unused babel-preset-babili (419a2207)
+  * add babel-register to devDependencies (4fd6756e)
+  * add keywords (ceb3ee60)
+
+##### Refactors
+
+* **main:** declare tree locally (569c552f)
+
 #### 1.0.1 (2017-2-2)
 
 ##### Documentation Changes
