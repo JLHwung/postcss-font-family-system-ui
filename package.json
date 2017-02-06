@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "postcss": "^5.0.4",
+    "postcss": "^5.2.12",
     "postcss-value-parser": "^3.3.0"
   },
   "devDependencies": {
