@@ -9,7 +9,7 @@
 
 ## Installation
 ```bash
-yarn add postcss-font-family-system-ui
+yarn add postcss-font-family-system-ui --dev
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ import postcss from 'postcss'
 import fontFamilySystemUI from 'postcss-font-family-system-ui'
 
 // css to be processed
-const css = fs.readFileSync("input.css", "utf8")
+const css = fs.readFileSync('input.css', 'utf8')
 
 // process css using postcss-font-family-system-ui
 const out = postcss()
