@@ -14,7 +14,7 @@ function compareFixtures (t, name, msg) {
   t.equal(actual, expected, msg)
 }
 
-test('font-variant', function (t) {
+test('font-family-system-ui', function (t) {
   compareFixtures(t, 'font-family-system-ui', 'should transform font-family: system-ui')
   t.end()
 })
