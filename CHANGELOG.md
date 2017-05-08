@@ -1,3 +1,31 @@
+## 2.0.0 (2017-5-8)
+
+##### Chores
+
+* **package:**
+  * update nyc to lastest version (32b6c515)
+  * upgrade dependencies (5a6924da)
+  * update standard to version 10.0.0 (f9e3996d)
+  * update cross-env to version 4.0.0 (7c079fc9)
+  * update babel-preset-env to version 1.3.2 (0d398ac1)
+  * update babel-plugin-istanbul to version 4.0.0 (f24a2407)
+  * update standard to version 9.0.0 (7803b7e5)
+  * update cross-env to version 3.2.3 (ed6a6017)
+
+##### Documentation Changes
+
+* **readme:**
+  * add version table (b7ba613b)
+  * minor adjustment on install process and snippet code styles (d20ffa05)
+
+##### Bug Fixes
+
+* **package:** update postcss to version 6.0.1 (460f7fd1)
+
+##### Tests
+
+* **index:** fix test title (63b21796)
+
 #### 1.0.2 (2017-2-6)
 
 ##### Chores
