@@ -4,7 +4,7 @@
       "plugins": [ "istanbul", "add-module-exports" ],
       "presets": [
         ["env", {
-            "targets": { "node": 0.12 }
+            "targets": { "node": 4 }
           }]
       ]
     }
@@ -12,7 +12,7 @@
   "plugins": [ "add-module-exports" ],
   "presets": [
     ["env", {
-        "targets": { "node": 0.12 }
+        "targets": { "node": 4 }
       }]
   ]
 }
