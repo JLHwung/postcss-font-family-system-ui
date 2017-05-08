@@ -12,6 +12,13 @@
 yarn add postcss-font-family-system-ui --dev
 ```
 
+## Version
+
+| postcss | postcss-font-family-system-ui |
+| ------- | ----------------------------- |
+| 5.x     | 1.x                           |
+| 6.x     | 2.x                           |
+
 ## Usage
 ```js
 // dependencies
