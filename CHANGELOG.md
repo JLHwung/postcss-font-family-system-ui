@@ -1,3 +1,9 @@
+#### 2.0.1 (2017-5-8)
+
+##### Chores
+
+* **babelrc:** drops node 0.12 support (f1c88a74)
+
 ## 2.0.0 (2017-5-8)
 
 ##### Chores
