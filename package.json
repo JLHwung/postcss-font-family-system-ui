@@ -38,7 +38,7 @@
     "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4",
     "standard": "^10.0.0",
-    "tap": "^10.0.0",
+    "tap": "^10.6.0",
     "yaspeller": "^3.0.0"
   },
   "pre-commit": "lint"
