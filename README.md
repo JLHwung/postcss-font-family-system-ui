@@ -1,5 +1,6 @@
 # postcss-font-family-system-ui
 
+[![CSS Standard Status](https://jonathantneal.github.io/css-db/badge/css-fonts-system-ui-def.svg)](https://jonathantneal.github.io/css-db/#css-fonts-system-ui-def)
 [![npm version](https://img.shields.io/npm/v/postcss-font-family-system-ui.svg?style=flat-square)](https://www.npmjs.com/package/postcss-font-family-system-ui)
 [![Build Status](https://img.shields.io/travis/JLHwung/postcss-font-family-system-ui.svg?style=flat-square)](https://travis-ci.org/JLHwung/postcss-font-family-system-ui)
 [![Coverage Status](https://img.shields.io/coveralls/JLHwung/postcss-font-family-system-ui.svg?style=flat-square)](https://coveralls.io/github/JLHwung/postcss-font-family-system-ui)
