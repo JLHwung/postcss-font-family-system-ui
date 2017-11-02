@@ -9,18 +9,19 @@
     "font-family",
     "system-ui"
   ],
-  "main": "lib/index.js",
+  "main": "src/index.js",
+  "module": "src/main.mjs",
+  "jsnext:main": "src/main.mjs",
   "repository": "https://github.com/JLHwung/postcss-font-family-system-ui.git",
   "author": "Junliang Huang <i@jhuang.me>",
   "license": "MIT",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "babel src --out-dir lib",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test nyc tap test/**/*.test.js && npm run spellcheck",
     "coverage": "nyc report",
     "spellcheck": "yaspeller .",
-    "prepublishOnly": "npm run lint && npm run test && npm run clean && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run clean"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -28,11 +29,10 @@
     "postcss-value-parser": "^3.3.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
+    "@std/esm": "^0.12.5",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-env": "^1.5.1",
-    "babel-register": "^6.22.0",
+    "babel-register": "^6.26.0",
     "cross-env": "^5.0.0",
     "nyc": "^11.0.2",
     "pre-commit": "^1.2.2",
@@ -41,5 +41,9 @@
     "tap": "^10.6.0",
     "yaspeller": "^4.0.0"
   },
-  "pre-commit": "lint"
+  "pre-commit": "lint",
+  "@std/esm": {
+    "esm": "all",
+    "cjs": true
+  }
 }

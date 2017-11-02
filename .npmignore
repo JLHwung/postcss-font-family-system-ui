@@ -39,8 +39,6 @@ jspm_packages
 # IntelliJ IDEA
 .idea
 
-# src and test
-/src/
 /test/
 
 # appveyor config
