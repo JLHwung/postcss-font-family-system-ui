@@ -17,7 +17,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "standard",
-    "test": "cross-env NODE_ENV=test nyc tap test/**/*.test.js && npm run spellcheck",
+    "test": "cross-env NODE_ENV=test jest && npm run spellcheck",
     "coverage": "nyc report",
     "spellcheck": "yaspeller-ci .",
     "prepublishOnly": "npm run lint && npm run test"
@@ -29,19 +29,19 @@
   },
   "devDependencies": {
     "@std/esm": "^0.12.5",
-    "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-env": "^1.5.1",
-    "babel-register": "^6.26.0",
     "cross-env": "^5.0.0",
-    "nyc": "^11.0.2",
+    "jest": "^21.2.1",
     "pre-commit": "^1.2.2",
     "standard": "^10.0.0",
-    "tap": "^10.6.0",
     "yaspeller-ci": "^0.7.0"
   },
   "pre-commit": "lint",
   "@std/esm": {
     "esm": "all",
     "cjs": true
+  },
+  "jest": {
+    "collectCoverage": true
   }
 }
