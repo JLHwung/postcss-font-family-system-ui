@@ -19,7 +19,7 @@
     "lint": "standard",
     "test": "cross-env NODE_ENV=test nyc tap test/**/*.test.js && npm run spellcheck",
     "coverage": "nyc report",
-    "spellcheck": "yaspeller .",
+    "spellcheck": "yaspeller-ci .",
     "prepublishOnly": "npm run lint && npm run test"
   },
   "dependencies": {
@@ -37,7 +37,7 @@
     "pre-commit": "^1.2.2",
     "standard": "^10.0.0",
     "tap": "^10.6.0",
-    "yaspeller": "^4.0.0"
+    "yaspeller-ci": "^0.7.0"
   },
   "pre-commit": "lint",
   "@std/esm": {
