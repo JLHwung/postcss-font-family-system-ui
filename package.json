@@ -16,12 +16,11 @@
   "author": "Junliang Huang <i@jhuang.me>",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf lib",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test nyc tap test/**/*.test.js && npm run spellcheck",
     "coverage": "nyc report",
     "spellcheck": "yaspeller .",
-    "prepublishOnly": "npm run lint && npm run test && npm run clean"
+    "prepublishOnly": "npm run lint && npm run test"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -36,7 +35,6 @@
     "cross-env": "^5.0.0",
     "nyc": "^11.0.2",
     "pre-commit": "^1.2.2",
-    "rimraf": "^2.5.4",
     "standard": "^10.0.0",
     "tap": "^10.6.0",
     "yaspeller": "^4.0.0"
