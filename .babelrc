@@ -1,18 +1,12 @@
 {
   "env": {
     "test": {
-      "plugins": [ "istanbul", "add-module-exports" ],
+      "plugins": [ "istanbul" ],
       "presets": [
         ["env", {
             "targets": { "node": 4 }
           }]
       ]
     }
-  },
-  "plugins": [ "add-module-exports" ],
-  "presets": [
-    ["env", {
-        "targets": { "node": 4 }
-      }]
-  ]
+  }
 }

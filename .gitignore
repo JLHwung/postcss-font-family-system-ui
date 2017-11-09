@@ -40,5 +40,7 @@ jspm_packages
 .idea
 
 # Built lib
-/lib/
 /test/fixtures/font-family-system-ui.actual.css
+
+# esm-cache
+.esm-cache
