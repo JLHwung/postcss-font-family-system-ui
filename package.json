@@ -28,7 +28,7 @@
     "postcss-value-parser": "^3.3.0"
   },
   "devDependencies": {
-    "@std/esm": "^0.12.5",
+    "@std/esm": "^0.14.0",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-env": "^1.5.1",
     "babel-register": "^6.26.0",
