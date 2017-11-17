@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@std/esm@0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@std/esm/-/esm-0.15.0.tgz#ffbdeb6dd6834daf6bc8fa095a82681e93786529"
+"@std/esm@0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@std/esm/-/esm-0.16.0.tgz#2a7a33ecb7f1701cebd4c87df6d0d945ed51f730"
 
 acorn-jsx@^3.0.0:
   version "3.0.1"
