@@ -1,3 +1,9 @@
+#### 2.1.1 (2017-11-20)
+
+##### Bug Fixes
+
+* **package:** add @std/esm to dependencies (15a32854)
+
 ### 2.1.0 (2017-11-20)
 
 ##### Chores
