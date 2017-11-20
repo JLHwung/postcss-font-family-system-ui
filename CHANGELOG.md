@@ -1,3 +1,31 @@
+### 2.1.0 (2017-11-20)
+
+##### Chores
+
+* **package:**
+  * use @std/esm as module loader (1691c6d7)
+    - `@std/esm` enable us to add an ES `module` build of the package
+  * ignore test files in npm package (9dfa7921)
+  * use yaspeller-ci for spell check (e49a3e83)
+  * remove unused clean scripts (77b36b67)
+  * remove package-lock in favor of yarn lockfile (e95bb29c)
+  * update yarn.lock (795b879f)
+  * update lockfile (452e89b2)
+  * update yaspeller to version 4.0.0 (3dfe2fe2)
+  * update tap to version 10.6.0 (0d3fa960)
+  * update nyc to version 11.0.2 (344b6cf8)
+  * add npm package lock (50dbe1dc)
+  * upgrade dependencies (134e89fe)
+  * update cross-env to version 5.0.0 (5d6b9884)
+* **test:** use jest as test runner (#22) (f8d483c0)
+* **travis:** add greenkeeper lockfile (26500e85)
+
+##### Documentation Changes
+
+* **readme:**
+  * reveal master branch build status (cbc3c5a1)
+  * update CSS Fonts Module Level 4 draft link (ef8c1d02)
+
 #### 2.0.1 (2017-5-8)
 
 ##### Chores
