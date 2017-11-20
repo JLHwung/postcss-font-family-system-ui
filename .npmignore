@@ -40,3 +40,18 @@ jspm_packages
 
 # appveyor config
 /appveyor.yml
+
+# yarn lockfile
+yarn.lock
+
+# yaspeller dictionary
+.yaspellerrc
+
+# babel config
+.babelrc
+
+# travis config
+.travis.yml
+
+# editor config
+.editorconfig
