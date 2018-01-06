@@ -23,7 +23,7 @@
     "prepublishOnly": "npm run lint && npm run test"
   },
   "dependencies": {
-    "@std/esm": "^0.18.0",
+    "@std/esm": "^0.19.0",
     "lodash": "^4.17.4",
     "postcss": "^6.0.1",
     "postcss-value-parser": "^3.3.0"
