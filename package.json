@@ -23,7 +23,7 @@
     "prepublishOnly": "npm run lint && npm run test"
   },
   "dependencies": {
-    "@std/esm": "^0.18.0",
+    "@std/esm": "^0.19.1",
     "lodash": "^4.17.4",
     "postcss": "^6.0.1",
     "postcss-value-parser": "^3.3.0"
@@ -31,7 +31,7 @@
   "devDependencies": {
     "babel-preset-env": "^1.5.1",
     "cross-env": "^5.0.0",
-    "jest": "^21.2.1",
+    "jest": "^22.0.4",
     "pre-commit": "^1.2.2",
     "standard": "^10.0.0",
     "yaspeller-ci": "^1.0.0"
@@ -42,6 +42,7 @@
     "cjs": true
   },
   "jest": {
-    "collectCoverage": true
+    "collectCoverage": true,
+    "testEnvironment": "node"
   }
 }

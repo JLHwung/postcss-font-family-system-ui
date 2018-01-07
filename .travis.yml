@@ -8,6 +8,8 @@ node_js:
 cache: yarn
 matrix:
   fast_finish: true
+env:
+  - YARN_IGNORE_ENGINES=true
 
 after_success:
   - yarn add coveralls
