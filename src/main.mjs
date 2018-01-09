@@ -1,6 +1,5 @@
 import postcss from 'postcss'
 import valueParser from 'postcss-value-parser'
-import { flatMap } from 'lodash'
 
 const fontFamilySystemUIList = [
   'system-ui',
@@ -14,24 +13,19 @@ const fontFamilySystemUIList = [
   'Fira Sans',
   'Droid Sans',
   'Helvetica Neue'
-]
+].join(', ');
 
-const parsedFontFamilySystemUIListTree = valueParser(fontFamilySystemUIList.join(', '))
-
-const transformFontFamilySystemUI = (nodes) => {
-  return flatMap(nodes, node => {
-    if (node.type === 'word' && node.value === 'system-ui') {
-      return parsedFontFamilySystemUIListTree
-    }
-    return node
-  })
-}
+const transformFontFamilySystemUI = node => {
+  if (node.type === 'word' && node.value === 'system-ui') {
+    node.value = fontFamilySystemUIList
+  }
+};
 
 const transform = () => (decl) => {
   if (decl.type === 'decl') {
     if (decl.prop === 'font-family' || decl.prop === 'font') {
       const tree = valueParser(decl.value)
-      tree.nodes = transformFontFamilySystemUI(tree.nodes)
+      tree.walk(transformFontFamilySystemUI)
       decl.value = tree.toString()
     }
   }
