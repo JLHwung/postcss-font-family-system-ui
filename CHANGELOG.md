@@ -1,3 +1,13 @@
+#### 2.1.2 (2018-01-09)
+
+##### Chores
+
+* **package:**  update @std/esm to version 0.19.1 (#35)
+
+##### Refactors
+
+* **main:**  simplify value parsing (#36) (7d970e9c)
+
 #### 2.1.1 (2017-11-20)
 
 ##### Bug Fixes
