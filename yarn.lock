@@ -10,9 +10,9 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@std/esm@^0.19.1":
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/@std/esm/-/esm-0.19.1.tgz#8bdf8ed0e759eea1c7010d22fb9789e462ec0a9b"
+"@std/esm@^0.19.2":
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/@std/esm/-/esm-0.19.2.tgz#36b1aab0d39bdf3d1f479cea4df5a2079610e15e"
 
 "@types/node@*":
   version "8.5.2"
