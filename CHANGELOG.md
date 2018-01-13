@@ -1,3 +1,9 @@
+#### 2.1.3 (2018-01-13)
+
+##### Chores
+
+* **package:**  update @std/esm to version 0.19.2 (dee84838)
+
 #### 2.1.2 (2018-01-09)
 
 ##### Chores
