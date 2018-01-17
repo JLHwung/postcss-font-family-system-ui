@@ -1,6 +1,6 @@
 {
   "name": "postcss-font-family-system-ui",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "PostCSS plugin to transform W3C CSS font-family: system-ui to a practical font-family list",
   "keywords": [
     "css",
