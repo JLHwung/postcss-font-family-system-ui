@@ -1,0 +1,10 @@
+test {
+	font: italic bold 12px/30px system-ui, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+	font: italic bold 12px/30px system-ui, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+	font: italic bold 12px/30px sans-serif;
+	font-family: system-ui, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+	font-family: system-ui, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+	font-family: system-ui, Segoe UI, Roboto, Helvetica Neue;
+	font-family: sans-serif;
+	font-family: "Droid Sans",    system-ui, Segoe UI, Roboto, Helvetica Neue,    sans-serif;
+}
