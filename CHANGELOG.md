@@ -1,3 +1,17 @@
+# Changes to postcss-font-family-system-ui
+
+#### 3.0.0 (2018-01-17)
+
+##### Refactors
+
+* **index.js:**
+  * es6 + rollup + babel - postcss-value-parser
+  * Removes `Fira Sans` as Firefox OS is dead
+
+##### New Features
+
+* **readme:** adds `family` option to specify polyfill font-family stack
+
 #### 2.1.4 (2018-01-17)
 
 ##### Chores
@@ -65,7 +79,7 @@
 ##### Chores
 
 * **package:**
-  * update nyc to lastest version (32b6c515)
+  * update nyc to latest version (32b6c515)
   * upgrade dependencies (5a6924da)
   * update standard to version 10.0.0 (f9e3996d)
   * update cross-env to version 4.0.0 (7c079fc9)
@@ -122,4 +136,3 @@
 
 * **readme:** add basic readme (17b4eb5b)
 * **main:** initial release (1c75288b)
-

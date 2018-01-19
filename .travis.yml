@@ -1,20 +1,9 @@
+# https://docs.travis-ci.com/user/travis-lint
+
 language: node_js
+
 node_js:
-  - "4"
-  - "6"
-  - "8"
-  - "node"
+  - 4
 
-cache: yarn
-matrix:
-  fast_finish: true
-env:
-  - YARN_IGNORE_ENGINES=true
-
-after_success:
-  - yarn add coveralls
-  - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
-
-before_install: yarn global add greenkeeper-lockfile@1
-before_script: greenkeeper-lockfile-update
-after_script: greenkeeper-lockfile-upload
+install:
+  - npm install --ignore-scripts
