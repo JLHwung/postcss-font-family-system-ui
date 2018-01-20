@@ -1,16 +1,23 @@
 # Changes to postcss-font-family-system-ui
 
-#### 3.0.0 (2018-01-17)
+## 3.0.0 (2018-01-20)
 
+##### Breaking Changes
+
+* **main:**  removes `Fira Sans` as Firefox OS is dead
+  - if you relies on the 2.x behavior, you can use the newly introduced `family` option
+  ```js
+  postcssSystemUiFont({
+    family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI','Roboto','Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue'
+  })
+  ```
 ##### Refactors
 
-* **index.js:**
-  * es6 + rollup + babel - postcss-value-parser
-  * Removes `Fira Sans` as Firefox OS is dead
+* **package:**  es6 + rollup + babel - postcss-value-parser
 
 ##### New Features
 
-* **readme:** adds `family` option to specify polyfill font-family stack
+* **main:** adds `family` option to specify polyfill font-family stack
 
 #### 2.1.4 (2018-01-17)
 
