@@ -119,9 +119,9 @@ The `family` option defines the fallback families used to polyfill `system-ui`.
 It accepts an array or a comma-separated string.
 
 ```js
-import postcssColorMod from 'postcss-color-mod-function';
+import postcssSystemUiFont from 'postcss-font-family-system-ui';
 
-postcssColorMod({
+postcssSystemUiFont({
   family: 'system-ui, Segoe UI, Roboto, Helvetica Neue' // use less fallbacks
 });
 ```
