@@ -1,8 +1,8 @@
 # postcss-font-family-system-ui [<img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="90" height="90" align="right">][postcss]
 
-[![CSS Standard][css-img]][css-url]
 [![NPM Version][npm-img]][npm-url]
-[![Linux Build Status][cli-img]][cli-url]
+[![CSS Standard][css-img]][css-url]
+[![Build Status][cli-img]][cli-url]
 [![Windows Build Status][win-img]][win-url]
 [![Greenkeeper][gkp-img]][gkp-url]
 [![Gitter Chat][git-img]][git-url]
@@ -126,18 +126,18 @@ postcssSystemUiFont({
 });
 ```
 
-[css-url]: https://jonathantneal.github.io/css-db/#css-fonts-system-ui-def
-[css-img]: https://jonathantneal.github.io/css-db/badge/css-fonts-system-ui-def.svg
-[npm-url]: https://www.npmjs.com/package/postcss-font-family-system-ui
+[css-img]: https://jonathantneal.github.io/cssdb/badge/system-ui-font-family.svg
+[css-url]: https://jonathantneal.github.io/cssdb/#system-ui-font-family
 [npm-img]: https://img.shields.io/npm/v/postcss-font-family-system-ui.svg
+[npm-url]: https://www.npmjs.com/package/postcss-font-family-system-ui
 [cli-url]: https://travis-ci.org/JLHwung/postcss-font-family-system-ui
 [cli-img]: https://img.shields.io/travis/JLHwung/postcss-font-family-system-ui.svg
-[win-url]: https://ci.appveyor.com/project/JLHwung/postcss-font-family-system-ui
-[win-img]: https://img.shields.io/appveyor/ci/JLHwung/postcss-font-family-system-ui.svg
+[git-img]: https://img.shields.io/badge/support-chat-blue.svg
+[git-url]: https://gitter.im/postcss/postcss
 [gkp-url]: https://greenkeeper.io/
 [gkp-img]: https://badges.greenkeeper.io/JLHwung/postcss-font-family-system-ui.svg
-[git-url]: https://gitter.im/postcss/postcss
-[git-img]: https://img.shields.io/badge/chat-gitter-blue.svg
+[win-img]: https://img.shields.io/appveyor/ci/JLHwung/postcss-font-family-system-ui.svg
+[win-url]: https://ci.appveyor.com/project/JLHwung/postcss-font-family-system-ui
 
 [CSS Fonts Module Level 4]: https://drafts.csswg.org/css-fonts-4/#system-ui-def
 [Gulp PostCSS]: https://github.com/postcss/gulp-postcss
