@@ -126,8 +126,8 @@ postcssSystemUiFont({
 });
 ```
 
-[css-img]: https://jonathantneal.github.io/cssdb/badge/system-ui-font-family.svg
-[css-url]: https://jonathantneal.github.io/cssdb/#system-ui-font-family
+[css-img]: https://csstools.github.io/cssdb/badge/system-ui-font-family.svg
+[css-url]: https://csstools.github.io/cssdb/#system-ui-font-family
 [npm-img]: https://img.shields.io/npm/v/postcss-font-family-system-ui.svg
 [npm-url]: https://www.npmjs.com/package/postcss-font-family-system-ui
 [cli-url]: https://travis-ci.org/JLHwung/postcss-font-family-system-ui
