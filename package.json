@@ -30,6 +30,8 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
+    "browserslist": "^4.0.1",
+    "caniuse-lite": "^1.0.30000865",
     "postcss": "^7.0"
   },
   "devDependencies": {
@@ -73,6 +75,8 @@
       "Affirmer",
       "babili",
       "babelrc",
+      "browserslist",
+      "caniuse",
       "devDependencies",
       "env",
       "es6",
