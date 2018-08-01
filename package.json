@@ -35,7 +35,7 @@
   "devDependencies": {
     "babel-core": "^6.26",
     "babel-eslint": "^8.2",
-    "babel-preset-env": "^1.6",
+    "babel-preset-env": "^1.7.0",
     "echint": "^4.0",
     "eslint": "^4.15",
     "eslint-config-dev": "2.0",
