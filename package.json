@@ -30,7 +30,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "postcss": "^6.0"
+    "postcss": "^7.0"
   },
   "devDependencies": {
     "babel-core": "^6.26",
