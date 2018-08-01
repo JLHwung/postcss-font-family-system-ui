@@ -9,14 +9,13 @@ export default postcss.plugin('postcss-system-ui-font', opts => {
 		? familyOpt.trim().split(/\s*,\s*/)
 	: familyOpt || [
 		'system-ui',
-		'-apple-system',
-		'BlinkMacSystemFont',
-		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Cantarell',
-		'Droid Sans',
+		'-apple-system', // macOS, Safari >= 9.2 < 11, Firefox >= 43
+		'BlinkMacSystemFont', // macOS, Chrome < 56
+		'Segoe UI', // Windows >= Vista
+		'Roboto', // Android >= 4
+		'Noto Sans', // Plasma >= 5.5
+		'Ubuntu', // Ubuntu >= 10.10
+		'Cantarell', // GNOME >= 3
 		'Helvetica Neue'
 	];
 
