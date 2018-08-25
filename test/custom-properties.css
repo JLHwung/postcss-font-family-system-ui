@@ -1,0 +1,6 @@
+:root {
+	--primary-font-family: system-ui, sans-serif;
+	--首要的字体族: system-ui, sans-serif;
+	\002d\002Di-am-a-custom-property: system-ui, sans-serif;
+	-i-am-not-a-custom-property: system-ui, sans-serif;
+}

@@ -38,5 +38,9 @@ export default postcss.plugin('postcss-system-ui-font', opts => {
 	};
 });
 
-// font and font family property match
-const fontPropertyMatch = /^font(-family)?$/i;
+/* match the following properties:
+ * - font
+ * - font-family
+ * - custom properties (see https://www.w3.org/TR/css-variables-1/#custom-property)
+ */
+const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
