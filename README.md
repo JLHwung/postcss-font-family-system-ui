@@ -18,7 +18,7 @@ body {
 /* becomes */
 
 body {
-  font: 100%/1.5 system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue;
+  font: 100%/1.5 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 }
 ```
 
@@ -126,6 +126,23 @@ postcssSystemUiFont({
 });
 ```
 
+### browsers
+
+Note: if `family` option is specified, the `browsers` option will not be activated.
+
+The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix]() of `system-ui` at caniuse.
+
+[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables.
+
+The `browsers` option should only be used when a standard browserslist configuration is not available.
+```js
+postcssSystemUiFont({
+  browsers: ["last 2 versions"]
+})
+```
+
+If not valid browserslist configuration is specified, the [default browserslist query](https://github.com/browserslist/browserslist#queries) will be used.
+
 [css-img]: https://csstools.github.io/cssdb/badge/system-ui-font-family.svg
 [css-url]: https://csstools.github.io/cssdb/#system-ui-font-family
 [npm-img]: https://img.shields.io/npm/v/postcss-font-family-system-ui.svg
@@ -144,3 +161,4 @@ postcssSystemUiFont({
 [Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
 [postcss-font-family-system-ui]: https://github.com/JLHwung/postcss-font-family-system-ui
 [PostCSS]: https://github.com/postcss/postcss
+[browserslist]: https://github.com/browserslist/browserslist#readme

@@ -23,14 +23,16 @@
     "test": "echo 'Running tests...'; npm run test:ec && npm run test:spelling && npm run test:js && npm run test:tape",
     "test:ec": "echint --ignore index.bundle.js test",
     "test:js": "eslint *.js --cache --ignore-path .gitignore --quiet",
-    "test:spelling": "yaspeller-ci -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls *.md",
+    "test:spelling": "yaspeller-ci -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
     "test:tape": "postcss-tape"
   },
   "engines": {
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "postcss": "^7.0"
+    "browserslist": "^4.0.1",
+    "caniuse-lite": "^1.0.30000865",
+    "postcss": "^7.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.2",
@@ -71,8 +73,11 @@
   "yaspeller": {
     "dictionary": [
       "Affirmer",
+      "Affirmer's",
       "babili",
       "babelrc",
+      "browserslist",
+      "caniuse",
       "devDependencies",
       "env",
       "es6",
