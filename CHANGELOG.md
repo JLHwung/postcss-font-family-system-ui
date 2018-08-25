@@ -1,3 +1,37 @@
+## 4.0.0 (2018-08-25)
+
+##### Breaking Changes
+
+* **main:**
+- Remove `Oxygen` in favor of `Noto Sans`, the default font in KDE Plasma 5.5
+- Remove `Droid Sans` since Android < 4 is not supported
+- Use default browserslist config to shrink polyfill font sets.
+
+* **travis:**  drop node 4 target (3acab0d1)
+
+##### Chores
+
+* **package:**
+  *  update rollup to version 0.64.0 (e3f3dc62)
+  *  update dev dependencies (35a8142e)
+  *  update rollup-plugin-babel to version 3.0.6 (b22ebc41)
+  *  update rollup to version 0.61.1 (9cff2612)
+  *  update rollup to version 0.58.1 (4d89147e)
+  *  update rollup to version 0.57.1 (aeb7a332)
+  *  update rollup to version 0.57.1 (75b5ef00)
+  *  update rollup to version 0.56.2 (2b5c850f)
+  *  update rollup to version 0.56.2 (2bdfabc6)
+  *  update rollup to version 0.55.0 (#43) (a2829d49)
+  *  update rollup to version 0.55.0 (5b49b377)
+
+##### Documentation Changes
+
+* **readme:**  update css-url (5699543e)
+
+##### New Features
+
+* **package:**  update postcss to 7.0.2 (62f67a52)
+
 # Changes to postcss-font-family-system-ui
 
 ## 3.0.0 (2018-01-20)
