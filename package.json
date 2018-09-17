@@ -35,17 +35,17 @@
     "postcss": "^7.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
     "ajv": "^6.5.2",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
-    "babel-preset-env": "^1.7.0",
     "echint": "^4.0.1",
     "eslint": "^5.0",
     "eslint-config-dev": "2.0",
     "postcss-tape": "2.2",
     "pre-commit": "^1.2",
     "rollup": "^0.66.0",
-    "rollup-plugin-babel": "^3.0.6",
+    "rollup-plugin-babel": "^4.0.3",
     "yaspeller-ci": "^1.0.0"
   },
   "eslintConfig": {

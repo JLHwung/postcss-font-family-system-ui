@@ -6,7 +6,7 @@ export default {
 	plugins: [
 		babel({
 			presets: [
-				['env', { modules: false, targets: { node: 6 } }]
+				['@babel/preset-env', { modules: false, targets: { node: 6 } }]
 			]
 		})
 	]
