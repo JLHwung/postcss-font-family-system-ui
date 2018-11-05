@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "browserslist": "^4.0.1",
-    "caniuse-lite": "^1.0.30000890",
+    "caniuse-lite": "^1.0.30000905",
     "postcss": "^7.0.0"
   },
   "devDependencies": {
