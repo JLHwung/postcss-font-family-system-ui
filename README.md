@@ -4,7 +4,6 @@
 [![CSS Standard][css-img]][css-url]
 [![Build Status][cli-img]][cli-url]
 [![Windows Build Status][win-img]][win-url]
-[![Greenkeeper][gkp-img]][gkp-url]
 [![Gitter Chat][git-img]][git-url]
 
 [postcss-font-family-system-ui] lets you use `system-ui` in CSS, following the
@@ -151,8 +150,6 @@ If not valid browserslist configuration is specified, the [default browserslist 
 [cli-img]: https://img.shields.io/travis/JLHwung/postcss-font-family-system-ui.svg
 [git-img]: https://img.shields.io/badge/support-chat-blue.svg
 [git-url]: https://gitter.im/postcss/postcss
-[gkp-url]: https://greenkeeper.io/
-[gkp-img]: https://badges.greenkeeper.io/JLHwung/postcss-font-family-system-ui.svg
 [win-img]: https://img.shields.io/appveyor/ci/JLHwung/postcss-font-family-system-ui.svg
 [win-url]: https://ci.appveyor.com/project/JLHwung/postcss-font-family-system-ui
 
