@@ -44,7 +44,7 @@
     "eslint-config-dev": "2.0.0",
     "postcss-tape": "2.2.0",
     "pre-commit": "1.2.2",
-    "rollup": "0.67.3",
+    "rollup": "0.68.1",
     "rollup-plugin-babel": "4.1.0",
     "yaspeller-ci": "1.0.0"
   },
