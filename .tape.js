@@ -1,5 +1,4 @@
 module.exports = {
-	'postcss-system-ui-font': {
 		'basic': {
 			message: 'supports basic usage'
 		},
@@ -24,5 +23,4 @@ module.exports = {
 		'custom-properties': {
 			message: 'supports custom-properties usage'
 		}
-	}
 };
