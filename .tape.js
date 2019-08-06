@@ -20,6 +20,12 @@ module.exports = {
 				browsers: ["Safari 9", "Safari 10", "IE 11", "Chrome 55", "Chrome 56", "Firefox 57"]
 			}
 		},
+		'basic:browser:edged_version': {
+			message: 'supports browsers usage when caniuse is out-of-dated',
+			options: {
+				browsers: ["Chrome 1048576"]
+			}
+		},
 		'custom-properties': {
 			message: 'supports custom-properties usage'
 		}
