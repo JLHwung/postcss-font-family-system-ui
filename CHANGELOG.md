@@ -1,3 +1,9 @@
+#### 4.1.1 (2019-08-06)
+
+##### Bug Fixes
+
+*  ignore browser when version does not exist in caniuse (#198) (6c592cbf)
+
 ### 4.1.0 (2018-08-25)
 
 ##### New Features
