@@ -129,7 +129,7 @@ postcssSystemUiFont({
 
 Note: if `family` option is specified, the `browsers` option will not be activated.
 
-The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix]() of `system-ui` at caniuse.
+The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse.
 
 [postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables.
 
@@ -159,3 +159,4 @@ If not valid browserslist configuration is specified, the [default browserslist 
 [postcss-font-family-system-ui]: https://github.com/JLHwung/postcss-font-family-system-ui
 [PostCSS]: https://github.com/postcss/postcss
 [browserslist]: https://github.com/browserslist/browserslist#readme
+[support matrix]: https://caniuse.com/#feat=font-family-system-ui
