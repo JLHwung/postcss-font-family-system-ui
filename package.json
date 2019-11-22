@@ -35,8 +35,8 @@
     "postcss": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.7.2",
-    "@babel/preset-env": "7.7.1",
+    "@babel/core": "7.7.4",
+    "@babel/preset-env": "7.7.4",
     "ajv": "6.10.2",
     "babel-eslint": "10.0.3",
     "echint": "4.0.2",
