@@ -15,7 +15,8 @@
   "module": "index.js",
   "files": [
     "index.js",
-    "index.bundle.js"
+    "index.bundle.js",
+    "lib"
   ],
   "scripts": {
     "prepublishOnly": "npm test",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.7.7",
+    "@babel/plugin-transform-for-of": "^7.7.4",
     "@babel/preset-env": "7.7.7",
     "ajv": "6.10.2",
     "babel-eslint": "10.0.3",
