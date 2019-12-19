@@ -11,28 +11,33 @@
   "repository": "JLHwung/postcss-font-family-system-ui",
   "homepage": "https://github.com/JLHwung/postcss-font-family-system-ui#readme",
   "bugs": "https://github.com/JLHwung/postcss-font-family-system-ui/issues",
-  "main": "index.bundle.js",
-  "module": "index.js",
+  "main": "index.bundle.cjs",
+  "module": "index.mjs",
+  "type": "module",
+  "exports": {
+    "import": "./index.mjs",
+    "require": "./index.bundle.cjs"
+  },
   "files": [
-    "index.js",
-    "index.bundle.js",
+    "index.mjs",
+    "index.bundle.cjs",
     "lib"
   ],
   "scripts": {
     "prepublishOnly": "npm test",
-    "pretest": "rollup -c .rollup.js --silent",
+    "pretest": "rollup -c .rollup.mjs --silent",
     "test": "echo 'Running tests...'; npm run test:ec && npm run test:spelling && npm run test:js && npm run test:tape",
-    "test:ec": "echint --ignore index.bundle.js test",
-    "test:js": "eslint *.js --cache --ignore-path .gitignore --quiet",
+    "test:ec": "echint --ignore index.bundle.cjs test",
+    "test:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
     "test:spelling": "yaspeller-ci -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
-    "test:tape": "postcss-tape"
+    "test:tape": "postcss-tape --config .tape.cjs"
   },
   "engines": {
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "browserslist": "^4.0.1",
-    "caniuse-lite": "^1.0.30000909",
+    "browserslist": "^4.8.2",
+    "caniuse-lite": "^1.0.30001016",
     "postcss": "^7.0.0"
   },
   "devDependencies": {

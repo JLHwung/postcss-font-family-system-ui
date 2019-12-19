@@ -1,5 +1,5 @@
 node_modules
-index.bundle.js
+index.bundle.cjs
 package-lock.json
 *.log*
 *.result.css
@@ -8,6 +8,6 @@ package-lock.json
 !.babelrc
 !.editorconfig
 !.gitignore
-!.rollup.js
-!.tape.js
+!.rollup.mjs
+!.tape.cjs
 !.travis.yml

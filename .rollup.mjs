@@ -1,8 +1,8 @@
 import babel from 'rollup-plugin-babel';
 
 export default {
-	input: 'index.js',
-	output: { file: 'index.bundle.js', format: 'cjs' },
+	input: 'index.mjs',
+	output: { file: 'index.bundle.cjs', format: 'cjs' },
 	plugins: [
 		babel({
 			presets: [

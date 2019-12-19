@@ -1,6 +1,6 @@
 // tooling
 import postcss from 'postcss';
-import getSystemUiFamily from './lib/get-system-ui-family';
+import getSystemUiFamily from './lib/get-system-ui-family.mjs';
 import browserslist from 'browserslist';
 
 // plugin
