@@ -1,3 +1,10 @@
+### 4.2.0 (2019-12-19)
+
+##### Chores
+
+*  100% ESM ready (fa7fdfcd)
+*  shrink code size from 6K to 4K (52c06a10)
+
 #### 4.1.1 (2019-08-06)
 
 ##### Bug Fixes
