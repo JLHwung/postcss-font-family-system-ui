@@ -2,8 +2,6 @@
 
 [![NPM Version][npm-img]][npm-url]
 [![CSS Standard][css-img]][css-url]
-[![Build Status][cli-img]][cli-url]
-[![Windows Build Status][win-img]][win-url]
 [![Gitter Chat][git-img]][git-url]
 
 [postcss-font-family-system-ui] lets you use `system-ui` in CSS, following the
@@ -146,12 +144,8 @@ If not valid browserslist configuration is specified, the [default browserslist 
 [css-url]: https://csstools.github.io/cssdb/#system-ui-font-family
 [npm-img]: https://img.shields.io/npm/v/postcss-font-family-system-ui.svg
 [npm-url]: https://www.npmjs.com/package/postcss-font-family-system-ui
-[cli-url]: https://travis-ci.org/JLHwung/postcss-font-family-system-ui
-[cli-img]: https://img.shields.io/travis/JLHwung/postcss-font-family-system-ui.svg
 [git-img]: https://img.shields.io/badge/support-chat-blue.svg
 [git-url]: https://gitter.im/postcss/postcss
-[win-img]: https://img.shields.io/appveyor/ci/JLHwung/postcss-font-family-system-ui.svg
-[win-url]: https://ci.appveyor.com/project/JLHwung/postcss-font-family-system-ui
 
 [CSS Fonts Module Level 4]: https://drafts.csswg.org/css-fonts-4/#system-ui-def
 [Gulp PostCSS]: https://github.com/postcss/gulp-postcss
