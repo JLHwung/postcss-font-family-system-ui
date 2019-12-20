@@ -47,7 +47,7 @@
     "ajv": "6.10.2",
     "babel-eslint": "10.0.3",
     "echint": "4.0.2",
-    "eslint": "5.16.0",
+    "eslint": "6.8.0",
     "eslint-config-dev": "2.0.0",
     "postcss-tape": "4.0.0",
     "pre-commit": "1.2.2",
