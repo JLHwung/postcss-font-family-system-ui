@@ -26,6 +26,12 @@ module.exports = {
 				browsers: ["Chrome 1048576"]
 			}
 		},
+		'basic:not_preserve': {
+			message: 'supports simple { preserve } usage',
+			options: {
+				preserve: false,
+			}
+		},
 		'custom-properties': {
 			message: 'supports custom-properties usage'
 		}
