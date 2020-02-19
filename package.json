@@ -53,7 +53,7 @@
     "pre-commit": "1.2.2",
     "rollup": "1.31.1",
     "rollup-plugin-babel": "4.3.3",
-    "yaspeller-ci": "1.0.1"
+    "yaspeller-ci": "1.0.2"
   },
   "eslintConfig": {
     "extends": "dev",
