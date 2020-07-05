@@ -7,18 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js latest
         uses: actions/setup-node@v2-beta
         with:
-          node-version: 14.x
-      - name: npm install and check
+          node-version: "*"
+      - name: Install dependencies
         run: |
           npm install --ignore-scripts
           npm run check
-      - name: build artifact
+      - name: Build artifact
         run: |
           npm run build
-      - name: upload artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: bundled
@@ -38,7 +38,7 @@ jobs:
         uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Get test dep versions
+      - name: Get test dependencies versions
         id: test-dep-versions
         run: |
           echo "::set-output name=postcss-tape::$(node scripts/get-tape-deps postcss-tape)"
@@ -46,10 +46,10 @@ jobs:
         run: |
           npm install --only=prod
           npm install postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }}
-      - name: download artifact
+      - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: bundled
-      - name: test
+      - name: Test
         run: |
           npm run test:tape
