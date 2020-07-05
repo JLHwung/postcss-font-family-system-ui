@@ -7,6 +7,8 @@
 [postcss-font-family-system-ui] lets you use `system-ui` in CSS, following the
 [CSS Fonts Module Level 4] specification.
 
+[!['Can I use' table](https://caniuse.bitsofco.de/image/font-family-system-ui.png)](https://caniuse.com/#feat=font-family-system-ui)
+
 ```css
 body {
   font: 100%/1.5 system-ui;
