@@ -6,9 +6,9 @@ jobs:
   check-and-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2-beta
         with:
           node-version: 14.x
       - name: npm install and check
@@ -33,15 +33,15 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install
         run: |
           npm install --only=prod
-          npm install --dev postcss-tape@4
+          npm install --dev postcss-tape@$(node -e 'process.stdout.write(require("./package.json").devDependencies["postcss-tape"])')
       - name: download artifact
         uses: actions/download-artifact@v2
         with:
