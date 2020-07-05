@@ -38,10 +38,14 @@ jobs:
         uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Get npm cache directory
+        id: postcss-tape-version
+        run: |
+          echo "::set-output name=version::$(node -e 'process.stdout.write(require("./package.json").devDependencies["postcss-tape"])')"
       - name: npm install
         run: |
           npm install --only=prod
-          npm install postcss-tape@$(node -e 'process.stdout.write(require("./package.json").devDependencies["postcss-tape"])')
+          npm install postcss-tape@${{ steps.postcss-tape.outputs.version }}
       - name: download artifact
         uses: actions/download-artifact@v2
         with:
