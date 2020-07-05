@@ -5,7 +5,6 @@ package-lock.json
 *.result.css
 .*
 !.appveyor.yml
-!.babelrc
 !.editorconfig
 !.gitignore
 !.rollup.mjs
