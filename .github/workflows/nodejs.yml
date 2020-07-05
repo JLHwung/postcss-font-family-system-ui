@@ -3,7 +3,7 @@ name: Node CI
 on: [push]
 
 jobs:
-  check:
+  check-and-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -25,6 +25,7 @@ jobs:
           path: ./index.bundle.cjs
 
   test:
+    needs: check-and-build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
