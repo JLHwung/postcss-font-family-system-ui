@@ -3,7 +3,29 @@ name: Node CI
 on: [push]
 
 jobs:
-  build:
+  check-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: npm install and check
+        run: |
+          npm install --ignore-scripts
+          npm run check
+      - name: build artifact
+        run: |
+          npm run build
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: bundled
+          path: ./index.bundle.cjs
+
+  test:
+    needs: check-and-build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -11,14 +33,19 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, and test
-      run: |
-        npm install --ignore-scripts
-        npm test
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install
+        run: |
+          npm install --only=prod
+          npm install --dev postcss-tape@4
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: bundled
+      - name: test
+        run: |
+          npm run test:tape

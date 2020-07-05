@@ -24,36 +24,38 @@
     "lib"
   ],
   "scripts": {
+    "build:rollup": "rollup -c .rollup.mjs --silent",
+    "build:stats": "node scripts/build-stats.mjs > lib/stats.json",
+    "build": "npm run build:rollup && npm run build:stats",
+    "check:ec": "echint --ignore index.bundle.cjs test",
+    "check:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
+    "check:spelling": "yaspeller -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
     "prepublishOnly": "npm test",
-    "pretest": "rollup -c .rollup.mjs --silent",
-    "test": "echo 'Running tests...'; npm run test:ec && npm run test:spelling && npm run test:js && npm run test:tape",
-    "test:ec": "echint --ignore index.bundle.cjs test",
-    "test:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
-    "test:spelling": "yaspeller-ci -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
+    "pretest": "npm run build",
+    "check": "npm run check:js && npm run check:ec && npm run check:spelling",
+    "test": "echo 'Running tests...'; npm run check && npm run test:tape",
     "test:tape": "postcss-tape --config .tape.cjs"
-  },
-  "engines": {
-    "node": ">=4.0.0"
   },
   "dependencies": {
     "browserslist": "^4.8.2",
-    "caniuse-lite": "^1.0.30001016",
     "postcss": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/plugin-transform-for-of": "7.9.0",
-    "@babel/preset-env": "7.9.5",
-    "ajv": "6.12.0",
+    "@babel/core": "7.10.4",
+    "@babel/plugin-transform-for-of": "7.10.4",
+    "@babel/preset-env": "7.10.4",
+    "@rollup/plugin-babel": "5.0.4",
+    "@rollup/plugin-json": "4.1.0",
+    "ajv": "6.12.3",
     "babel-eslint": "10.1.0",
+    "caniuse-lite": "1.0.30001094",
     "echint": "4.0.2",
-    "eslint": "5.16.0",
+    "eslint": "7.1.0",
     "eslint-config-dev": "2.0.0",
     "postcss-tape": "4.0.0",
     "pre-commit": "1.2.2",
     "rollup": "1.32.1",
-    "rollup-plugin-babel": "4.4.0",
-    "yaspeller-ci": "1.0.2"
+    "yaspeller": "7.0.0"
   },
   "eslintConfig": {
     "extends": "dev",
