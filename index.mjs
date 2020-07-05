@@ -8,20 +8,17 @@ export default postcss.plugin('postcss-system-ui-font', opts => {
 
 	return (root, result) => {
 
-		const family = Object(opts).family;
+		const { family, preserve = true, browsers } = Object(opts);
 		let systemUiFamily = family;
 		if (typeof family === 'string') {
 			systemUiFamily = family.trim().split(/\s*,\s*/);
 		} else if (!family) {
-
-			const { browsers } = Object(opts);
-
 			// browsers supported by the configuration
 			const supportedBrowsers = browserslist(browsers, {
 				path: result.root.source && result.root.source.input && result.root.source.input.file,
 				ignoreUnknownVersions: true
 			});
-			systemUiFamily = getSystemUiFamily(supportedBrowsers);
+			systemUiFamily = getSystemUiFamily(supportedBrowsers, preserve);
 		}
 
 		// system-ui and fallbacks match
