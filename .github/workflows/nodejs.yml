@@ -41,7 +41,7 @@ jobs:
       - name: npm install
         run: |
           npm install --only=prod
-          npm install --dev postcss-tape@$(node -e 'process.stdout.write(require("./package.json").devDependencies["postcss-tape"])')
+          npm install postcss-tape@$(node -e 'process.stdout.write(require("./package.json").devDependencies["postcss-tape"])')
       - name: download artifact
         uses: actions/download-artifact@v2
         with:
