@@ -24,9 +24,7 @@
     "lib"
   ],
   "scripts": {
-    "build:rollup": "rollup -c .rollup.mjs --silent",
-    "build:stats": "node scripts/build-stats.mjs > lib/stats.json",
-    "build": "npm run build:rollup && npm run build:stats",
+    "build": "rollup -c .rollup.mjs --silent",
     "check:ec": "echint --ignore index.bundle.cjs test",
     "check:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
     "check:spelling": "yaspeller -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
@@ -37,7 +35,8 @@
     "test:tape": "postcss-tape --config .tape.cjs"
   },
   "dependencies": {
-    "browserslist": "^4.8.2",
+    "browserslist": "^4.0.0",
+    "caniuse-lite": "^1.0.30000655",
     "postcss": "^7.0.0"
   },
   "devDependencies": {
@@ -48,7 +47,6 @@
     "@rollup/plugin-json": "4.1.0",
     "ajv": "6.12.3",
     "babel-eslint": "10.1.0",
-    "caniuse-lite": "1.0.30001094",
     "echint": "4.0.2",
     "eslint": "7.4.0",
     "eslint-config-dev": "2.0.0",
