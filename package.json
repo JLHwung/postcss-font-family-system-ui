@@ -40,7 +40,7 @@
     "postcss": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.10.4",
+    "@babel/core": "7.10.5",
     "@babel/plugin-transform-for-of": "7.10.4",
     "@babel/preset-env": "7.10.4",
     "@rollup/plugin-babel": "5.1.0",
