@@ -13,8 +13,8 @@ jobs:
           node-version: "*"
       - name: Install dependencies
         run: |
-          npm install --ignore-scripts
-          npm run check
+          yarn install
+          yarn check
       - name: Build artifact
         run: |
           npm run build
@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [6.x]
+        node-version: [10.x]
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -42,14 +42,14 @@ jobs:
         id: test-dep-versions
         run: |
           echo "::set-output name=postcss-tape::$(node scripts/get-tape-deps postcss-tape)"
-      - name: npm install
+      - name: yarn install
         run: |
-          npm install --only=prod
-          npm install postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }}
+          yarn workspace focus -A --production
+          yarn add --dev postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }}
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: bundled
       - name: Test
         run: |
-          npm run test:tape
+          yarn test:tape
