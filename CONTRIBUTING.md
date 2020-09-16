@@ -20,16 +20,16 @@ scope and avoid unrelated commits.
 1. To begin; [fork this project], clone your fork, and add our upstream.
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone git@github.com:YOUR_USER/postcss-system-ui-font.git
+   git clone git@github.com:YOUR_USER/postcss-font-family-system-ui.git
 
    # Navigate to the newly cloned directory
-   cd postcss-system-ui-font
+   cd postcss-font-family-system-ui
 
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream git@github.com:JLHwung/postcss-system-ui-font.git
+   git remote add upstream git@github.com:JLHwung/postcss-font-family-system-ui.git
 
    # Install the tools necessary for testing
-   npm install
+   yarn
    ```
 
 2. Create a branch for your feature or fix:
@@ -45,7 +45,7 @@ scope and avoid unrelated commits.
 3. If your code follows our practices, then push your feature branch:
    ```bash
    # Test current code
-   npm test
+   yarn test
    ```
    ```bash
    # Push the branch for your new feature

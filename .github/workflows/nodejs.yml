@@ -41,11 +41,12 @@ jobs:
       - name: Get test dependencies versions
         id: test-dep-versions
         run: |
-          echo "::set-output name=postcss-tape::$(node scripts/get-tape-deps postcss-tape)"
+          echo "::set-output name=postcss-tape::$(node scripts/get-dev-deps postcss-tape)"
+          echo "::set-output name=postcss::$(node scripts/get-dev-deps postcss)"
       - name: yarn install
         run: |
           yarn workspace focus -A --production
-          yarn add --dev postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }}
+          yarn add --dev postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }} postcss@${{ steps.test-dep-versions.outputs.postcss }}
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:

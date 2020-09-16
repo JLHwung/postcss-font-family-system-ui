@@ -2,8 +2,8 @@ node_modules
 index.bundle.cjs
 *.log*
 *.result.css
-.pnp.cjs
 .eslintcache
 .yarn/unplugged
+.yarn/cache
 .yarn/build-state.yml
 .yarn/install-state.gz

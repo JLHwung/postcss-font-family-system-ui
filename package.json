@@ -11,9 +11,8 @@
   "repository": "JLHwung/postcss-font-family-system-ui",
   "homepage": "https://github.com/JLHwung/postcss-font-family-system-ui#readme",
   "bugs": "https://github.com/JLHwung/postcss-font-family-system-ui/issues",
-  "main": "index.bundle.cjs",
-  "module": "index.mjs",
-  "type": "module",
+  "main": "./index.bundle.cjs",
+  "type": "commonjs",
   "exports": {
     "import": "./index.mjs",
     "require": "./index.bundle.cjs"
@@ -24,14 +23,13 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c .rollup.mjs --silent",
+    "build": "rollup -c .rollup.mjs",
     "check:ec": "echint --ignore index.bundle.cjs test",
     "check:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
     "check:spelling": "yaspeller -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
     "prepublishOnly": "yarn test",
-    "pretest": "yarn build",
     "check": "yarn check:js && yarn check:ec && yarn check:spelling",
-    "test": "echo 'Running tests...'; yarn check && yarn test:tape",
+    "test": "yarn build && echo 'Running tests...'; yarn check && yarn test:tape",
     "test:tape": "postcss-tape --config .tape.cjs"
   },
   "dependencies": {
@@ -55,9 +53,6 @@
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
-  },
-  "resolutions": {
-    "postcss-tape": "patch:postcss-tape@4.0.0#.yarn-patches/postcss-tape.patch"
   },
   "eslintConfig": {
     "extends": "dev",
