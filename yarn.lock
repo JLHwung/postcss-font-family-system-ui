@@ -3055,12 +3055,21 @@ fsevents@~2.1.2:
   languageName: unknown
   linkType: soft
 
-"postcss-tape@npm:5.0.2":
+postcss-tape@5.0.2:
   version: 5.0.2
   resolution: "postcss-tape@npm:5.0.2"
   bin:
     postcss-tape: index.js
   checksum: 648481ae35dec82a47d9e2b964163e5351227eba391c4638d4465a8a66850b72e2b55cdb7753a9ad4f9559606261ba632e2a57d2c9974999dfa0347903a8e6c0
+  languageName: node
+  linkType: hard
+
+"postcss-tape@patch:postcss-tape@5.0.2#.yarn-patches/postcss-tape.patch::locator=postcss-font-family-system-ui%40workspace%3A.":
+  version: 5.0.2
+  resolution: "postcss-tape@patch:postcss-tape@npm%3A5.0.2#.yarn-patches/postcss-tape.patch::version=5.0.2&hash=da4d3e&locator=postcss-font-family-system-ui%40workspace%3A."
+  bin:
+    postcss-tape: index.js
+  checksum: 1563c54b3c6532aa8a3abbf9c3dd0d49268e2cfdf5812c2773d5d811fd87874ffe057631191071fdd64002e9009eb8e7964cc8fe6efa1c8199c349a75256efa0
   languageName: node
   linkType: hard
 
