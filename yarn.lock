@@ -1157,6 +1157,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/eslintrc@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@eslint/eslintrc@npm:0.1.3"
+  dependencies:
+    ajv: ^6.12.4
+    debug: ^4.1.1
+    espree: ^7.3.0
+    globals: ^12.1.0
+    ignore: ^4.0.6
+    import-fresh: ^3.2.1
+    js-yaml: ^3.13.1
+    lodash: ^4.17.19
+    minimatch: ^3.0.4
+    strip-json-comments: ^3.1.1
+  checksum: e9c5eaa5e706bcedbba6e7e1a2bc85faa7e3a9edbe71375e07240d1b6540fbb88d907bd5e5841b42c2a7a9683dcf031ea052c447c3c9d81ba4d0b74f0dd67e5f
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-babel@npm:5.2.1":
   version: 5.2.1
   resolution: "@rollup/plugin-babel@npm:5.2.1"
@@ -1233,15 +1251,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:6.12.4, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3":
-  version: 6.12.4
-  resolution: "ajv@npm:6.12.4"
+"ajv@npm:6.12.5, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
+  version: 6.12.5
+  resolution: "ajv@npm:6.12.5"
   dependencies:
     fast-deep-equal: ^3.1.1
     fast-json-stable-stringify: ^2.0.0
     json-schema-traverse: ^0.4.1
     uri-js: ^4.2.2
-  checksum: 50d72b0a10326732072f5481b1b6bd5a43f8d770878b8f88ba5bb232abb745cefbf7f87a0e64679bd477d4a8bba0b3aea084675bd34943db5279c15907ee658f
+  checksum: d9ec559bd71be2479b91d293a5b14c96d60ba89f471d8b3369443830b6c72954bdc38f480194413f45f46fc250c8bd769275584ffde033aeb3c56cc218868d95
   languageName: node
   linkType: hard
 
@@ -1646,7 +1664,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.0.1, debug@npm:^4.1.0":
+"debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1":
   version: 4.2.0
   resolution: "debug@npm:4.2.0"
   dependencies:
@@ -1912,11 +1930,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.7.0":
-  version: 7.7.0
-  resolution: "eslint@npm:7.7.0"
+"eslint@npm:7.9.0":
+  version: 7.9.0
+  resolution: "eslint@npm:7.9.0"
   dependencies:
     "@babel/code-frame": ^7.0.0
+    "@eslint/eslintrc": ^0.1.3
     ajv: ^6.10.0
     chalk: ^4.0.0
     cross-spawn: ^7.0.2
@@ -1926,7 +1945,7 @@ __metadata:
     eslint-scope: ^5.1.0
     eslint-utils: ^2.1.0
     eslint-visitor-keys: ^1.3.0
-    espree: ^7.2.0
+    espree: ^7.3.0
     esquery: ^1.2.0
     esutils: ^2.0.2
     file-entry-cache: ^5.0.1
@@ -1954,11 +1973,11 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 6f47e20ec67a8ad58ed79ad350373142fb30387f4b9847f43943d80a2307e74252ea8739a9f53ec850ef5eaf689103c3d7b8bbc71e04e06444687cfda51fe3b7
+  checksum: 295fe8c442b9e9cc677fa03c88a873ad74c1d06620f4600745de83e5d4d10d53898cd1e15276e3420c976f00469d1ea8bbc5a4157c1f198753cece98f8903f5c
   languageName: node
   linkType: hard
 
-"espree@npm:^7.2.0":
+"espree@npm:^7.3.0":
   version: 7.3.0
   resolution: "espree@npm:7.3.0"
   dependencies:
@@ -2317,7 +2336,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"import-fresh@npm:^3.0.0, import-fresh@npm:^3.1.0":
+"import-fresh@npm:^3.0.0, import-fresh@npm:^3.1.0, import-fresh@npm:^3.2.1":
   version: 3.2.1
   resolution: "import-fresh@npm:3.2.1"
   dependencies:
@@ -3039,11 +3058,11 @@ fsevents@~2.1.2:
     "@babel/eslint-parser": 7.11.5
     "@babel/preset-env": 7.11.5
     "@rollup/plugin-babel": 5.2.1
-    ajv: 6.12.4
+    ajv: 6.12.5
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
     echint: 4.0.2
-    eslint: 7.7.0
+    eslint: 7.9.0
     eslint-config-dev: 2.0.0
     postcss: 8.0.3
     postcss-tape: 5.0.2
@@ -3585,7 +3604,7 @@ resolve@^1.3.2:
   languageName: node
   linkType: hard
 
-"strip-json-comments@npm:^3.0.1, strip-json-comments@npm:^3.1.0":
+"strip-json-comments@npm:^3.0.1, strip-json-comments@npm:^3.1.0, strip-json-comments@npm:^3.1.1":
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: f16719ce25abc58a55ef82b1c27f541dcfa5d544f17158f62d10be21ff9bd22fde45a53c592b29d80ad3c97ccb67b7451c4833913fdaeadb508a40f5e0a9c206

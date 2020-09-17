@@ -12,7 +12,7 @@
   "homepage": "https://github.com/JLHwung/postcss-font-family-system-ui#readme",
   "bugs": "https://github.com/JLHwung/postcss-font-family-system-ui/issues",
   "main": "./index.bundle.cjs",
-  "type": "commonjs",
+  "type": "module",
   "exports": {
     "import": "./index.mjs",
     "require": "./index.bundle.cjs"
