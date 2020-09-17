@@ -1,0 +1,426 @@
+diff --git a/index.js b/index.js
+index 9809fd7cc2575a1552e0161c5abc977cc09b83d1..3e4dafedcd32eb7f7146091d27e5ce14251b363c 100755
+--- a/index.js
++++ b/index.js
+@@ -1,3 +1,411 @@
+ #!/usr/bin/env node
+-function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.default:e}function _interopNamespace(e){if(e&&e.__esModule)return e;var r={};return e&&Object.keys(e).forEach(function(t){var n=Object.getOwnPropertyDescriptor(e,t);Object.defineProperty(r,t,n.get?n:{enumerable:!0,get:function(){return e[t]}})}),r.default=e,r}var fs=_interopDefault(require("fs")),readline=_interopDefault(require("readline")),path=_interopDefault(require("path"));function exitFail(e){console.log(e),process.exit(1)}function exitPass(){process.exit(0)}function readFile(e){return new Promise((r,t)=>{fs.readFile(e,"utf8",(e,n)=>{e?t(e):r(n)})})}function readJSON(e,...r){return readFile(e).then(e=>JSON.parse(e)).then(e=>r.length?e[Object.keys(e).find(e=>r.includes(e))]:e).catch(()=>({}))}function readOrWriteFile(e,r){return readFile(e).catch(()=>writeFile(e,r||"").then(()=>""))}function safelyReadFile(e){return readFile(e).catch(()=>"")}function writeFile(e,r){return new Promise((t,n)=>{fs.writeFile(e,r,e=>{e?n(e):t()})})}const colors={reset:"[0m",bold:"[1m",dim:"[2m",underline:"[4m",blink:"[5m",reverse:"[7m",hidden:"[8m",black:"[30m",red:"[31m",green:"[32m",yellow:"[33m",blue:"[34m",magenta:"[35m",cyan:"[36m",white:"[37m",bgBlack:"[40m",bgRed:"[41m",bgGreen:"[42m",bgYellow:"[43m",bgBlue:"[44m",bgMagenta:"[45m",bgCyan:"[46m",bgWhite:"[47m"};function color(e,r){return colors[e]+r.replace(colors.reset,colors.reset+colors[e])+colors.reset}const isWin32="win32"===process.platform,tick=isWin32?"√":"✔",cross=isWin32?"×":"✖",stdout=process.stdout;let interval;function pass(e,r,t){clearInterval(interval),t?stdout.write(` ${color("green",tick)}\n`):(readline.clearLine(stdout,0),readline.cursorTo(stdout,0),stdout.write(`${color("green",tick)} ${e} ${color("dim",r)}\n`))}function fail(e,r,t,n){clearInterval(interval),n?stdout.write(` ${color("red",cross)}\n${t}\n`):(readline.clearLine(stdout,0),readline.cursorTo(stdout,0),stdout.write(`${color("red",cross)} ${e} ${color("dim",r)}\n${t}\n`))}function wait(e,r,t){if(t)stdout.write(`${e} ${color("dim",r)}`);else{const t=isWin32?"-–—–-":"⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏";let n=0;clearInterval(interval),readline.clearLine(stdout,0),readline.cursorTo(stdout,0),stdout.write(`${color("yellow",t[n])} ${e} ${color("dim",r)}`),interval=setInterval(()=>{n=(n+1)%t.length,readline.cursorTo(stdout,0),stdout.write(`${color("yellow",t[n])} ${e} ${color("dim",r)}`)},60)}}function getErrorMessage(e){return Object(e).message||e}const argRegExp=/^--([\w-]+)$/,primativeRegExp=/^(false|null|true|undefined|(\d+\.)?\d+|\{.*\}|\[.*\])$/,relaxedJsonPropRegExp=/(['"])?([a-z0-9A-Z_]+)\1:/g,relaxedJsonValueRegExp=/("[a-z0-9A-Z_]+":\s*)(?!true|false|null|\d+)'?([A-z0-9]+)'?([,}])/g;function getOptionsFromArguments(e){return process.argv.slice(2).reduce((e,r,t,n)=>{const i=n[t+1],s=r.match(argRegExp);if(s){const[,r]=s;!i||argRegExp.test(i)?e[r]=!0:e[r]=primativeRegExp.test(i)?JSON.parse(i.replace(relaxedJsonPropRegExp,'"$2": ').replace(relaxedJsonValueRegExp,'$1"$2"$3')):i}return e},Object.assign({},e))}async function getOptions(){const e=process.cwd(),r={plugin:e,config:e,fixtures:path.resolve(e,"test")},t=await readJSON("package.json","postcss","postcssConfig").then(e=>getOptionsFromArguments(Object.assign(r,e))),n=path.resolve(t.plugin),i=await new Promise(function(e){e(_interopNamespace(require(n)))});t.plugin=i;try{const e=path.extname(t.config)?path.resolve(t.config):path.resolve(t.config,"postcss-tape.config.js"),r=await new Promise(function(r){r(_interopNamespace(require(e)))});t.config=r.default||r}catch(e){const r=path.resolve(t.config,".tape.js"),n=await new Promise(function(e){e(_interopNamespace(require(r)))});t.config=n.default||n}return t}getOptions().then(async e=>{let r=!1;for(const t in e.config){const n=e.config[t],i="function"==typeof Object(n.plugin).process?n.plugin:"function"==typeof n.plugin?{process:n.plugin}:e.plugin,s=t.split(":")[0],o=t.split(":").join("."),a=path.resolve(e.fixtures,n.source||`${s}.css`),c=path.resolve(e.fixtures,n.expect||`${o}.expect.css`),l=path.resolve(e.fixtures,n.result||`${o}.result.css`),u=Object.assign({from:a,to:l},n.processOptions),g=n.options,f=Object(i.postcss).postcssPlugin||"postcss";wait(f,n.message,e.ci);try{Object(n.before)instanceof Function&&await n.before();const t=await safelyReadFile(c),s=await readOrWriteFile(a,t),o=await i.process(s,u,g),p=o.css;if(e.fix)await writeFile(c,p),await writeFile(l,p);else if(await writeFile(l,p),t!==p)throw new Error([`Expected: ${JSON.stringify(t).slice(1,-1)}`,`Received: ${JSON.stringify(p).slice(1,-1)}`].join("\n"));const d=o.warnings();if("number"==typeof n.warnings){if(n.warnings!==d.length){const e=1!==d.length?"s":"";throw new Error(`Expected: ${n.warnings} warning${e}\nReceived: ${d.length} warnings`)}}else if(d.length){if(!d.every(e=>n.warnings===Object(n.warnings)&&Object.keys(n.warnings).every(r=>n.warnings[r]instanceof RegExp?n.warnings[r].test(e[r]):n.warnings[r]===e[r]))){const e=1!==d.length?"s":"";throw new Error(`Unexpected warning${e}:\n${d.join("\n")}`)}}else{if(n.warnings)throw new Error("Expected a warning");if(n.errors)throw new Error("Expected an error")}Object(n.after)instanceof Function&&await n.after(),pass(f,n.message,e.ci)}catch(t){if("error"in n){if(n.error===Object(n.error)){if(Object.keys(n.error).every(e=>n.error[e]instanceof RegExp?n.error[e].test(Object(t)[e]):n.error[e]===Object(t)[e]))pass(f,n.message,e.ci);else{const i=Object.keys(n.error).reduce((e,r)=>Object.assign(e,{[r]:Object(t)[r]}),{});r=t,fail(f,n.message,`  Expected Error: ${JSON.stringify(n.error)}\n  Received Error: ${JSON.stringify(i)}`,e.ci)}}else{if("boolean"==typeof n.error&&n.error?pass(f,n.message,e.ci):(r=t,fail(f,n.message,"  Expected Error",e.ci)),e.ci)break}}else r=t,fail(f,n.message,getErrorMessage(t),e.ci)}}if(r)throw r}).then(exitPass,exitFail);
+-//# sourceMappingURL=index.js.map
++function _interopDefault(ex) {
++  return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
++}
++
++function _interopNamespace(e) {
++  if (e && e.__esModule) {
++    return e;
++  } else {
++    var n = {};
++    if (e) {
++      Object.keys(e).forEach(function (k) {
++        var d = Object.getOwnPropertyDescriptor(e, k);
++        Object.defineProperty(
++          n,
++          k,
++          d.get
++            ? d
++            : {
++                enumerable: true,
++                get: function () {
++                  return e[k];
++                },
++              }
++        );
++      });
++    }
++    n["default"] = e;
++    return n;
++  }
++}
++
++var fs = _interopDefault(require("fs"));
++var readline = _interopDefault(require("readline"));
++var path = _interopDefault(require("path"));
++var postcss = _interopDefault(require("postcss"));
++
++function exitFail(error) {
++  console.log(error);
++  process.exit(1);
++}
++function exitPass() {
++  process.exit(0);
++}
++
++function readFile(pathname) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(pathname, "utf8", (error, data) => {
++      if (error) {
++        reject(error);
++      } else {
++        resolve(data);
++      }
++    });
++  });
++}
++function readJSON(pathname, ...keys) {
++  return readFile(pathname)
++    .then((data) => JSON.parse(data))
++    .then((options) =>
++      keys.length
++        ? options[Object.keys(options).find((key) => keys.includes(key))]
++        : options
++    )
++    .catch(() => ({}));
++}
++function readOrWriteFile(pathname, data) {
++  return readFile(pathname).catch(() =>
++    writeFile(pathname, data || "").then(() => "")
++  );
++}
++function safelyReadFile(pathname) {
++  return readFile(pathname).catch(() => "");
++}
++function writeFile(pathname, data) {
++  return new Promise((resolve, reject) => {
++    fs.writeFile(pathname, data, (error) => {
++      if (error) {
++        reject(error);
++      } else {
++        resolve();
++      }
++    });
++  });
++}
++
++const colors = {
++  reset: "\x1b[0m",
++  bold: "\x1b[1m",
++  dim: "\x1b[2m",
++  underline: "\x1b[4m",
++  blink: "\x1b[5m",
++  reverse: "\x1b[7m",
++  hidden: "\x1b[8m",
++  black: "\x1b[30m",
++  red: "\x1b[31m",
++  green: "\x1b[32m",
++  yellow: "\x1b[33m",
++  blue: "\x1b[34m",
++  magenta: "\x1b[35m",
++  cyan: "\x1b[36m",
++  white: "\x1b[37m",
++  bgBlack: "\x1b[40m",
++  bgRed: "\x1b[41m",
++  bgGreen: "\x1b[42m",
++  bgYellow: "\x1b[43m",
++  bgBlue: "\x1b[44m",
++  bgMagenta: "\x1b[45m",
++  bgCyan: "\x1b[46m",
++  bgWhite: "\x1b[47m",
++};
++function color(name, string) {
++  return (
++    colors[name] +
++    string.replace(colors.reset, colors.reset + colors[name]) +
++    colors.reset
++  );
++}
++
++const isWin32 = process.platform === "win32";
++const tick = isWin32 ? "√" : "✔";
++const cross = isWin32 ? "×" : "✖";
++const stdout = process.stdout;
++let interval;
++function pass(name, message, ci) {
++  clearInterval(interval);
++
++  if (ci) {
++    stdout.write(` ${color("green", tick)}\n`);
++  } else {
++    // reset current stream line
++    readline.clearLine(stdout, 0);
++    readline.cursorTo(stdout, 0);
++    stdout.write(`${color("green", tick)} ${name} ${color("dim", message)}\n`);
++  }
++}
++function fail(name, message, details, ci) {
++  clearInterval(interval);
++
++  if (ci) {
++    stdout.write(` ${color("red", cross)}\n${details}\n`);
++  } else {
++    // reset current stream line
++    readline.clearLine(stdout, 0);
++    readline.cursorTo(stdout, 0);
++    stdout.write(
++      `${color("red", cross)} ${name} ${color("dim", message)}\n${details}\n`
++    );
++  }
++} // log with a waiting appearance
++
++function wait(name, message, ci) {
++  if (ci) {
++    stdout.write(`${name} ${color("dim", message)}`);
++  } else {
++    const spinner = isWin32 ? "-–—–-" : "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏";
++    let index = 0;
++    clearInterval(interval); // reset current stream line
++
++    readline.clearLine(stdout, 0);
++    readline.cursorTo(stdout, 0);
++    stdout.write(
++      `${color("yellow", spinner[index])} ${name} ${color("dim", message)}`
++    );
++    interval = setInterval(() => {
++      index = (index + 1) % spinner.length;
++      readline.cursorTo(stdout, 0);
++      stdout.write(
++        `${color("yellow", spinner[index])} ${name} ${color("dim", message)}`
++      );
++    }, 60);
++  }
++}
++
++function getErrorMessage(error) {
++  return Object(error).message || error;
++}
++
++const argRegExp = /^--([\w-]+)$/;
++const primativeRegExp = /^(false|null|true|undefined|(\d+\.)?\d+|\{.*\}|\[.*\])$/;
++const relaxedJsonPropRegExp = /(['"])?([a-z0-9A-Z_]+)\1:/g;
++const relaxedJsonValueRegExp = /("[a-z0-9A-Z_]+":\s*)(?!true|false|null|\d+)'?([A-z0-9]+)'?([,}])/g;
++function getOptionsFromArguments(defaultOptions) {
++  return process.argv.slice(2).reduce((args, arg, index, argv) => {
++    const nextIndex = index + 1;
++    const nextArg = argv[nextIndex];
++    const argMatch = arg.match(argRegExp);
++
++    if (argMatch) {
++      const [, name] = argMatch;
++
++      if (!nextArg || argRegExp.test(nextArg)) {
++        args[name] = true;
++      } else {
++        args[name] = primativeRegExp.test(nextArg)
++          ? JSON.parse(
++              nextArg
++                .replace(relaxedJsonPropRegExp, '"$2": ')
++                .replace(relaxedJsonValueRegExp, '$1"$2"$3')
++            )
++          : nextArg;
++      }
++    }
++
++    return args;
++  }, Object.assign({}, defaultOptions));
++}
++
++async function getOptions() {
++  const cwd = process.cwd(); // default options
++
++  const defaultOptions = {
++    plugin: cwd,
++    config: cwd,
++    fixtures: path.resolve(cwd, "test"),
++  };
++  const options = await readJSON(
++    "package.json",
++    "postcss",
++    "postcssConfig"
++  ).then((packageOptions) =>
++    getOptionsFromArguments(Object.assign(defaultOptions, packageOptions))
++  );
++  const importedPluginFile = path.resolve(options.plugin);
++
++  const importedPlugin = require(importedPluginFile);
++
++  options.plugin = importedPlugin;
++
++  try {
++    const importedConfigFile = path.extname(options.config)
++      ? path.resolve(options.config)
++      : path.resolve(options.config, "postcss-tape.config.js");
++    const importedConfig = await new Promise(function (resolve) {
++      resolve(_interopNamespace(require(importedConfigFile)));
++    });
++    options.config = importedConfig.default || importedConfig;
++  } catch (ignoredError) {
++    const importedConfigFile = path.resolve(options.config, ".tape.js");
++    const importedConfig = await new Promise(function (resolve) {
++      resolve(_interopNamespace(require(importedConfigFile)));
++    });
++    options.config = importedConfig.default || importedConfig;
++  }
++
++  return options;
++}
++
++getOptions()
++  .then(async (options) => {
++    let hadError = false; // runner
++
++    for (const name in options.config) {
++      const test = options.config[name];
++      const testPlugin =
++        typeof Object(test.plugin).process === "function"
++          ? test.plugin
++          : typeof test.plugin === "function"
++          ? {
++              process: test.plugin,
++            }
++          : options.plugin;
++      const testBase = name.split(":")[0];
++      const testFull = name.split(":").join("."); // test paths
++
++      const sourcePath = path.resolve(
++        options.fixtures,
++        test.source || `${testBase}.css`
++      );
++      const expectPath = path.resolve(
++        options.fixtures,
++        test.expect || `${testFull}.expect.css`
++      );
++      const resultPath = path.resolve(
++        options.fixtures,
++        test.result || `${testFull}.result.css`
++      );
++      const processOptions = Object.assign(
++        {
++          from: sourcePath,
++          to: resultPath,
++        },
++        test.processOptions
++      );
++      const pluginOptions = test.options;
++      const pluginInstance = testPlugin(pluginOptions);
++      const pluginName = pluginInstance.postcssPlugin || "postcss";
++      wait(pluginName, test.message, options.ci);
++
++      try {
++        if (Object(test.before) instanceof Function) {
++          await test.before();
++        }
++
++        const expectCSS = await safelyReadFile(expectPath);
++        const sourceCSS = await readOrWriteFile(sourcePath, expectCSS);
++        const result = await postcss([pluginInstance]).process(
++          sourceCSS,
++          processOptions
++        );
++        const resultCSS = result.css;
++
++        if (options.fix) {
++          await writeFile(expectPath, resultCSS);
++          await writeFile(resultPath, resultCSS);
++        } else {
++          await writeFile(resultPath, resultCSS);
++
++          if (expectCSS !== resultCSS) {
++            throw new Error(
++              [
++                `Expected: ${JSON.stringify(expectCSS).slice(1, -1)}`,
++                `Received: ${JSON.stringify(resultCSS).slice(1, -1)}`,
++              ].join("\n")
++            );
++          }
++        }
++
++        const warnings = result.warnings();
++
++        if (typeof test.warnings === "number") {
++          if (test.warnings !== warnings.length) {
++            const s = warnings.length !== 1 ? "s" : "";
++            throw new Error(
++              `Expected: ${test.warnings} warning${s}\nReceived: ${warnings.length} warnings`
++            );
++          }
++        } else if (warnings.length) {
++          const areExpectedWarnings = warnings.every(
++            (warning) =>
++              test.warnings === Object(test.warnings) &&
++              Object.keys(test.warnings).every((key) =>
++                test.warnings[key] instanceof RegExp
++                  ? test.warnings[key].test(warning[key])
++                  : test.warnings[key] === warning[key]
++              )
++          );
++
++          if (!areExpectedWarnings) {
++            const s = warnings.length !== 1 ? "s" : "";
++            throw new Error(`Unexpected warning${s}:\n${warnings.join("\n")}`);
++          }
++        } else if (test.warnings) {
++          throw new Error(`Expected a warning`);
++        } else if (test.errors) {
++          throw new Error(`Expected an error`);
++        }
++
++        if (Object(test.after) instanceof Function) {
++          await test.after();
++        }
++
++        pass(pluginName, test.message, options.ci);
++      } catch (error) {
++        if ("error" in test) {
++          const isObjectError = test.error === Object(test.error);
++
++          if (isObjectError) {
++            const isExpectedError = Object.keys(test.error).every((key) =>
++              test.error[key] instanceof RegExp
++                ? test.error[key].test(Object(error)[key])
++                : test.error[key] === Object(error)[key]
++            );
++
++            if (isExpectedError) {
++              pass(pluginName, test.message, options.ci);
++            } else {
++              const reportedError = Object.keys(test.error).reduce(
++                (reportedError, key) =>
++                  Object.assign(reportedError, {
++                    [key]: Object(error)[key],
++                  }),
++                {}
++              );
++              hadError = error;
++              fail(
++                pluginName,
++                test.message,
++                `  Expected Error: ${JSON.stringify(
++                  test.error
++                )}\n  Received Error: ${JSON.stringify(reportedError)}`,
++                options.ci
++              );
++            }
++          } else {
++            const isExpectedError =
++              typeof test.error === "boolean" && test.error;
++
++            if (isExpectedError) {
++              pass(pluginName, test.message, options.ci);
++            } else {
++              hadError = error;
++              fail(pluginName, test.message, `  Expected Error`, options.ci);
++            }
++
++            if (options.ci) {
++              break;
++            }
++          }
++        } else {
++          hadError = error;
++          fail(pluginName, test.message, getErrorMessage(error), options.ci);
++        }
++      }
++    }
++
++    if (hadError) {
++      throw hadError;
++    }
++  })
++  .then(exitPass, exitFail);
+diff --git a/index.js.map b/index.js.map
+deleted file mode 100644
+index c8e9b4f4456d8dfbe615791f60d62aca8555d03f..0000000000000000000000000000000000000000
+--- a/index.js.map
++++ /dev/null
+@@ -1 +0,0 @@
+-{"version":3,"file":"index.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+\ No newline at end of file

@@ -27,7 +27,7 @@ body {
 Add [postcss-font-family-system-ui] to your build tool:
 
 ```bash
-npm install postcss-font-family-system-ui --save-dev
+npm install postcss postcss-font-family-system-ui --save-dev
 ```
 
 #### Node
