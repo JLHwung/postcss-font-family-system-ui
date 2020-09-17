@@ -3064,10 +3064,10 @@ fsevents@~2.1.2:
     echint: 4.0.2
     eslint: 7.9.0
     eslint-config-dev: 2.0.0
-    postcss: 8.0.3
+    postcss: 8.0.5
     postcss-tape: 5.0.2
     pre-commit: 1.2.2
-    rollup: 2.27.0
+    rollup: 2.27.1
     yaspeller: 7.0.0
   peerDependencies:
     postcss: ^8.0.0
@@ -3092,15 +3092,15 @@ postcss-tape@5.0.2:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.0.3":
-  version: 8.0.3
-  resolution: "postcss@npm:8.0.3"
+"postcss@npm:8.0.5":
+  version: 8.0.5
+  resolution: "postcss@npm:8.0.5"
   dependencies:
     colorette: ^1.2.1
     line-column: ^1.0.2
     nanoid: ^3.1.12
     source-map: ^0.6.1
-  checksum: 919705453b8658317e6250ed1de742d4fb57060d329a779ffb78739af2a0d347f0a5cea4326649c03910f5ecdd6d85fbf9ea1aa8ccde6736e314e5cf40b64f68
+  checksum: bc42914b654a33322e2e584bc9163fd40e934cc2bd105ba2f9c6b548920d900fb3cca3f366786dc7292e13f225f5651acac92fcb35fae8c12520597eda9dabd8
   languageName: node
   linkType: hard
 
@@ -3339,9 +3339,9 @@ resolve@^1.3.2:
   languageName: node
   linkType: hard
 
-"rollup@npm:2.27.0":
-  version: 2.27.0
-  resolution: "rollup@npm:2.27.0"
+"rollup@npm:2.27.1":
+  version: 2.27.1
+  resolution: "rollup@npm:2.27.1"
   dependencies:
     fsevents: ~2.1.2
   dependenciesMeta:
@@ -3349,7 +3349,7 @@ resolve@^1.3.2:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: fefde079e4f84176e2b344a449e867e8e5c5292fa76f5f7834c7e987b5a9fc7d48f8707a6977fd663ddc59dee017ae6a80d575771c47878434cb005bca13e2cf
+  checksum: ed5d60f5fe01b4141bcbf58fab9a27201df7b1de04dd3b30fc341a5540ff079c70f407f379a27aaeafbbc8c4e89b232c2c5fe109a63094fcdb002fbb97e0ce70
   languageName: node
   linkType: hard
 

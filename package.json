@@ -45,7 +45,7 @@
     "echint": "4.0.2",
     "eslint": "7.9.0",
     "eslint-config-dev": "2.0.0",
-    "postcss": "8.0.3",
+    "postcss": "8.0.5",
     "postcss-tape": "5.0.2",
     "pre-commit": "1.2.2",
     "rollup": "2.27.1",
