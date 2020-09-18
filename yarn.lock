@@ -3065,7 +3065,7 @@ fsevents@~2.1.2:
     eslint: 7.9.0
     eslint-config-dev: 2.0.0
     postcss: 8.0.5
-    postcss-tape: 5.0.2
+    postcss-tape: 6.0.0
     pre-commit: 1.2.2
     rollup: 2.27.1
     yaspeller: 7.0.0
@@ -3074,21 +3074,14 @@ fsevents@~2.1.2:
   languageName: unknown
   linkType: soft
 
-postcss-tape@5.0.2:
-  version: 5.0.2
-  resolution: "postcss-tape@npm:5.0.2"
+"postcss-tape@npm:6.0.0":
+  version: 6.0.0
+  resolution: "postcss-tape@npm:6.0.0"
+  peerDependencies:
+    postcss: ^7 || ^8
   bin:
-    postcss-tape: index.js
-  checksum: 648481ae35dec82a47d9e2b964163e5351227eba391c4638d4465a8a66850b72e2b55cdb7753a9ad4f9559606261ba632e2a57d2c9974999dfa0347903a8e6c0
-  languageName: node
-  linkType: hard
-
-"postcss-tape@patch:postcss-tape@5.0.2#.yarn-patches/postcss-tape.patch::locator=postcss-font-family-system-ui%40workspace%3A.":
-  version: 5.0.2
-  resolution: "postcss-tape@patch:postcss-tape@npm%3A5.0.2#.yarn-patches/postcss-tape.patch::version=5.0.2&hash=da4d3e&locator=postcss-font-family-system-ui%40workspace%3A."
-  bin:
-    postcss-tape: index.js
-  checksum: 1563c54b3c6532aa8a3abbf9c3dd0d49268e2cfdf5812c2773d5d811fd87874ffe057631191071fdd64002e9009eb8e7964cc8fe6efa1c8199c349a75256efa0
+    postcss-tape: dist/index.js
+  checksum: 910f423e92bba014cf9f5f7c3b81474120016bca254d70fa34fd82ace85fc925821e0611dfa8e730b3a4e926dc95da050d42c85afb4890b5d0904be01459c118
   languageName: node
   linkType: hard
 
