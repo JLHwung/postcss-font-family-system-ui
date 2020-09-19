@@ -11,16 +11,14 @@
   "repository": "JLHwung/postcss-font-family-system-ui",
   "homepage": "https://github.com/JLHwung/postcss-font-family-system-ui#readme",
   "bugs": "https://github.com/JLHwung/postcss-font-family-system-ui/issues",
-  "main": "./index.bundle.cjs",
+  "main": "./dist/index.bundle.cjs",
   "type": "module",
   "exports": {
-    "import": "./index.mjs",
-    "require": "./index.bundle.cjs"
+    "import": "./dist/index.bundle.mjs",
+    "require": "./dist/index.bundle.cjs"
   },
   "files": [
-    "index.mjs",
-    "index.bundle.cjs",
-    "lib"
+    "dist/"
   ],
   "scripts": {
     "build": "rollup -c .rollup.mjs",
@@ -53,9 +51,6 @@
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
-  },
-  "resolutions": {
-    "postcss-tape": "6.0.0"
   },
   "eslintConfig": {
     "extends": "dev",
