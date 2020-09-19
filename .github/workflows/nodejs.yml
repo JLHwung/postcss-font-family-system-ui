@@ -17,12 +17,12 @@ jobs:
           yarn check
       - name: Build artifact
         run: |
-          npm run build
+          yarn build
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: bundled
-          path: ./index.bundle.cjs
+          path: dist
 
   test:
     needs: check-and-build
@@ -51,6 +51,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: bundled
+          path: dist
       - name: Test
         run: |
           yarn test:tape
