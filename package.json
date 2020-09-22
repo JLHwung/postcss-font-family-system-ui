@@ -22,11 +22,10 @@
   ],
   "scripts": {
     "build": "rollup -c .rollup.mjs",
-    "check:ec": "echint --ignore index.bundle.cjs test",
     "check:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
     "check:spelling": "yaspeller -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
     "prepublishOnly": "yarn test",
-    "check": "yarn check:js && yarn check:ec && yarn check:spelling",
+    "check": "yarn check:js && yarn check:spelling",
     "test": "yarn build && echo 'Running tests...'; yarn check && yarn test:tape",
     "test:tape": "postcss-tape --config .tape.cjs"
   },
@@ -40,7 +39,6 @@
     "@babel/preset-env": "7.11.5",
     "@rollup/plugin-babel": "5.2.1",
     "ajv": "6.12.5",
-    "echint": "4.0.2",
     "eslint": "7.9.0",
     "eslint-config-dev": "2.0.0",
     "postcss": "8.0.7",
