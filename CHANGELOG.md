@@ -1,3 +1,15 @@
+## 5.0.0 (2020-09-22)
+
+##### Breaking Changes
+
+- Support PostCSS 8 (#328) (e4a3d588)
+
+##### Chores
+
+- remove unmaintained echint (#333) (48906720)
+- change artifact layout (#332) (eade9143)
+- remove unused @rollup/plugin-json (491973b5)
+
 ### 4.3.0 (2020-07-05)
 
 ##### New Features
