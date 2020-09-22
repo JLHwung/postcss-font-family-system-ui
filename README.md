@@ -30,16 +30,6 @@ Add [postcss-font-family-system-ui] to your build tool:
 npm install postcss postcss-font-family-system-ui --save-dev
 ```
 
-#### Node
-
-Use [postcss-font-family-system-ui] to process your CSS:
-
-```js
-import postcssSystemUiFont from "postcss-font-family-system-ui";
-
-postcssSystemUiFont.process(YOUR_CSS);
-```
-
 #### PostCSS
 
 Add [PostCSS] to your build tool:
