@@ -2968,7 +2968,7 @@ fsevents@~2.1.2:
     caniuse-lite: ^1.0.30000655
     eslint: 7.9.0
     eslint-config-dev: 2.0.0
-    postcss: 8.0.8
+    postcss: 8.0.9
     postcss-tape: 6.0.0
     pre-commit: 1.2.2
     rollup: 2.28.1
@@ -2989,15 +2989,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.0.8":
-  version: 8.0.8
-  resolution: "postcss@npm:8.0.8"
+"postcss@npm:8.0.9":
+  version: 8.0.9
+  resolution: "postcss@npm:8.0.9"
   dependencies:
     colorette: ^1.2.1
     line-column: ^1.0.2
     nanoid: ^3.1.12
     source-map: ^0.6.1
-  checksum: 0c8f61a75ea7b9d8ef37c3173e0b5ac5dfc59205ae128a8246c10c5e799af8a01cf05ca3367e5a33bb52675ea8b8f4218d2eebe1f893c8229a503df5ec2abaea
+  checksum: 9af2fed45b399e49a7cfd405404c75b82b54c701980d43510ddb8fb39387f59e8519e1fb4ecd557c2278f658a71ffc2f0e8df89d7342ffc68d11dbca22b8140f
   languageName: node
   linkType: hard
 
