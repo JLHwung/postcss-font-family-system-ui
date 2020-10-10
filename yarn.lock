@@ -1251,7 +1251,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:6.12.5, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
+"ajv@npm:6.12.6":
+  version: 6.12.6
+  resolution: "ajv@npm:6.12.6"
+  dependencies:
+    fast-deep-equal: ^3.1.1
+    fast-json-stable-stringify: ^2.0.0
+    json-schema-traverse: ^0.4.1
+    uri-js: ^4.2.2
+  checksum: 19a8f3b0a06001eb68e6268f4f9f04424b32baadd5df6ba8292cd473e22e5f4019ed9ab17c3e3510394178ed8bef9b42ad0bdb5c675d65f042421a774780ce1a
+  languageName: node
+  linkType: hard
+
+"ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
   version: 6.12.5
   resolution: "ajv@npm:6.12.5"
   dependencies:
@@ -2970,7 +2982,7 @@ fsevents@~2.1.2:
     "@babel/eslint-parser": 7.11.5
     "@babel/preset-env": 7.11.5
     "@rollup/plugin-babel": 5.2.1
-    ajv: 6.12.5
+    ajv: 6.12.6
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
     eslint: 7.11.0
