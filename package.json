@@ -44,7 +44,7 @@
     "postcss": "8.1.1",
     "postcss-tape": "6.0.0",
     "pre-commit": "1.2.2",
-    "rollup": "2.31.0",
+    "rollup": "2.32.0",
     "yaspeller": "7.0.0"
   },
   "peerDependencies": {
