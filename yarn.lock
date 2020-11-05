@@ -2792,12 +2792,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.15":
-  version: 3.1.15
-  resolution: "nanoid@npm:3.1.15"
+"nanoid@npm:^3.1.16":
+  version: 3.1.16
+  resolution: "nanoid@npm:3.1.16"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: b479fe5093a39ef579055897d13851b0ea88158034dfd9c2015ef888c0b63d78c5c90efd0ebf9702f5e6ec076fdb00ffebbf5990209279f541a05c896cc3a6a3
+  checksum: 1903aa0a7602e881ef7015d4c8ccf8a2a92b45b1bd6c4bb9c1dd2119f41ebe08a44c9195ecf4c1fbaef147bd4d050e41adbcb747ec96d7d14c1f662e3ac52790
   languageName: node
   linkType: hard
 
@@ -3043,7 +3043,7 @@ fsevents@~2.1.2:
     caniuse-lite: ^1.0.30000655
     eslint: 7.12.1
     eslint-config-dev: 2.0.0
-    postcss: 8.1.4
+    postcss: 8.1.5
     postcss-tape: 6.0.0
     pre-commit: 1.2.2
     rollup: 2.33.1
@@ -3064,15 +3064,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.1.4":
-  version: 8.1.4
-  resolution: "postcss@npm:8.1.4"
+"postcss@npm:8.1.5":
+  version: 8.1.5
+  resolution: "postcss@npm:8.1.5"
   dependencies:
     colorette: ^1.2.1
     line-column: ^1.0.2
-    nanoid: ^3.1.15
+    nanoid: ^3.1.16
     source-map: ^0.6.1
-  checksum: b2bfa799c058d1c19b0f433667bc933b85f3d5b78fa46c4f6239322b1cc2d9b2652cba009ac3632bfec4b955818d406f21d95f3b3a4592ec32a14a3dc5dafe27
+  checksum: b0922766075d31973b6e0cf470810476d06d96ff77170090ecda9df82edb2f1e3bdcf58f1b4d164c8ac063e87ee7fceb50185a4ec9f468b5e1a70bf34eb74497
   languageName: node
   linkType: hard
 
