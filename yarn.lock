@@ -3154,7 +3154,7 @@ fsevents@~2.1.2:
     postcss: 8.1.13
     postcss-tape: 6.0.0
     pre-commit: 1.2.2
-    rollup: 2.34.0
+    rollup: 2.34.1
     yaspeller: 7.0.0
   peerDependencies:
     postcss: ^8.0.0
@@ -3419,9 +3419,9 @@ resolve@^1.3.2:
   languageName: node
   linkType: hard
 
-"rollup@npm:2.34.0":
-  version: 2.34.0
-  resolution: "rollup@npm:2.34.0"
+"rollup@npm:2.34.1":
+  version: 2.34.1
+  resolution: "rollup@npm:2.34.1"
   dependencies:
     fsevents: ~2.1.2
   dependenciesMeta:
@@ -3429,7 +3429,7 @@ resolve@^1.3.2:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 8404d8cf93e2c7dd32c16691173daf9c1578b4c417c3989348d66075751190e996f888e01060c3b676fc9f420decc7675878b8830bf53cfd27df5a0296c9ffed
+  checksum: 1e714afe5e5ae78696f66072035c9b10a69af547b3793db3bab62e9a0fe9f0b0c2b1090b00d9be420104247465319ed78ce73f2f7fc235a9305ce6cabf8a9e3c
   languageName: node
   linkType: hard
 
