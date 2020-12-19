@@ -38,7 +38,7 @@
     "@babel/eslint-parser": "7.12.1",
     "@babel/preset-env": "7.12.11",
     "@rollup/plugin-babel": "5.2.2",
-    "ajv": "7.0.1",
+    "ajv": "7.0.2",
     "eslint": "7.16.0",
     "eslint-config-dev": "2.0.0",
     "postcss": "8.2.1",
