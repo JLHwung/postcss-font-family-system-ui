@@ -1482,15 +1482,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:7.0.3":
-  version: 7.0.3
-  resolution: "ajv@npm:7.0.3"
+"ajv@npm:7.0.4":
+  version: 7.0.4
+  resolution: "ajv@npm:7.0.4"
   dependencies:
     fast-deep-equal: ^3.1.1
     json-schema-traverse: ^1.0.0
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
-  checksum: 3236a5ce8c49fb831fe9c7ae67a6d7f732340f0dbd6e6add2c4e6556519ba274f84c4d68ccdfc19a6d038bf2333341562cd8a28272c71585cb663dd76b62f7ea
+  checksum: 959acf9a337746a0cc0fb954a94d8146734ff72796a0adf06c97f33412626c0dc5cf71f14558b6c0e352b2c19eda32bf5e2ef36ab6d5a8b06f6ee0eab850813f
   languageName: node
   linkType: hard
 
@@ -3222,7 +3222,7 @@ fsevents@~2.1.2:
     "@babel/eslint-parser": 7.12.1
     "@babel/preset-env": 7.12.11
     "@rollup/plugin-babel": 5.2.3
-    ajv: 7.0.3
+    ajv: 7.0.4
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
     eslint: 7.19.0
