@@ -3186,7 +3186,7 @@ fsevents@~2.1.2:
     eslint: 7.19.0
     eslint-config-dev: 2.0.0
     postcss: 8.2.13
-    postcss-tape: 6.0.0
+    postcss-tape: 6.0.1
     pre-commit: 1.2.2
     rollup: 2.38.2
     yaspeller: 7.0.0
@@ -3195,14 +3195,14 @@ fsevents@~2.1.2:
   languageName: unknown
   linkType: soft
 
-"postcss-tape@npm:6.0.0":
-  version: 6.0.0
-  resolution: "postcss-tape@npm:6.0.0"
+"postcss-tape@npm:6.0.1":
+  version: 6.0.1
+  resolution: "postcss-tape@npm:6.0.1"
   peerDependencies:
     postcss: ^7 || ^8
   bin:
     postcss-tape: dist/index.js
-  checksum: 910f423e92bba014cf9f5f7c3b81474120016bca254d70fa34fd82ace85fc925821e0611dfa8e730b3a4e926dc95da050d42c85afb4890b5d0904be01459c118
+  checksum: 35084314d8b96145e2ba556606ab67102adeff8ea2655e8dc06b650624d65aa37501b66ad6f64723e242a4338e37cd04e6bd7561dbab0353f509d9267e13d50b
   languageName: node
   linkType: hard
 
