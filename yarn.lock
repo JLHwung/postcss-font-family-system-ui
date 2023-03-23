@@ -1793,7 +1793,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30000655, caniuse-lite@npm:^1.0.30001125":
+"caniuse-lite@npm:^1.0.30000655":
+  version: 1.0.30001469
+  resolution: "caniuse-lite@npm:1.0.30001469"
+  checksum: 6e502bd14ece20cd6242a06284f5ff17e8956bf4bbc2459c19476505cdedb1af571bcf19570879875c82193c03bbb8253830af8cdc43a71ed80f4e6007a9f4ac
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001125":
   version: 1.0.30001131
   resolution: "caniuse-lite@npm:1.0.30001131"
   checksum: 3b257a6a85d9f2a3e4a2cb1562e6c931a1a14095c7b1c826db4a721411292eaae80dbf8712431dce45e2b3e3b10e3c153487f1312abed7d9602fd9d26dffdcbf
