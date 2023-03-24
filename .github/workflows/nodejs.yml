@@ -48,7 +48,7 @@ jobs:
           yarn workspaces focus -A --production
           yarn add --dev postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }} postcss@${{ steps.test-dep-versions.outputs.postcss }}
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: bundled
           path: dist
