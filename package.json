@@ -34,8 +34,8 @@
     "caniuse-lite": "^1.0.30000655"
   },
   "devDependencies": {
-    "@babel/core": "7.21.5",
-    "@babel/eslint-parser": "7.21.3",
+    "@babel/core": "7.21.8",
+    "@babel/eslint-parser": "7.21.8",
     "@babel/preset-env": "7.21.5",
     "@rollup/plugin-babel": "5.3.1",
     "ajv": "8.12.0",
