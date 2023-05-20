@@ -1596,10 +1596,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.40.0":
-  version: 8.40.0
-  resolution: "@eslint/js@npm:8.40.0"
-  checksum: 49f83bc9dcf4ed96364e5a7986e51d896d8351c5afc0783b7cfefbffd3b447357690978e3bd9e41ddaaaf85610c49c604bc4861bcfcdf53d1cc21575caf20dcf
+"@eslint/js@npm:8.41.0":
+  version: 8.41.0
+  resolution: "@eslint/js@npm:8.41.0"
+  checksum: d083880487f28a150a1ccb27e3da7a7d4cb51b13cff49787ef42a9aed80ebbf98189eea3d7aa54e440d6cc30c00704a758d9322559ffb9d89328f2540f896e1c
   languageName: node
   linkType: hard
 
@@ -2393,14 +2393,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.40.0":
-  version: 8.40.0
-  resolution: "eslint@npm:8.40.0"
+"eslint@npm:8.41.0":
+  version: 8.41.0
+  resolution: "eslint@npm:8.41.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.4.0
     "@eslint/eslintrc": ^2.0.3
-    "@eslint/js": 8.40.0
+    "@eslint/js": 8.41.0
     "@humanwhocodes/config-array": ^0.11.8
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -2420,13 +2420,12 @@ __metadata:
     find-up: ^5.0.0
     glob-parent: ^6.0.2
     globals: ^13.19.0
-    grapheme-splitter: ^1.0.4
+    graphemer: ^1.4.0
     ignore: ^5.2.0
     import-fresh: ^3.0.0
     imurmurhash: ^0.1.4
     is-glob: ^4.0.0
     is-path-inside: ^3.0.3
-    js-sdsl: ^4.1.4
     js-yaml: ^4.1.0
     json-stable-stringify-without-jsonify: ^1.0.1
     levn: ^0.4.1
@@ -2439,7 +2438,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: c8eb8adb097c08f9e4022e6557c0c0a787829103889e11c606a0ecf68ff030a86094b182f25c924c2c21c19739b1cfcd02a41e5489137a93807aa5429ccd055a
+  checksum: 3fe1891f75704114eb812f6d2505714d7cbbe634d2f98e2613c2321fbab51eef7740970a2c8bd6e1bd4b6a9a52210e33243d6fe0296144b1593ecddf6b89363b
   languageName: node
   linkType: hard
 
@@ -2738,10 +2737,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"grapheme-splitter@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "grapheme-splitter@npm:1.0.4"
-  checksum: 6875e94add80360364a609e1fd0fe325e3b82326db2278dd36c1011a6bfc0e098811e791dedf9a88d4ae3f9d17a5c6a8d684948dd7b097f1f8d5ff905676e2b2
+"graphemer@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "graphemer@npm:1.4.0"
+  checksum: 12f207d1d9f4581994d8668ec238933eab6aaccad8c74cb92aac78bb37555658397e04a5c55dd0492e9a21e939fa6daceb5436424153f0e81bab00fb423a04ce
   languageName: node
   linkType: hard
 
@@ -2933,13 +2932,6 @@ fsevents@~2.1.2:
   version: 4.0.0
   resolution: "isutf8@npm:4.0.0"
   checksum: ba31bf487df3d63f6e707e723b8aaf84124e2ae759f82e72899de92b00aabba5aa0e1bf295c32051ce5348315f19749507466f77eaa67ed36f6cf68845d51d38
-  languageName: node
-  linkType: hard
-
-"js-sdsl@npm:^4.1.4":
-  version: 4.4.0
-  resolution: "js-sdsl@npm:4.4.0"
-  checksum: 51c1f159a9c3c9927c1a654d24bf0c43c1eaccdbbca7e81305af9d7a4b04d23e4fe63155d1d821b833f970d5ec4f4e61beee929f1785e90a431a68868fb98fb4
   languageName: node
   linkType: hard
 
@@ -3471,7 +3463,7 @@ fsevents@~2.1.2:
     ajv: 8.12.0
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
-    eslint: 8.40.0
+    eslint: 8.41.0
     eslint-config-dev: 2.0.0
     postcss: 8.4.23
     postcss-tape: 6.0.1
