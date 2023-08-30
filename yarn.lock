@@ -1632,16 +1632,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/regexpp@npm:^4.4.0":
-  version: 4.4.1
-  resolution: "@eslint-community/regexpp@npm:4.4.1"
-  checksum: a3d20de0e77000c0bd74f369baa9541314c69689b568516d9663a069b9aab9e3c322f6475739812beefd5fd079e71d5292ccb7a524944da47ef0a6725d717847
+"@eslint-community/regexpp@npm:^4.6.1":
+  version: 4.8.0
+  resolution: "@eslint-community/regexpp@npm:4.8.0"
+  checksum: 54de4dd3720fbd7fd461f96467857dda87c6b1204188ad4ccd0cd5462645a16bd00adc677952bf3d46dfae71c934bdc9cde9549b1f9f33ce51eaecb7c9b53c91
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@eslint/eslintrc@npm:2.1.0"
+"@eslint/eslintrc@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@eslint/eslintrc@npm:2.1.2"
   dependencies:
     ajv: ^6.12.4
     debug: ^4.3.2
@@ -1652,14 +1652,14 @@ __metadata:
     js-yaml: ^4.1.0
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
-  checksum: 08c57a1129b3eff15da53973dc2d6db60ee6779aca2aeb02b3b39a95f4d273c7ee9d2373a9dbcb7f97c5ca86d9aa74a54641dee541e62d4c044655e53882aee7
+  checksum: 7f540724351ce0b0b798f30ed4a73f3edaa402389438751374150daa9ecb14f46b51102462d9d5dfe93f758055f827c02d4cf82d958fba37548086b688de387e
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.44.0":
-  version: 8.44.0
-  resolution: "@eslint/js@npm:8.44.0"
-  checksum: c1b6ed3d908d4c9809bba18fbe5abd5aeb0848fb69ec8e9c9d2a65851cf9e2ace8d9b7d47ab44858779d5812e8cc4057b4977778bd11ba0cf3dae42d301cc33b
+"@eslint/js@npm:8.48.0":
+  version: 8.48.0
+  resolution: "@eslint/js@npm:8.48.0"
+  checksum: 0a35811ce8fd88e9ca7f03d063fc9e17f46f03739daa61938bcffc24951c73ed9d8c545ca16b78aa06066f8f090e9df3edd2152f3c7c7a1e1805d3f785dd7ec9
   languageName: node
   linkType: hard
 
@@ -1866,7 +1866,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.10.0, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
+"ajv@npm:^6.12.3, ajv@npm:^6.12.4":
   version: 6.12.5
   resolution: "ajv@npm:6.12.5"
   dependencies:
@@ -2459,13 +2459,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "eslint-scope@npm:7.2.0"
+"eslint-scope@npm:^7.2.2":
+  version: 7.2.2
+  resolution: "eslint-scope@npm:7.2.2"
   dependencies:
     esrecurse: ^4.3.0
     estraverse: ^5.2.0
-  checksum: 5eb2b369df27d63f568dd3b2578e3899c2b0f36d538e287fd01fc65efb5bd5e1bcd917f6f10b50ca4c72d560761bee2230f46ed9497754d8f854f1647aee96ce
+  checksum: 810421bd047e33f9234b6b7633c2cb29d65e9acd06637e2a89cf8c28b15cf9a024aa6e8411e72f72bd359f3800734b74dddf00ec14f27b983845832f6ca457b0
   languageName: node
   linkType: hard
 
@@ -2490,26 +2490,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.45.0":
-  version: 8.45.0
-  resolution: "eslint@npm:8.45.0"
+"eslint-visitor-keys@npm:^3.4.3":
+  version: 3.4.3
+  resolution: "eslint-visitor-keys@npm:3.4.3"
+  checksum: f86328346876e8d5bb9fd7cbc9e3bd2161b772c0f8b71981cf5ed8c6fd01e184551452ce5132facbff5a2bb50002ed1dc206368facc2b5c648e2989dc805276d
+  languageName: node
+  linkType: hard
+
+"eslint@npm:8.48.0":
+  version: 8.48.0
+  resolution: "eslint@npm:8.48.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
-    "@eslint-community/regexpp": ^4.4.0
-    "@eslint/eslintrc": ^2.1.0
-    "@eslint/js": 8.44.0
+    "@eslint-community/regexpp": ^4.6.1
+    "@eslint/eslintrc": ^2.1.2
+    "@eslint/js": 8.48.0
     "@humanwhocodes/config-array": ^0.11.10
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
-    ajv: ^6.10.0
+    ajv: ^6.12.4
     chalk: ^4.0.0
     cross-spawn: ^7.0.2
     debug: ^4.3.2
     doctrine: ^3.0.0
     escape-string-regexp: ^4.0.0
-    eslint-scope: ^7.2.0
-    eslint-visitor-keys: ^3.4.1
-    espree: ^9.6.0
+    eslint-scope: ^7.2.2
+    eslint-visitor-keys: ^3.4.3
+    espree: ^9.6.1
     esquery: ^1.4.2
     esutils: ^2.0.2
     fast-deep-equal: ^3.1.3
@@ -2533,7 +2540,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 4e31c73fe80bd87e2b5cfa150f795a4271beb52715ce6029b21a5507e63b1edbad31b36d0796a218ac53c8498e3e30296286bf227b4a0757fd08950a47ac792c
+  checksum: 3ec1231c0a8d68ea32a67d3ae578964d06591d17b5ef5a0fa750ebbe084a2c3eb825eca3827754495cd617e4c39ddc8033da728a43cdbb65c823e897fd5386e6
   languageName: node
   linkType: hard
 
@@ -2545,6 +2552,17 @@ __metadata:
     acorn-jsx: ^5.3.2
     eslint-visitor-keys: ^3.4.1
   checksum: 57142bf2e0a09b1285f35b410a91d60925297f2c04400c9bc952f0e2192923c58a57002f171a96c567ff028905364ab20ab0bbf3f5023e94c05758629b73247b
+  languageName: node
+  linkType: hard
+
+"espree@npm:^9.6.1":
+  version: 9.6.1
+  resolution: "espree@npm:9.6.1"
+  dependencies:
+    acorn: ^8.9.0
+    acorn-jsx: ^5.3.2
+    eslint-visitor-keys: ^3.4.1
+  checksum: 9bf6eccc223f79ed7facfdca3f57b9a72c614b206ff3e9a1a8718725a1f8e46d488d902493313ad210d97fe25b70e59044801cdb948f5d0662add482bb838037
   languageName: node
   linkType: hard
 
@@ -3565,7 +3583,7 @@ fsevents@~2.1.2:
     ajv: 8.12.0
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
-    eslint: 8.45.0
+    eslint: 8.48.0
     eslint-config-dev: 2.0.0
     postcss: 8.4.29
     postcss-tape: 6.0.1
