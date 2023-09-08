@@ -1788,21 +1788,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.48.0":
-  version: 8.48.0
-  resolution: "@eslint/js@npm:8.48.0"
-  checksum: 0a35811ce8fd88e9ca7f03d063fc9e17f46f03739daa61938bcffc24951c73ed9d8c545ca16b78aa06066f8f090e9df3edd2152f3c7c7a1e1805d3f785dd7ec9
+"@eslint/js@npm:8.49.0":
+  version: 8.49.0
+  resolution: "@eslint/js@npm:8.49.0"
+  checksum: 2d12dd1392877c5d10d2b73f44b6eec61e47b1683bbbd686272bfb9a85d1f64ea5a30cb389129e4b77e71344eedb62cbd220c3de347b17297ba36de99ccf9088
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.10":
-  version: 0.11.10
-  resolution: "@humanwhocodes/config-array@npm:0.11.10"
+"@humanwhocodes/config-array@npm:^0.11.11":
+  version: 0.11.11
+  resolution: "@humanwhocodes/config-array@npm:0.11.11"
   dependencies:
     "@humanwhocodes/object-schema": ^1.2.1
     debug: ^4.1.1
     minimatch: ^3.0.5
-  checksum: 8f2cb9050244a28a34f2a6b5a236ba8c9ed8ac6b5662410b200f2860730ee4e398b2653b6ad958ffa439efb51ba414ec707504af5b4dfd398453e529eb8c7f49
+  checksum: d2b9a664ddf333bef46e0449751c480daae161c562d8296671e803d9bdd237539627f16cfb9cce89fd348cf076310fa7b05d617e964b228fcf165a0e4471ad1a
   languageName: node
   linkType: hard
 
@@ -2629,15 +2629,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.48.0":
-  version: 8.48.0
-  resolution: "eslint@npm:8.48.0"
+"eslint@npm:8.49.0":
+  version: 8.49.0
+  resolution: "eslint@npm:8.49.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.2
-    "@eslint/js": 8.48.0
-    "@humanwhocodes/config-array": ^0.11.10
+    "@eslint/js": 8.49.0
+    "@humanwhocodes/config-array": ^0.11.11
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
     ajv: ^6.12.4
@@ -2672,7 +2672,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 3ec1231c0a8d68ea32a67d3ae578964d06591d17b5ef5a0fa750ebbe084a2c3eb825eca3827754495cd617e4c39ddc8033da728a43cdbb65c823e897fd5386e6
+  checksum: b52ef5eb0d055dd9a3aa09f49b98ba6c6c0e341264fb30ea5a3c009e16803ed4fa0e69e1618315c11d8ecc64dd088908fbd79dba441a698104d1579cc04c02e4
   languageName: node
   linkType: hard
 
@@ -3715,7 +3715,7 @@ fsevents@~2.1.2:
     ajv: 8.12.0
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
-    eslint: 8.48.0
+    eslint: 8.49.0
     eslint-config-dev: 2.0.0
     postcss: 8.4.29
     postcss-tape: 6.0.1
