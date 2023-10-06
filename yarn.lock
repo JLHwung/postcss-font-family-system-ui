@@ -1819,10 +1819,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.50.0":
-  version: 8.50.0
-  resolution: "@eslint/js@npm:8.50.0"
-  checksum: 7d06733d0ce2468e6f7daf17f8e3196fa3b088c2aa6e9349b066b0af5cb6ef4b22b4f3e606b22a40638ac769fc186e78bfe2acabfec324d1e6e3302e772a664b
+"@eslint/js@npm:8.51.0":
+  version: 8.51.0
+  resolution: "@eslint/js@npm:8.51.0"
+  checksum: ddff64395fe01ea23ad152ccf46898be46e71ff3e8b65ccefba9de5537f53fe6a6154cb15f156a3b721ff4e11e6e1dbd875daa2fdcc950d8a6dccf1c41efb4ed
   languageName: node
   linkType: hard
 
@@ -2658,14 +2658,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.50.0":
-  version: 8.50.0
-  resolution: "eslint@npm:8.50.0"
+"eslint@npm:8.51.0":
+  version: 8.51.0
+  resolution: "eslint@npm:8.51.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.2
-    "@eslint/js": 8.50.0
+    "@eslint/js": 8.51.0
     "@humanwhocodes/config-array": ^0.11.11
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -2701,7 +2701,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 8336afd4018693d7bb9a69fdcd79d03c1db49ba6fca830469993406261c75ffffa6e68c40e17bdbb87ec8467fabac4e1a33dd0af99843fcbe548c7d0ca4f4cae
+  checksum: 4e7263aa072e272f1352da5e02b28e3ea7ac5faaf0bd44096a2bc7e3fdbc5317997fdff67511f586f015872695344cdb9fb4327302c105314c38911122326247
   languageName: node
   linkType: hard
 
@@ -3744,7 +3744,7 @@ fsevents@~2.1.2:
     ajv: 8.12.0
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
-    eslint: 8.50.0
+    eslint: 8.51.0
     eslint-config-dev: 2.0.0
     postcss: 8.4.31
     postcss-tape: 6.0.1
