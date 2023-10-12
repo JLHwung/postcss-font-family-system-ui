@@ -78,26 +78,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.23.0":
-  version: 7.23.0
-  resolution: "@babel/core@npm:7.23.0"
+"@babel/core@npm:7.23.2":
+  version: 7.23.2
+  resolution: "@babel/core@npm:7.23.2"
   dependencies:
     "@ampproject/remapping": ^2.2.0
     "@babel/code-frame": ^7.22.13
     "@babel/generator": ^7.23.0
     "@babel/helper-compilation-targets": ^7.22.15
     "@babel/helper-module-transforms": ^7.23.0
-    "@babel/helpers": ^7.23.0
+    "@babel/helpers": ^7.23.2
     "@babel/parser": ^7.23.0
     "@babel/template": ^7.22.15
-    "@babel/traverse": ^7.23.0
+    "@babel/traverse": ^7.23.2
     "@babel/types": ^7.23.0
     convert-source-map: ^2.0.0
     debug: ^4.1.0
     gensync: ^1.0.0-beta.2
     json5: ^2.2.3
     semver: ^6.3.1
-  checksum: ea5f85b5574a14fc13d4474ff393ae8250979d7511d5ccb14d60a5555ca4089baf6433baa3c3e5bb92e8cd953319bee63bd391099b5b15bc02963bc7c696ffe7
+  checksum: 9749f0fcac41ceb771eeb7fe5283ae3f211eefcb06ae54640dd7660bc880da90fd1fce6d6ce292bd2b128b5861cd5dbeb67e4c57abc57198b4758864827d3176
   languageName: node
   linkType: hard
 
@@ -617,14 +617,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helpers@npm:^7.23.0":
-  version: 7.23.1
-  resolution: "@babel/helpers@npm:7.23.1"
+"@babel/helpers@npm:^7.23.2":
+  version: 7.23.2
+  resolution: "@babel/helpers@npm:7.23.2"
   dependencies:
     "@babel/template": ^7.22.15
-    "@babel/traverse": ^7.23.0
+    "@babel/traverse": ^7.23.2
     "@babel/types": ^7.23.0
-  checksum: 27605af21c347d3d7a63e62798dc5ad8eb7d544021ac5d3de673cb7484650e6e3b6ddbe89a6554320d6f0cd4ce02a72821c404a813141ef54e74a525788fca51
+  checksum: f98bd26924597594bbce0861ca6bc5677f08a109da0a8fadea0df0011882c3b2f5d9ed5ad603fd35cbe23acb66406c947003ccd36467438bf0f98341793d6ee3
   languageName: node
   linkType: hard
 
@@ -1672,9 +1672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.23.0":
-  version: 7.23.0
-  resolution: "@babel/traverse@npm:7.23.0"
+"@babel/traverse@npm:^7.23.2":
+  version: 7.23.2
+  resolution: "@babel/traverse@npm:7.23.2"
   dependencies:
     "@babel/code-frame": ^7.22.13
     "@babel/generator": ^7.23.0
@@ -1686,7 +1686,7 @@ __metadata:
     "@babel/types": ^7.23.0
     debug: ^4.1.0
     globals: ^11.1.0
-  checksum: bfa8dee5e2622b4020e5d64934a9c6265825e6f30592affc265728730d2f239e4918408e4e594550e7aca867c653e608b078d721a1c4a62a2426c93478296144
+  checksum: 5deaeb8eb3914681e4419eea6224e1ef8e0b816d5d04bbd08dfb4c5ec7950ae31bdf95a474119382576da09bcd82e953a5850c736c6f735c1834cdd0c14ec4b2
   languageName: node
   linkType: hard
 
@@ -3753,7 +3753,7 @@ fsevents@~2.1.2:
   version: 0.0.0-use.local
   resolution: "postcss-font-family-system-ui@workspace:."
   dependencies:
-    "@babel/core": 7.23.0
+    "@babel/core": 7.23.2
     "@babel/eslint-parser": 7.22.15
     "@babel/preset-env": 7.23.2
     "@rollup/plugin-babel": 5.3.1
