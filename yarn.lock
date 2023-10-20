@@ -1791,21 +1791,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.51.0":
-  version: 8.51.0
-  resolution: "@eslint/js@npm:8.51.0"
-  checksum: ddff64395fe01ea23ad152ccf46898be46e71ff3e8b65ccefba9de5537f53fe6a6154cb15f156a3b721ff4e11e6e1dbd875daa2fdcc950d8a6dccf1c41efb4ed
+"@eslint/js@npm:8.52.0":
+  version: 8.52.0
+  resolution: "@eslint/js@npm:8.52.0"
+  checksum: 4dc1f754b32893a4b05785a51624be900e21e2821d7102e12e14ca1abb997c05cb735840982207d30d979f917fea0b76416f12cef3a8f77aebd6f94c3204ce4f
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.11":
-  version: 0.11.11
-  resolution: "@humanwhocodes/config-array@npm:0.11.11"
+"@humanwhocodes/config-array@npm:^0.11.13":
+  version: 0.11.13
+  resolution: "@humanwhocodes/config-array@npm:0.11.13"
   dependencies:
-    "@humanwhocodes/object-schema": ^1.2.1
+    "@humanwhocodes/object-schema": ^2.0.1
     debug: ^4.1.1
     minimatch: ^3.0.5
-  checksum: d2b9a664ddf333bef46e0449751c480daae161c562d8296671e803d9bdd237539627f16cfb9cce89fd348cf076310fa7b05d617e964b228fcf165a0e4471ad1a
+  checksum: ae7be49d59ba0cccc3ca19a1cfc865abe99a4d760c56a22294c96af9766d0eaf34958d1433ba7288ab219dbf9f61a3ca6715171752ea2592d6cd6c7002d86b8b
   languageName: node
   linkType: hard
 
@@ -1816,10 +1816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/object-schema@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@humanwhocodes/object-schema@npm:1.2.1"
-  checksum: 5fc0c8672c9f0a3fcb9f71004e386fbbe6ff443309dfebfdbae4646536a416ed7d11fd2ce34be2b90dc4033e75922f4b4cde2f387a389d0462b1eb6034342c16
+"@humanwhocodes/object-schema@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@humanwhocodes/object-schema@npm:2.0.1"
+  checksum: 6dcac88d2857515f407723c043926f0226ff0f161303e032d58fb3b5652263d15111b74e3b42a8626168614f5873d3bb21b4e59a2279f2ff5c2f440d39c9fdb2
   languageName: node
   linkType: hard
 
@@ -1961,6 +1961,13 @@ __metadata:
   version: 0.0.39
   resolution: "@types/estree@npm:0.0.39"
   checksum: 43e5361de39969def145f32f4599391ab13055ec94841f1633a7cfe10f0e8a940ebf0e9a4b2770454a6bddd034b57e7e0d51a4d565cb2714ee2accf10a7718be
+  languageName: node
+  linkType: hard
+
+"@ungap/structured-clone@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@ungap/structured-clone@npm:1.2.0"
+  checksum: c49ca98a899144be5d1ab9bebf6d2a3a77956f7ad17e9d71959eb2568ab511ff253e1c1e65d7927b114366bc945fc5dd54e59d99a48895236f63e1f36e7bc35d
   languageName: node
   linkType: hard
 
@@ -2667,17 +2674,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.51.0":
-  version: 8.51.0
-  resolution: "eslint@npm:8.51.0"
+"eslint@npm:8.52.0":
+  version: 8.52.0
+  resolution: "eslint@npm:8.52.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.2
-    "@eslint/js": 8.51.0
-    "@humanwhocodes/config-array": ^0.11.11
+    "@eslint/js": 8.52.0
+    "@humanwhocodes/config-array": ^0.11.13
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
+    "@ungap/structured-clone": ^1.2.0
     ajv: ^6.12.4
     chalk: ^4.0.0
     cross-spawn: ^7.0.2
@@ -2710,7 +2718,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 4e7263aa072e272f1352da5e02b28e3ea7ac5faaf0bd44096a2bc7e3fdbc5317997fdff67511f586f015872695344cdb9fb4327302c105314c38911122326247
+  checksum: eeae85b4be9ba5d99cb5c5986f7679e78fb1c01b9262f410718a7a7ce7716d68f7f050d433e785b9fa6b552c8733158586648b3c16cded45aa68c664a52deb01
   languageName: node
   linkType: hard
 
@@ -3760,7 +3768,7 @@ fsevents@~2.1.2:
     ajv: 8.12.0
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
-    eslint: 8.51.0
+    eslint: 8.52.0
     eslint-config-dev: 2.0.0
     postcss: 8.4.31
     postcss-tape: 6.0.1
