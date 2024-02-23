@@ -1774,9 +1774,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^2.1.3":
-  version: 2.1.3
-  resolution: "@eslint/eslintrc@npm:2.1.3"
+"@eslint/eslintrc@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "@eslint/eslintrc@npm:2.1.4"
   dependencies:
     ajv: ^6.12.4
     debug: ^4.3.2
@@ -1787,25 +1787,25 @@ __metadata:
     js-yaml: ^4.1.0
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
-  checksum: 1635f1e9966c36418796448803491e10ce59287aa2b38a7c7f4c90a3895274c0dc74d5fdf65cc23cc3b469a0e367651da9001853f71bcbdb0695141201701d96
+  checksum: a42baaad38b1da55a5857b1e139847bd9486f661d22adc82ce4478d451d9334d7466d75a87af3589c2b47a0693ee86a4f6d7c685bfbb601d64fd0ca6d502974a
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.53.0":
-  version: 8.53.0
-  resolution: "@eslint/js@npm:8.53.0"
-  checksum: e53f811a84413ece262b7b0437137e8677075b06acb3e9544b1d6499f36ca2618424b31fdf6b9712263372495fb5f2b3a3eefeb33c3c893490bec8a735e59b91
+"@eslint/js@npm:8.57.0":
+  version: 8.57.0
+  resolution: "@eslint/js@npm:8.57.0"
+  checksum: 407aae75c77e83ce60188501793bb926db0b46f8861fd3a65fbba2cadf0ece20d44bba22a9fab2b3c916cfd5ea243de95f624e54cdaa9d4ee8649dbee3947eb6
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.13":
-  version: 0.11.13
-  resolution: "@humanwhocodes/config-array@npm:0.11.13"
+"@humanwhocodes/config-array@npm:^0.11.14":
+  version: 0.11.14
+  resolution: "@humanwhocodes/config-array@npm:0.11.14"
   dependencies:
-    "@humanwhocodes/object-schema": ^2.0.1
-    debug: ^4.1.1
+    "@humanwhocodes/object-schema": ^2.0.2
+    debug: ^4.3.1
     minimatch: ^3.0.5
-  checksum: ae7be49d59ba0cccc3ca19a1cfc865abe99a4d760c56a22294c96af9766d0eaf34958d1433ba7288ab219dbf9f61a3ca6715171752ea2592d6cd6c7002d86b8b
+  checksum: f34e986189833023fc37daff2588adf3bb6982eeb94b7b1d6ac37a083bb8214359aaa327ec5e4d7d2449fe33ebc64df85b8a042bd6db848575292aa5db684122
   languageName: node
   linkType: hard
 
@@ -1816,10 +1816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/object-schema@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@humanwhocodes/object-schema@npm:2.0.1"
-  checksum: 6dcac88d2857515f407723c043926f0226ff0f161303e032d58fb3b5652263d15111b74e3b42a8626168614f5873d3bb21b4e59a2279f2ff5c2f440d39c9fdb2
+"@humanwhocodes/object-schema@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@humanwhocodes/object-schema@npm:2.0.2"
+  checksum: 61e565644ad92c74f87c879d753bc417c4a784eb2495bdcfdcd4206cfb922673d6dddc287fa2f089c1b12ec956d6b889d6a6af4e494b8d05a2ce70ffbd5189fb
   languageName: node
   linkType: hard
 
@@ -2516,7 +2516,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.3.2":
+"debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -2730,15 +2730,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.53.0":
-  version: 8.53.0
-  resolution: "eslint@npm:8.53.0"
+"eslint@npm:8.57.0":
+  version: 8.57.0
+  resolution: "eslint@npm:8.57.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
-    "@eslint/eslintrc": ^2.1.3
-    "@eslint/js": 8.53.0
-    "@humanwhocodes/config-array": ^0.11.13
+    "@eslint/eslintrc": ^2.1.4
+    "@eslint/js": 8.57.0
+    "@humanwhocodes/config-array": ^0.11.14
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
     "@ungap/structured-clone": ^1.2.0
@@ -2774,7 +2774,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 3a8b2618c4e847433b0d9ef7f2179d879d353356495906d23b588ecd69ee7b8a394c7bb7ddb645c9411ad5716da867cd068c77ae24103c7b1c8f01fa03dbb816
+  checksum: e0b93a3db62b6df8a33c1df5b19198e90a80bb3a57466e4847bdf09aa65a6554614b1fcedcde1db2fe9cb41ee7963b3c09e42d1a7e77e0f0d8883f4ce3b6b679
   languageName: node
   linkType: hard
 
@@ -3879,7 +3879,7 @@ fsevents@~2.1.2:
     ajv: 8.12.0
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
-    eslint: 8.53.0
+    eslint: 8.57.0
     eslint-config-dev: 2.0.0
     postcss: 8.4.31
     postcss-tape: 6.0.1
