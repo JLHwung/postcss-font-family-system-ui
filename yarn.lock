@@ -2128,10 +2128,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^3.2.4":
-  version: 3.2.4
-  resolution: "async@npm:3.2.4"
-  checksum: 0b6cc550522408998c6b5d998aff60048c43faa139f403232435c984d65a1c7cf135be45692820c90f8c2aec662b768ab8897c71983726302033a3e9e57eb023
+"async@npm:^3.2.5":
+  version: 3.2.5
+  resolution: "async@npm:3.2.5"
+  checksum: ca5c87f4953495110560c357e1bb22c997f03c31d094173372f134e89356c1e769a0a475156e62aa601dd4cffe934846aac56d344e8b2354f1f680d0df03e57d
   languageName: node
   linkType: hard
 
@@ -3499,12 +3499,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"marked@npm:^9.1.3":
-  version: 9.1.3
-  resolution: "marked@npm:9.1.3"
+"marked@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "marked@npm:10.0.0"
   bin:
     marked: bin/marked.js
-  checksum: 19b7698baa3494131de0765fe90b560903fade45713fa1039265ced2ef9581693081bbdfb10598c6a8041c3638f56187bc9169abde2dc9a43e7f103727c8579a
+  checksum: fc5f91cfa86fb801aa0c22e651988e488b5bd2695ddc86156b594fffc5dce38bc794d287e7b3f199fcd997adeb53f010e5edc9c0cffa9b45a1c95867e4e4d32c
   languageName: node
   linkType: hard
 
@@ -3885,7 +3885,7 @@ fsevents@~2.1.2:
     postcss-tape: 6.0.1
     pre-commit: 1.2.2
     rollup: 2.38.2
-    yaspeller: 9.1.0
+    yaspeller: 10.0.1
   peerDependencies:
     postcss: ^8.0.0
   languageName: unknown
@@ -4720,18 +4720,18 @@ resolve@^1.14.2:
   languageName: node
   linkType: hard
 
-"yandex-speller@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "yandex-speller@npm:4.1.0"
-  checksum: b88ac7dac73a6ed00bf5a60eb2a57e0616714a02da98c0b61e0e00fb2d3f5b7dcb5b6dacf184f1d64bbc37f68b75d7fe31a16aa21b6725cb32ec0ba4b3915982
+"yandex-speller@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "yandex-speller@npm:6.0.0"
+  checksum: 164e917d444e919dcb527e4e9e2d582710bb9f541e6859fb782c69e7bd12a224bae7e92f085b2ced262d0892711c2729835f42a434d8aedae6e7059b1be7d175
   languageName: node
   linkType: hard
 
-"yaspeller@npm:9.1.0":
-  version: 9.1.0
-  resolution: "yaspeller@npm:9.1.0"
+"yaspeller@npm:10.0.1":
+  version: 10.0.1
+  resolution: "yaspeller@npm:10.0.1"
   dependencies:
-    async: ^3.2.4
+    async: ^3.2.5
     commander: ^3.0.0
     entities: ^4.5.0
     escape-html: ^1.0.3
@@ -4739,17 +4739,17 @@ resolve@^1.14.2:
     glob: ^10.3.10
     isutf8: ^4.0.0
     lilconfig: ^2.1.0
-    marked: ^9.1.3
+    marked: ^10.0.0
     minimatch: ^9.0.3
     node-fetch: ^2.7.0
     picocolors: ^1.0.0
     secure-json-parse: ^2.7.0
     strip-json-comments: ^3.1.1
     xml2js: ^0.6.2
-    yandex-speller: ^4.1.0
+    yandex-speller: ^6.0.0
   bin:
     yaspeller: bin/yaspeller
-  checksum: 5a6f2083cc30064aff2e8180bf4f04a4afddd84138bab97d92711faca88cb85d0a2e985795fd0ec377d8f02e47e02b22fd5ea9c3555ea04b60de1ce55a283f28
+  checksum: 0c3e32458784bf5345217bdcd5f59d2c358678ae59080860017503c6a5885323f4966ab507f5ac4cfeadf7acfcbcce43181b8720239e61eceabe386f034ab960
   languageName: node
   linkType: hard
 
