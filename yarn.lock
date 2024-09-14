@@ -3593,12 +3593,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.6":
-  version: 3.3.6
-  resolution: "nanoid@npm:3.3.6"
+"nanoid@npm:^3.3.7":
+  version: 3.3.7
+  resolution: "nanoid@npm:3.3.7"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: f849c83f0e0ba09542602804eb3d0ab00a758586764411ea17e55462777cbe88d24eaeeef4dfbfe436af62b88f20fc3d504c639f0c14fa0b1434b1de36fe19af
+  checksum: cf385d845762bbc9f71827889ccbfa828348d48919ef6745819f60cafa5df2f4ba45a20ffbd02d7a48dd87a4abfaf62b08e23e48fc8e0eba059b97bdd331b64c
   languageName: node
   linkType: hard
 
@@ -3861,6 +3861,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"picocolors@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "picocolors@npm:1.1.0"
+  checksum: 8ffaa062d8b4eb512e6444cea3ead59a4fefa1adb3731f00c63c2914b0e81ecb22ac0b9db0de60acde956461d1242a5984d3cabb1fcb3cece07698d4a5bd915c
+  languageName: node
+  linkType: hard
+
 "picomatch@npm:^2.2.2":
   version: 2.2.2
   resolution: "picomatch@npm:2.2.2"
@@ -3881,7 +3888,7 @@ fsevents@~2.1.2:
     caniuse-lite: ^1.0.30000655
     eslint: 8.53.0
     eslint-config-dev: 2.0.0
-    postcss: 8.4.31
+    postcss: 8.4.47
     postcss-tape: 6.0.1
     pre-commit: 1.2.2
     rollup: 2.38.2
@@ -3902,14 +3909,14 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.31":
-  version: 8.4.31
-  resolution: "postcss@npm:8.4.31"
+"postcss@npm:8.4.47":
+  version: 8.4.47
+  resolution: "postcss@npm:8.4.47"
   dependencies:
-    nanoid: ^3.3.6
-    picocolors: ^1.0.0
-    source-map-js: ^1.0.2
-  checksum: dac8611c6dae958b26897a64328d5d18b3298646a7e57b9609a1256fe177e970e066bfae59a6a94e81831a73a7ddcb1b131680b1a57c2912720c2da255db7d3f
+    nanoid: ^3.3.7
+    picocolors: ^1.1.0
+    source-map-js: ^1.2.1
+  checksum: 06a79046912a74e92405a5344df46cee4d266a62afd551219a498f7105d4350f7f2141e4ca43b4bea8d97d55f0c30cdc627656e96bc4914681772d36c8a288cc
   languageName: node
   linkType: hard
 
@@ -4273,10 +4280,10 @@ resolve@^1.14.2:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "source-map-js@npm:1.0.2"
-  checksum: 3bb232796ad9b71bad151cb30c7fc1a2afdaf5bcfd4aa7806f56a2d4ff4824e1481e960436c5e9ec26e8c1ae129aee8107df0859c15b1ccada31a9a7ef254abc
+"source-map-js@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "source-map-js@npm:1.2.1"
+  checksum: 728d8bd521c93d7a165fb7dfe20ae1038a4d780579498d21cdd353bcc59f2c27f2d4e390fa1825ee3977beed68868e395df79c14ca8a72a9c6fffdfb46a87eb6
   languageName: node
   linkType: hard
 
