@@ -2017,15 +2017,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:8.12.0":
-  version: 8.12.0
-  resolution: "ajv@npm:8.12.0"
+"ajv@npm:8.17.1":
+  version: 8.17.1
+  resolution: "ajv@npm:8.17.1"
   dependencies:
-    fast-deep-equal: ^3.1.1
+    fast-deep-equal: ^3.1.3
+    fast-uri: ^3.0.1
     json-schema-traverse: ^1.0.0
     require-from-string: ^2.0.2
-    uri-js: ^4.2.2
-  checksum: 3bdee674686025195d85ab010d40b1834cad24ad128e457371ec6e597bba66674ee3ad3e5673c3ffbdfef24e616ae06a5e078006b1c20f49726788b0e1631db3
+  checksum: cde7bf9d4db51133b3b7c043fb5aeab2d3dc59c19a0ac7610594678df1f300b733b2a82c077bf017a029b7ec843c0bc473c583b835ace1d378befeeb064711fa
   languageName: node
   linkType: hard
 
@@ -2885,6 +2885,13 @@ __metadata:
   version: 2.0.6
   resolution: "fast-levenshtein@npm:2.0.6"
   checksum: a2d03af3088b0397633e007fb3010ecfa4f91cae2116d2385653c59396a1b31467641afa672a79e6f82218518670dc144128378124e711e35dbf90bc82846f22
+  languageName: node
+  linkType: hard
+
+"fast-uri@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "fast-uri@npm:3.0.1"
+  checksum: 5a6bd9e60bf17e7b8f76f3ad5752985e2f44cd3cdb7f58e759648c3f3228c2510b33a4affb946628211e4bd495f271f8472c40f939ae5818e7b00c71059e125f
   languageName: node
   linkType: hard
 
@@ -3876,7 +3883,7 @@ fsevents@~2.1.2:
     "@babel/eslint-parser": 7.22.15
     "@babel/preset-env": 7.23.2
     "@rollup/plugin-babel": 5.3.1
-    ajv: 8.12.0
+    ajv: 8.17.1
     browserslist: ^4.0.0
     caniuse-lite: ^1.0.30000655
     eslint: 8.53.0
