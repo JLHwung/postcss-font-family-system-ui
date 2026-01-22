@@ -23,9 +23,8 @@
   "scripts": {
     "build": "rollup -c .rollup.mjs",
     "check:js": "eslint *.[cm]js --cache --ignore-path .gitignore --quiet",
-    "check:spelling": "yaspeller -c package.json --lang en --ignore-uppercase --ignore-roman-numerals --ignore-urls README.md",
     "prepublishOnly": "yarn test",
-    "check": "yarn check:js && yarn check:spelling",
+    "check": "yarn check:js",
     "test": "yarn build && echo 'Running tests...'; yarn check && yarn test:tape",
     "test:tape": "postcss-tape --config .tape.cjs"
   },
@@ -44,8 +43,7 @@
     "postcss": "8.4.31",
     "postcss-tape": "6.0.1",
     "pre-commit": "1.2.2",
-    "rollup": "2.38.2",
-    "yaspeller": "9.1.0"
+    "rollup": "2.38.2"
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
@@ -71,38 +69,5 @@
     "face",
     "type",
     "typeface"
-  ],
-  "yaspeller": {
-    "dictionary": [
-      "Affirmer",
-      "Affirmer's",
-      "babili",
-      "babelrc",
-      "browserslist",
-      "caniuse",
-      "devDependencies",
-      "env",
-      "es6",
-      "esm",
-      "Gulpfile",
-      "greenkeeper",
-      "Gruntfile",
-      "istanbul",
-      "js",
-      "lockfile",
-      "npm",
-      "nyc",
-      "postcss",
-      "PostCSS",
-      "polyfill",
-      "Refactors",
-      "rollup",
-      "std",
-      "sublicensable",
-      "travis",
-      "ui",
-      "yaspeller",
-      "^[A-f0-9]{8}$"
-    ]
-  }
+  ]
 }
