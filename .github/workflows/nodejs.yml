@@ -6,9 +6,9 @@ jobs:
   check-and-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
       - name: Use Node.js latest
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v6
         with:
           node-version: "*"
       - name: Install dependencies
@@ -19,7 +19,7 @@ jobs:
         run: |
           yarn build
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v6
         with:
           name: bundled
           path: dist
@@ -29,26 +29,27 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [20.x, 22.x, 24.x]
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
       - name: Get test dependencies versions
         id: test-dep-versions
+        shell: bash  # <--- Crucial for Windows compatibility with $GITHUB_OUTPUT as Powershell uses a different syntax
         run: |
-          echo "::set-output name=postcss-tape::$(node scripts/get-dev-deps postcss-tape)"
-          echo "::set-output name=postcss::$(node scripts/get-dev-deps postcss)"
+          echo "postcss-tape=$(node scripts/get-dev-deps postcss-tape)" >> $GITHUB_OUTPUT
+          echo "postcss=$(node scripts/get-dev-deps postcss)" >> $GITHUB_OUTPUT
       - name: yarn install
         run: |
           yarn workspaces focus -A --production
           yarn add --dev postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }} postcss@${{ steps.test-dep-versions.outputs.postcss }}
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v6
         with:
           name: bundled
           path: dist
