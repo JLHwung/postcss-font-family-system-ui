@@ -2174,10 +2174,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-dev@npm:2.0.0":
-  version: 2.0.0
-  resolution: "eslint-config-dev@npm:2.0.0"
-  checksum: 10/f1ec066fbaab817291e73b4242c4d383622a0177c1949ed4659d7d71d0e73cb7737d2f78835ea08d779eb0e521c51f335e3f0c21f2e46d7b3c8bce6dbd65fdab
+"eslint-config-dev@npm:3.3.1":
+  version: 3.3.1
+  resolution: "eslint-config-dev@npm:3.3.1"
+  peerDependencies:
+    eslint: ^8
+  checksum: 10/f1c02c34b04867872e945a9cfbc9a98bc13a3e9721167a5040cc3b494a1ac3af5dd0c97f134f801ebb1e31b0db7e932aeb4f3edefa37418be7848cbe90996c94
   languageName: node
   linkType: hard
 
@@ -3211,7 +3213,7 @@ __metadata:
     browserslist: "npm:^4.0.0"
     caniuse-lite: "npm:^1.0.30000655"
     eslint: "npm:8.57.1"
-    eslint-config-dev: "npm:2.0.0"
+    eslint-config-dev: "npm:3.3.1"
     postcss: "npm:8.5.6"
     postcss-tape: "npm:6.0.1"
     pre-commit: "npm:1.2.2"
