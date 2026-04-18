@@ -43,7 +43,7 @@
     "postcss": "8.5.10",
     "postcss-tape": "6.0.1",
     "pre-commit": "1.2.2",
-    "rollup": "4.60.1"
+    "rollup": "4.60.2"
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
