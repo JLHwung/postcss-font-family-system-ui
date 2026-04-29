@@ -19,7 +19,7 @@ jobs:
         run: |
           yarn build
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: bundled
           path: dist
@@ -49,7 +49,7 @@ jobs:
           yarn workspaces focus -A --production
           yarn add --dev postcss-tape@${{ steps.test-dep-versions.outputs.postcss-tape }} postcss@${{ steps.test-dep-versions.outputs.postcss }}
       - name: Download artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: bundled
           path: dist
