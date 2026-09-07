@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-process.stdout.write(
-	JSON.parse(fs.readFileSync(path.resolve(__dirname, "../package.json")))
-		.devDependencies[process.argv[2]]
-);
+const key = process.argv[2];
+const devDependencies = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../package.json"))).devDependencies;
+if (Object.prototype.hasOwnProperty.call(devDependencies, key)) {
+	process.stdout.write(devDependencies[key]);
+}
