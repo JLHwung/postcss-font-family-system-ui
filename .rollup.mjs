@@ -8,7 +8,7 @@ export default {
 	],
 	external: ["browserslist", "caniuse-lite"],
 	plugins: [
-		babel.default({
+		babel({
 			babelHelpers: "bundled",
 		}),
 	],
