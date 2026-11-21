@@ -1,5 +1,32 @@
 {
   "presets": [
-    ["@babel/preset-env", { "targets": { "node": "10" }, "loose": true, "shippedProposals": true, "bugfixes": true }]
-  ]
+    [
+      "@babel/preset-env",
+      {
+        "targets": { "node": "10" },
+        "shippedProposals": true,
+        "exclude": ["transform-typeof-symbol"]
+      }
+    ]
+  ],
+  "assumptions": {
+    "arrayLikeIsIterable": true,
+    "constantReexports": true,
+    "ignoreFunctionLength": true,
+    "ignoreToPrimitiveHint": true,
+    "mutableTemplateObject": true,
+    "noClassCalls": true,
+    "noClassPrototypeAssign": true,
+    "noConstructorPrimitiveReturn": true,
+    "noDocumentAll": true,
+    "objectRestNoSymbols": true,
+    "privateFieldsAsProperties": true,
+    "pureGetters": true,
+    "setClassMethods": true,
+    "setComputedProperties": true,
+    "setPublicClassFields": true,
+    "setSpreadProperties": true,
+    "skipForOfIteratorClosing": true,
+    "superIsCallableConstructor": true
+  }
 }
