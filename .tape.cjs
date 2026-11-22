@@ -57,7 +57,7 @@ module.exports = {
 	"family-split:quoting": {
 		message: "quotes { family } names that aren't valid unquoted CSS",
 		options: {
-			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x), M+\r1p, A\fB',
+			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x), M+\r1p, A\fB, "C\nD"',
 		},
 		source: "family-split.css",
 	},

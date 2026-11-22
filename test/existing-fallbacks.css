@@ -31,4 +31,5 @@ test {
 	font-family: system-ui/* brand */, serif;
 	font: 12px/*x*/system-ui;
 	font-family: Roboto/*x*/,system-ui;
+	font: math system-ui;
 }

@@ -301,6 +301,7 @@ const shorthandKeywords = new Set([
 	'xx-large',
 	'xxx-large',
 	'larger',
+	'math',
 	'smaller',
 ]);
 
@@ -340,7 +341,8 @@ const cssFunction = /^(?:var|env|attr)\([^]*\)$/i;
 // function such as var()), and quoted otherwise, e.g. "M+ 1p"
 const formatFamily = (name) => {
 	if (quotedName.test(name)) {
-		return name;
+		// a raw line break would end the string
+		return name.replace(/\r\n|[\n\r\f]/g, '\\a ');
 	}
 	const words = splitWords(name);
 	const valid =
@@ -407,7 +409,10 @@ const createReplacer = (familyNames) => {
 		// Families the author listed keep their place. Each missing fallback is
 		// inserted before the first listed fallback (or system-ui) that comes after
 		// it in the fallback list, after the last listed one that comes before it,
-		// or else right after system-ui, but never after a classic generic family.
+		// or else right after system-ui, but never after a classic generic family
+		// that follows system-ui. (A generic family before system-ui doesn't stop
+		// them: browsers fall back per character, so they are still used for
+		// characters its font lacks.)
 		// Classic generic families are never used as such anchors; a missing one
 		// is added at the end, unless the value already has one.
 		// Anchor positions are indexes in `rest`; -1 is system-ui.
