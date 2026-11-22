@@ -24,7 +24,8 @@ body {
 
 Fallbacks that are already listed after `system-ui`, for example in a
 hand-written stack or from an earlier run of the plugin, are moved into the
-plugin's order instead of being repeated. Other families keep their position:
+plugin's order instead of being repeated. Other families, including generic
+families such as `sans-serif`, keep their position:
 
 ```css
 body {
@@ -115,8 +116,8 @@ module.exports = (grunt) => {
 ### family
 
 The `family` option defines the fallback families used to polyfill `system-ui`.
-It accepts a comma-separated string or an array of them. An empty value is
-ignored, as if the option was not set.
+It accepts a comma-separated string or an array of them. An empty or falsy
+value is ignored, as if the option was not set.
 
 ```js
 import postcssSystemUiFont from "postcss-font-family-system-ui";
