@@ -19,7 +19,7 @@ const creator = (opts) => {
 		// with `preserve: false`, drop system-ui unless it is the only name
 		const withoutSystemUi = familyOption.filter((name) => familyKey(name) !== 'system-ui');
 		fixedReplacer = createReplacer(
-			preserve === false && withoutSystemUi.length ? withoutSystemUi : familyOption
+			!preserve && withoutSystemUi.length ? withoutSystemUi : familyOption
 		);
 	} else if (browsers != null) {
 		fixedReplacer = createReplacer(resolveFamily(undefined));
@@ -86,7 +86,9 @@ const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
 const isFontFaceDescriptor = (decl) =>
 	Object(decl.parent).type === 'atrule' && /^font-face$/i.test(decl.parent.name);
 
-// replace comments (outside of strings) with a space
+const tokenDelimiter = /[\s,/()]/;
+
+// remove comments (outside of strings), keeping the tokens around them apart
 const stripComments = (value) => {
 	if (!value.includes('/*')) {
 		return value;
@@ -107,7 +109,12 @@ const stripComments = (value) => {
 		} else if (char === '/' && value[i + 1] === '*') {
 			const end = value.indexOf('*/', i + 2);
 			i = end === -1 ? value.length : end + 1;
-			result += ' ';
+			// keep two tokens apart, e.g. `12px/**/system-ui`
+			const before = result[result.length - 1];
+			const after = value[i + 1];
+			if (before && after && !tokenDelimiter.test(before) && !tokenDelimiter.test(after)) {
+				result += ' ';
+			}
 		} else {
 			result += char;
 		}
@@ -209,7 +216,7 @@ const familyKey = (item) => {
 // the offset of an unquoted system-ui ending a list item, or -1. Only the first
 // item of a font shorthand may have other tokens (style, weight, size) before
 // it, and only if they are followed by system-ui alone, not e.g. `Foo system-ui`.
-const systemUiOffset = (item, allowPrefix) => {
+const systemUiOffset = (item, allowPrefix, stripKeywords) => {
 	const trimmed = item.replace(trailingWhitespace, '');
 	const offset = trimmed.length - 'system-ui'.length;
 	if (offset < 0 || trimmed.slice(offset).toLowerCase() !== 'system-ui') {
@@ -222,7 +229,9 @@ const systemUiOffset = (item, allowPrefix) => {
 	if (!prefix.trim()) {
 		return offset;
 	}
-	return allowPrefix && familyKey(shorthandFamily(item)) === 'system-ui' ? offset : -1;
+	return allowPrefix && familyKey(shorthandFamily(item, stripKeywords)) === 'system-ui'
+		? offset
+		: -1;
 };
 
 // split a value on whitespace outside of quotes and parentheses
@@ -330,14 +339,18 @@ const cssFunction = /^(?:var|env|attr)\([^]*\)$/i;
 // a family name as given if it is valid unquoted CSS (identifiers, or a
 // function such as var()), and quoted otherwise, e.g. "M+ 1p"
 const formatFamily = (name) => {
-	const valid =
-		quotedName.test(name) ||
-		(!cssWideKeywords.has(name.toLowerCase()) &&
-			splitWords(name).every((word) => identifier.test(word) || cssFunction.test(word)));
-	if (valid) {
+	if (quotedName.test(name)) {
 		return name;
 	}
-	return `"${name.replace(/["\\]/g, '\\$&').replace(/\n/g, '\\a ')}"`;
+	const words = splitWords(name);
+	const valid =
+		!cssWideKeywords.has(name.toLowerCase()) &&
+		words.every((word) => identifier.test(word) || cssFunction.test(word));
+	if (valid) {
+		// identifiers are separated by single spaces, e.g. no line breaks
+		return words.join(' ');
+	}
+	return `"${name.replace(/["\\]/g, '\\$&').replace(/\r\n|[\n\r\f]/g, '\\a ')}"`;
 };
 
 // replace system-ui in a declaration value with the given fallback list
@@ -361,31 +374,33 @@ const createReplacer = (familyNames) => {
 		// font-family holds only family names; the font shorthand (and custom
 		// properties, which may hold one) can have other tokens before the first
 		const familyOnly = /^font-family$/i.test(prop);
+		const shorthand = /^font$/i.test(prop);
 		const items = splitList(value);
 		let index = -1;
 		let offset = -1;
 		while (offset === -1 && ++index < items.length) {
-			offset = systemUiOffset(items[index], !familyOnly && index === 0);
+			offset = systemUiOffset(items[index], !familyOnly && index === 0, shorthand);
 		}
 		if (offset === -1) {
 			return value;
 		}
 		const head = items.slice(0, index);
-		// drop repeated system-ui keywords
-		const rest = items.slice(index + 1).filter((item) => familyKey(item) !== 'system-ui');
+		// when system-ui is dropped (`preserve: false`), drop repeated ones too
+		const rest = items
+			.slice(index + 1)
+			.filter((item) => systemUiEntry || familyKey(item) !== 'system-ui');
 
 		// families already listed before system-ui; in a font shorthand, the
 		// first one follows the style, weight and size
 		const headFamilies = head.slice();
 		if (head.length && !familyOnly) {
-			headFamilies[0] = shorthandFamily(head[0], /^font$/i.test(prop));
+			headFamilies[0] = shorthandFamily(head[0], shorthand);
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);
-		if ([ ...headKeys ].some((key) => classicGenericFamilies.has(key))) {
-			// a generic family before system-ui always matches, so it is never used
-			return value;
-		}
+		// a classic generic family before system-ui always matches, so nothing
+		// after it is used and no fallbacks are added
+		const unreachable = [ ...headKeys ].some((key) => classicGenericFamilies.has(key));
 		const hasGeneric = restKeys.some((key) => classicGenericFamilies.has(key));
 		// fallbacks after a classic generic family would never be used
 		const firstGeneric = restKeys.findIndex((key) => classicGenericFamilies.has(key));
@@ -402,7 +417,7 @@ const createReplacer = (familyNames) => {
 		const missing = [];
 		fallbacks.forEach((fallback) => {
 			const position = restKeys.indexOf(fallback.key);
-			if (headKeys.has(fallback.key)) {
+			if (unreachable || headKeys.has(fallback.key)) {
 				return;
 			}
 			if (position === -1) {

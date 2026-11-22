@@ -57,7 +57,7 @@ module.exports = {
 	"family-split:quoting": {
 		message: "quotes { family } names that aren't valid unquoted CSS",
 		options: {
-			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x)',
+			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x), M+\r1p, A\fB',
 		},
 		source: "family-split.css",
 	},
@@ -102,6 +102,27 @@ module.exports = {
 		message: "applies { preserve: false } to { family }",
 		options: {
 			family: "system-ui, Segoe UI, Roboto, Helvetica Neue",
+			preserve: false,
+		},
+	},
+	"basic:family:preserve_null": {
+		message: "treats a falsy { preserve } like false with { family }",
+		options: {
+			family: "system-ui, Segoe UI, Roboto, Helvetica Neue",
+			preserve: null,
+		},
+		expect: "basic.family.not_preserve.expect.css",
+	},
+	"repeated-system-ui:chrome_60": {
+		message: "leaves a repeated system-ui alone when no polyfill is needed",
+		options: {
+			browsers: ["Chrome 60"],
+		},
+	},
+	"repeated-system-ui:not_preserve": {
+		message: "drops a repeated system-ui with { preserve: false }",
+		options: {
+			browsers: ["IE 11"],
 			preserve: false,
 		},
 	},
