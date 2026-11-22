@@ -1,3 +1,5 @@
+const assert = require("node:assert");
+
 module.exports = {
 	basic: {
 		message: "supports basic usage",
@@ -19,6 +21,14 @@ module.exports = {
 		message: "ignores a { family } string without names",
 		options: {
 			family: " , ",
+		},
+		expect: "basic.expect.css",
+	},
+	"basic:invalid_browsers": {
+		message: "rejects an invalid { browsers } option when the plugin is created",
+		before() {
+			const plugin = require("./dist/index.bundle.cjs");
+			assert.throws(() => plugin({ browsers: ["Chrom 60"] }), /Unknown browser Chrom/);
 		},
 		expect: "basic.expect.css",
 	},

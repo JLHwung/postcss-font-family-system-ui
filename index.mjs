@@ -6,37 +6,47 @@ import browserslist from 'browserslist';
 const creator = (opts) => {
 	const { family, preserve = true, browsers } = Object(opts);
 	const familyOption = parseFamily(family);
-	const fixedReplacer = familyOption.length ? createReplacer(familyOption) : null;
+	const resolveFamily = (path) =>
+		getSystemUiFamily(browserslist(browsers, { path, ignoreUnknownVersions: true }), preserve);
 
-	// Without a family option, the fallbacks depend on the browserslist config,
-	// which is resolved relative to each CSS file. Cache replacers per fallback
-	// list, since most files share the same config.
-	const replacers = new Map();
+	// With a family or browsers option, the fallbacks are the same for every
+	// file, so resolve them now and let invalid options fail early.
+	let fixedReplacer = null;
+	if (familyOption.length) {
+		fixedReplacer = createReplacer(familyOption);
+	} else if (browsers !== undefined) {
+		fixedReplacer = createReplacer(resolveFamily(undefined));
+	}
+
+	// Otherwise they depend on the browserslist config, which is looked up from
+	// each CSS file's directory. Cache them per directory.
+	const replacersByDirectory = new Map();
 	const getReplacer = (from) => {
 		if (fixedReplacer) {
 			return fixedReplacer;
 		}
-		const supportedBrowsers = browserslist(browsers, {
-			path: from,
-			ignoreUnknownVersions: true,
-		});
-		const systemUiFamily = getSystemUiFamily(supportedBrowsers, preserve);
-		const key = systemUiFamily.join(',');
-		if (!replacers.has(key)) {
-			replacers.set(key, createReplacer(systemUiFamily));
+		const directory = from ? from.replace(/[\\/][^\\/]*$/, '') : '';
+		if (!replacersByDirectory.has(directory)) {
+			replacersByDirectory.set(directory, createReplacer(resolveFamily(from)));
 		}
-		return replacers.get(key);
+		return replacersByDirectory.get(directory);
 	};
 
 	return {
 		postcssPlugin: 'postcss-font-family-system-ui',
 		prepare(result) {
-			const replace = getReplacer(result.opts.from);
+			let replace;
 			const visited = new WeakSet();
 			return {
 				// update font declarations to polyfill system-ui usage
 				Declaration(decl) {
-					if (decl.prop.match(fontPropertyMatch) && !visited.has(decl)) {
+					if (
+						decl.prop.match(fontPropertyMatch) &&
+						!visited.has(decl) &&
+						systemUiPresent.test(decl.value)
+					) {
+						// look up the config only for files that use system-ui
+						replace ??= getReplacer(result.opts.from);
 						decl.value = replace(decl.value);
 						visited.add(decl);
 					}
@@ -60,6 +70,8 @@ const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
 // unquoted system-ui as a whole family name
 const whitespace = '[\\f\\n\\r\\x09\\x20]';
 const systemUiMatch = new RegExp(`(^|,|${whitespace}+)system-ui${whitespace}*(,|$)`, 'i');
+// cheap check before looking up the config and parsing the value
+const systemUiPresent = /system-ui/i;
 // the comma (and whitespace) ending the family list before system-ui
 const headListEnd = new RegExp(`${whitespace}*,${whitespace}*$`);
 
