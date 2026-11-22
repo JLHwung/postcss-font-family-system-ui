@@ -37,4 +37,7 @@ test {
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif, Segoe UI;
 	--font-heading: bold large system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font: 12px/1.5 Normal system-ui;
+	font: 12px / normal system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font: 12px / 1.5 Normal system-ui;
+	font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 }

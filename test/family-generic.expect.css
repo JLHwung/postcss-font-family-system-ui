@@ -5,4 +5,5 @@ test {
 	font-family: system-ui, -apple-system, Inter, sans-serif;
 	font-family: system-ui, -apple-system, ui-sans-serif, sans-serif;
 	--x: system-ui, -apple-system, Arial, sans-serif ;
+	font-family: serif, system-ui, -apple-system;
 }

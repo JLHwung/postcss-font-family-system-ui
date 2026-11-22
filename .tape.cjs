@@ -57,7 +57,7 @@ module.exports = {
 	"family-split:quoting": {
 		message: "quotes { family } names that aren't valid unquoted CSS",
 		options: {
-			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x), M+\r1p, A\fB, "C\nD", "E\\\nF"',
+			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x), M+\r1p, A\fB, "C\nD", "E\\\nF", Foo inherit',
 		},
 		source: "family-split.css",
 	},
@@ -65,6 +65,12 @@ module.exports = {
 		message: "places newer generic families from { family } like other families",
 		options: {
 			family: "ui-monospace, Menlo, emoji, monospace",
+		},
+	},
+	"family-escaped": {
+		message: "keeps escaped spaces when comparing family names",
+		options: {
+			family: 'system-ui, "Foo  Bar"',
 		},
 	},
 	"family-array": {

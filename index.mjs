@@ -44,7 +44,6 @@ const creator = (opts) => {
 	return {
 		postcssPlugin: 'postcss-font-family-system-ui',
 		prepare(result) {
-			let replace;
 			const visited = new WeakSet();
 			return {
 				// update font declarations to polyfill system-ui usage
@@ -55,12 +54,18 @@ const creator = (opts) => {
 						!isFontFaceDescriptor(decl) &&
 						systemUiPresent.test(decl.value)
 					) {
-						// look up the config only for files that use system-ui
-						replace ??= getReplacer(
-							result.opts.from || Object(result.root.source).input?.file
+						// look up the config only for declarations that use system-ui,
+						// from their own file, e.g. CSS inlined by postcss-import
+						const replace = getReplacer(
+							Object(decl.source).input?.file ||
+								result.opts.from ||
+								Object(result.root.source).input?.file
 						);
-						// PostCSS keeps comments next to other tokens in the value
-						const value = stripComments(decl.value);
+						// PostCSS keeps comments next to other tokens in the value, and
+						// leaves the spaces around the ones it removes (`raws.value`)
+						const value = decl.raws.value
+							? stripComments(decl.value).replace(/([^\s]) {2,}(?=[^\s])/g, '$1 ')
+							: stripComments(decl.value);
 						const replaced = replace(value, decl.prop);
 						if (replaced !== value) {
 							decl.value = replaced;
@@ -111,11 +116,14 @@ const stripComments = (value) => {
 		} else if (char === '/' && value[i + 1] === '*') {
 			const end = value.indexOf('*/', i + 2);
 			i = end === -1 ? value.length : end + 1;
-			// keep two tokens apart, e.g. `12px/**/system-ui`
+			// keep two tokens apart, e.g. `12px/**/system-ui`, but don't leave two
+			// spaces, e.g. `Arial, /* x */ system-ui`
 			const before = result[result.length - 1];
 			const after = value[i + 1];
 			if (before && after && !tokenDelimiter.test(before) && !tokenDelimiter.test(after)) {
 				result += ' ';
+			} else if (before && after && whitespaceChar.test(before) && whitespaceChar.test(after)) {
+				i++;
 			}
 		} else {
 			result += char;
@@ -132,11 +140,11 @@ const leadingWhitespace = /^[\f\n\r\t ]+/;
 // a quoted string with no unescaped closing quote inside
 const quotedName = /^(["'])((?:\\[^]|(?!\1)[^\\])*)\1$/;
 
-// generic font family keywords, which are never dropped or moved
 // the generic families every browser supports, which always match a font, so
 // families after them are never used
 const classicGenericFamilies = new Set([ 'serif', 'sans-serif', 'monospace', 'cursive', 'fantasy' ]);
 
+// all generic family keywords
 const genericFamilies = new Set([
 	'serif',
 	'sans-serif',
@@ -210,7 +218,9 @@ const familyKey = (item) => {
 	const trimmed = item.trim();
 	const quoted = quotedName.exec(trimmed);
 	const name = (
-		quoted ? unescapeCss(quoted[2]) : unescapeCss(trimmed).replace(/\s+/g, ' ')
+		quoted
+			? unescapeCss(quoted[2])
+			: unescapeCss(trimmed.replace(/\\[^]|\s+/g, (match) => (match[0] === '\\' ? match : ' ')))
 	).toLowerCase();
 	return quoted && genericFamilies.has(name) ? `"${name}"` : name;
 };
@@ -236,14 +246,19 @@ const systemUiOffset = (item, allowPrefix) => {
 	}
 	const words = splitWords(prefix);
 	let start = words.length;
-	while (start > 0 && shorthandKeywords.has(words[start - 1].toLowerCase())) {
+	while (
+		start > 0 &&
+		shorthandKeywords.has(words[start - 1].toLowerCase()) &&
+		!isLineHeightAt(words, start - 1)
+	) {
 		start--;
 	}
 	if (start < words.length) {
 		// keywords, unless they follow a font size (`12px Normal system-ui`)
-		return start > 0 && isSizeWord(words[start - 1]) ? -1 : offset;
+		return start > 0 && isSizeAt(words, start - 1) ? -1 : offset;
 	}
-	return isFamilyWord(words[words.length - 1]) ? -1 : offset;
+	// a size or line height (`12px / normal`), not a family-like word
+	return isFamilyWord(words[start - 1]) && !isSizeAt(words, start - 1) ? -1 : offset;
 };
 
 // split a value on whitespace outside of quotes and parentheses
@@ -334,6 +349,13 @@ const isSizeWord = (word) => {
 	);
 };
 
+// whether words[i] is a line height: it follows `/`, e.g. `normal` in
+// `12px / normal` or `12px/ normal`
+const isLineHeightAt = (words, i) => i > 0 && words[i - 1].endsWith('/');
+
+// whether words[i] is a font size or line height
+const isSizeAt = (words, i) => isSizeWord(words[i]) || isLineHeightAt(words, i);
+
 // the family in the first item of a font shorthand: the family words at its
 // end, e.g. `Roboto Condensed` in `bold 12px/1.5 Roboto Condensed`. Sizes,
 // functions such as calc() or var(), numbers and line heights end the family.
@@ -352,7 +374,7 @@ const shorthandFamily = (item, stripKeywords = true) => {
 	}
 	// keywords right after a font size or line height are part of the family
 	// (`12px Medium Sans`), otherwise they may be the size (`700 large Roboto`)
-	if (stripKeywords && !(start > 0 && isSizeWord(words[start - 1]))) {
+	if (stripKeywords && !(start > 0 && isSizeAt(words, start - 1))) {
 		while (start < words.length && shorthandKeywords.has(words[start].toLowerCase())) {
 			start++;
 		}
@@ -370,7 +392,6 @@ const cssFunction = /^(?:var|env|attr)\([^]*\)$/i;
 // function such as var()), and quoted otherwise, e.g. "M+ 1p"
 const formatFamily = (name) => {
 	if (quotedName.test(name)) {
-		// a raw line break would end the string
 		// a raw line break would end the string; an escaped one is a line
 		// continuation, which stands for nothing
 		return name.replace(/\\(?:\r\n|[\s\S])|\r\n|[\n\r\f]/g, (match) => {
@@ -382,8 +403,11 @@ const formatFamily = (name) => {
 	}
 	const words = splitWords(name);
 	const valid =
-		!cssWideKeywords.has(name.toLowerCase()) &&
-		words.every((word) => identifier.test(word) || cssFunction.test(word));
+		words.every(
+			(word) =>
+				(identifier.test(word) && !cssWideKeywords.has(word.toLowerCase())) ||
+				cssFunction.test(word)
+		);
 	if (valid) {
 		// identifiers are separated by single spaces, e.g. no line breaks
 		return words.join(' ');
@@ -436,7 +460,7 @@ const createReplacer = (familyNames) => {
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);
-		const hasGeneric = restKeys.some((key) => classicGenericFamilies.has(key));
+		const hasGeneric = [ ...headKeys, ...restKeys ].some((key) => classicGenericFamilies.has(key));
 		// a classic generic family always matches a font, so fallbacks after it
 		// are only used for characters that font lacks: insert them before it
 		const firstGeneric = restKeys.findIndex((key) => classicGenericFamilies.has(key));

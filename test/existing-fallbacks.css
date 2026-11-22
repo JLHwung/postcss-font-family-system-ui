@@ -37,4 +37,7 @@ test {
 	font-family: system-ui, sans-serif, Segoe UI;
 	--font-heading: bold large system-ui;
 	font: 12px/1.5 Normal system-ui;
+	font: 12px / normal system-ui;
+	font: 12px / 1.5 Normal system-ui;
+	font-family: Arial, /* x */ system-ui;
 }
