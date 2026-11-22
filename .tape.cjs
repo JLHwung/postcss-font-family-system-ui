@@ -10,6 +10,21 @@ module.exports = {
 			family: "system-ui, Segoe UI, Roboto, Helvetica Neue",
 		},
 	},
+	"family-array": {
+		message: "splits comma-separated entries in a { family } array",
+		options: {
+			family: ["system-ui, Segoe UI", "Roboto", "Helvetica Neue"],
+		},
+	},
+	"basic:invalid_family": {
+		message: "rejects { family } entries that are not strings",
+		before() {
+			const plugin = require("./dist/index.bundle.cjs");
+			assert.throws(() => plugin({ family: [null] }), TypeError);
+			assert.throws(() => plugin({ family: 123 }), TypeError);
+		},
+		expect: "basic.expect.css",
+	},
 	"basic:empty_family_array": {
 		message: "ignores an empty { family } array",
 		options: {

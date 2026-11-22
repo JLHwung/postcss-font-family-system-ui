@@ -144,8 +144,21 @@ const createReplacer = (systemUiFamily) => {
 	};
 };
 
-// accept a comma-separated string or an array, dropping empty names
+// accept a comma-separated string or an array of them, dropping empty names
 const parseFamily = (family) => {
-	const names = typeof family === 'string' ? family.split(',') : family || [];
-	return Array.from(names, (name) => String(name).trim()).filter(Boolean);
+	if (family == null) {
+		return [];
+	}
+	const entries = Array.isArray(family) ? family : [ family ];
+	return entries
+		.reduce((names, entry) => {
+			if (typeof entry !== 'string') {
+				throw new TypeError(
+					'postcss-font-family-system-ui: `family` must be a string or an array of strings'
+				);
+			}
+			return names.concat(splitList(entry));
+		}, [])
+		.map((name) => name.trim())
+		.filter(Boolean);
 };
