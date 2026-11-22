@@ -27,6 +27,24 @@ module.exports = {
 			browsers: ["Safari 9"],
 		},
 	},
+	"basic:browser:firefox_60": {
+		message: "adds generic fallbacks when support is only on Mac (-apple-system)",
+		options: {
+			browsers: ["Firefox 60"],
+		},
+	},
+	"basic:browser:chrome_55": {
+		message: "adds generic fallbacks when support is only on Mac (BlinkMacSystemFont)",
+		options: {
+			browsers: ["Chrome 55"],
+		},
+	},
+	"basic:browser:safari_10": {
+		message: "does not add generic fallbacks for Apple-only browsers",
+		options: {
+			browsers: ["Safari 10"],
+		},
+	},
 	"basic:browser:whole_coverage": {
 		message: "supports complex { browsers } usage",
 		options: {

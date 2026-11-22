@@ -1,0 +1,10 @@
+test {
+	font: italic bold 12px/30px system-ui, -apple-system, Helvetica Neue, sans-serif;
+	font: italic bold 12px/30px system-ui, -apple-system, sans-serif;
+	font: italic bold 12px/30px sans-serif;
+	font-family: system-ui, -apple-system, Helvetica Neue, sans-serif;
+	font-family: system-ui, -apple-system, sans-serif;
+	font-family: system-ui, -apple-system;
+	font-family: sans-serif;
+	font-family: "Droid Sans",    system-ui, -apple-system,    sans-serif;
+}
