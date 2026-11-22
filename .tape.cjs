@@ -8,6 +8,20 @@ module.exports = {
 			family: "system-ui, Segoe UI, Roboto, Helvetica Neue",
 		},
 	},
+	"basic:empty_family_array": {
+		message: "ignores an empty { family } array",
+		options: {
+			family: [],
+		},
+		expect: "basic.expect.css",
+	},
+	"basic:empty_family_string": {
+		message: "ignores a { family } string without names",
+		options: {
+			family: " , ",
+		},
+		expect: "basic.expect.css",
+	},
 	"basic:browser:chrome_60": {
 		message: "supports simple { browsers } usage",
 		options: {

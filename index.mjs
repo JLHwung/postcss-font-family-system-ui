@@ -5,10 +5,8 @@ import browserslist from 'browserslist';
 // plugin
 const creator = (opts) => {
 	const { family, preserve = true, browsers } = Object(opts);
-	let systemUiFamily = family;
-	if (typeof family === 'string') {
-		systemUiFamily = family.trim().split(/\s*,\s*/);
-	} else if (!family) {
+	let systemUiFamily = parseFamily(family);
+	if (!systemUiFamily.length) {
 		// browsers supported by the configuration
 		const supportedBrowsers = browserslist(browsers, {
 			ignoreUnknownVersions: true,
@@ -55,3 +53,9 @@ export default creator;
 const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
 
 const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// accept a comma-separated string or an array, dropping empty names
+const parseFamily = (family) => {
+	const names = typeof family === 'string' ? family.split(',') : family || [];
+	return Array.from(names, (name) => String(name).trim()).filter(Boolean);
+};
