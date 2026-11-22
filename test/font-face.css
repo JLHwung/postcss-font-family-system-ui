@@ -1,0 +1,8 @@
+@font-face {
+	font-family: system-ui;
+	src: local(".SFNSText");
+}
+
+test {
+	font-family: system-ui;
+}

@@ -22,6 +22,28 @@ body {
 }
 ```
 
+Only fallbacks that are missing are added, so a hand-written stack, or CSS the
+plugin already processed, keeps the families it lists in place. Missing
+fallbacks are inserted right after `system-ui`, or after the listed fallbacks
+that come before them, but before a generic family such as `sans-serif`; a
+fallback listed only after a generic family is added before it as well:
+
+```css
+body {
+  font-family: system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* becomes */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
+```
+
+`font-family` descriptors in `@font-face` rules are left alone, as they take a
+single family name. When a value is changed, comments inside it are removed.
+
 ## Usage
 
 Add [postcss-font-family-system-ui] to your build tool:
@@ -98,7 +120,8 @@ module.exports = (grunt) => {
 ### family
 
 The `family` option defines the fallback families used to polyfill `system-ui`.
-It accepts an array or a comma-separated string.
+It accepts a comma-separated string or an array of them. An empty or falsy
+value is ignored, as if the option was not set.
 
 ```js
 import postcssSystemUiFont from "postcss-font-family-system-ui";
@@ -110,11 +133,11 @@ postcssSystemUiFont({
 
 ### browsers
 
-Note: if `family` option is specified, the `browsers` option will not be activated.
+Note: if a non-empty `family` option is specified, the `browsers` option and the browserslist configuration are not used.
 
-The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse.
+The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse. Browsers that support `system-ui` only on macOS, through `-apple-system` (Firefox 43–91) or `BlinkMacSystemFont` (Chrome 53–55), also get the generic fallbacks for other platforms.
 
-[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables.
+[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables. The configuration is looked up from the location of each CSS file (the PostCSS `from` option), or from the current working directory when `from` is not set. As with Autoprefixer, CSS from a package with its own `browserslist` configuration, for example in `node_modules`, uses that package's configuration; set the `browsers` option to use the same browsers for every file. An invalid configuration is reported when the first `system-ui` declaration that uses it is processed.
 
 The `browsers` option should only be used when a standard browserslist configuration is not available.
 
@@ -129,7 +152,9 @@ If not valid browserslist configuration is specified, the [default browserslist 
 ### preserve
 
 The `preserve: boolean` option controls whether `system-ui` should be preserved in the transformed CSS output.
-It accepts only boolean and the default is `true`
+It accepts only boolean and the default is `true`. With the `family` option,
+`preserve: false` removes `system-ui` from that list, unless it is the only
+name, and `preserve: true` uses the list as given.
 
 ```js
 postcssSystemUiFont({

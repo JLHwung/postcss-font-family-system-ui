@@ -1,0 +1,9 @@
+test {
+	font-family: system-ui, Inter, sans-serif;
+	font-family: system-ui, -apple-system, Inter, sans-serif;
+	font-family: system-ui, serif;
+	font-family: system-ui, Inter;
+	font-family: system-ui, ui-sans-serif;
+	--x: system-ui, Arial ;
+	font-family: serif, system-ui;
+}

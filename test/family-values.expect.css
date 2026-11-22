@@ -1,0 +1,4 @@
+test {
+	font-family: system-ui, var(--brand, Roboto), "O'Reilly Sans", "initial", Roboto Condensed, Arial, sans-serif;
+	font: 12px Roboto Condensed, system-ui, var(--brand, Roboto), "O'Reilly Sans", "initial", Arial;
+}
