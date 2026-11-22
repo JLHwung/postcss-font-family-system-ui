@@ -49,9 +49,9 @@ module.exports = {
 		source: "family-split.css",
 	},
 	"custom-property-head": {
-		message: "keeps keyword-like words of a family before system-ui in custom properties",
+		message: "recognises a family before system-ui in custom properties, with or without leading keywords",
 		options: {
-			family: "system-ui, Sans",
+			family: "system-ui, Medium Sans, Arial",
 		},
 	},
 	"family-split:quoting": {

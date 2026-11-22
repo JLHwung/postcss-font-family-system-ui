@@ -1,4 +1,5 @@
 test {
 	--stack: Medium Sans, system-ui;
 	--x: Bold system-ui;
+	--y: italic Arial, system-ui;
 }

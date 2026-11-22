@@ -134,6 +134,9 @@ const stripComments = (value) => {
 				result += ' ';
 			} else if (before && after && whitespaceChar.test(before) && whitespaceChar.test(after)) {
 				i++;
+			} else if (before && after && whitespaceChar.test(before) && tokenDelimiter.test(after)) {
+				// no space before a comma, e.g. `Arial /* x */, system-ui`
+				result = result.replace(trailingWhitespace, '');
 			}
 		} else {
 			result += char;
@@ -463,10 +466,15 @@ const createReplacer = (familyNames) => {
 			.filter((item) => systemUiEntry || familyKey(item) !== 'system-ui');
 
 		// families already listed before system-ui; in a font shorthand, the
-		// first one follows the style, weight and size
+		// first one follows the style, weight and size. A custom property may
+		// hold either a family list or a shorthand, so its first item counts both
+		// as a whole (`Medium Sans`) and without leading keywords (`italic Arial`).
 		const headFamilies = head.slice();
 		if (head.length && !familyOnly) {
 			headFamilies[0] = shorthandFamily(head[0], shorthand);
+			if (!shorthand) {
+				headFamilies.push(shorthandFamily(head[0], true));
+			}
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);

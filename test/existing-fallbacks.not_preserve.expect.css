@@ -40,5 +40,5 @@ test {
 	font: 12px / normal -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font: 12px / 1.5 Normal system-ui;
 	font-family: Arial, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
-	font-family: "Foo   Bar" , -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font-family: "Foo   Bar", -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 }
