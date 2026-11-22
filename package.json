@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "rollup -c .rollup.mjs",
-    "check:js": "eslint *.[cm]js --cache --quiet",
+    "check:js": "eslint *.[cm]js lib/*.[cm]js --cache --quiet",
     "prepublishOnly": "yarn test",
     "check": "yarn check:js",
     "test": "yarn build && echo 'Running tests...'; yarn check && yarn test:tape",
