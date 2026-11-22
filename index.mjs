@@ -48,6 +48,7 @@ const creator = (opts) => {
 					if (
 						decl.prop.match(fontPropertyMatch) &&
 						!visited.has(decl) &&
+						!isFontFaceDescriptor(decl) &&
 						systemUiPresent.test(decl.value)
 					) {
 						// look up the config only for files that use system-ui
@@ -71,6 +72,10 @@ export default creator;
  * - custom properties (see https://www.w3.org/TR/css-variables-1/#custom-property)
  */
 const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
+
+// @font-face takes a single family name, which must not become a list
+const isFontFaceDescriptor = (decl) =>
+	Object(decl.parent).type === 'atrule' && /^font-face$/i.test(decl.parent.name);
 
 // cheap check before looking up the config and parsing the value
 const systemUiPresent = /system-ui/i;

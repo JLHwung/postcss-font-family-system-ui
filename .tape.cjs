@@ -22,6 +22,12 @@ module.exports = {
 			family: "system-ui, O'Reilly Sans, Bob's Font, var(--a, Roboto), Foo (Pro, \"Foo, Bar\"",
 		},
 	},
+	"font-face": {
+		message: "leaves font-family in @font-face alone",
+		options: {
+			family: "system-ui, Segoe UI",
+		},
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {
