@@ -16,12 +16,13 @@ const creator = (opts) => {
 		systemUiFamily = getSystemUiFamily(supportedBrowsers, preserve);
 	}
 
-	// system-ui and fallbacks match
+	// system-ui and any run of fallbacks already following it, so that existing
+	// fallbacks (e.g. from a previous run) are replaced instead of duplicated
 	const whitespace = '[\\f\\n\\r\\x09\\x20]';
 	const systemUiMatch = new RegExp(
 		`(^|,|${whitespace}+)(?:system-ui${whitespace}*)(?:,${whitespace}*(?:${systemUiFamily
 			.map(escapeRegExp)
-			.join('|')})${whitespace}*)?(,|$)`,
+			.join('|')})${whitespace}*)*(,|$)`,
 		'i'
 	);
 

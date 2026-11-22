@@ -76,6 +76,12 @@ module.exports = {
 			family: "system-ui, M+ 1p, Foo (Pro, $& Sans",
 		},
 	},
+	"existing-fallbacks": {
+		message: "replaces existing fallbacks instead of duplicating them",
+		options: {
+			browsers: ["IE 11", "Safari 10"],
+		},
+	},
 	"custom-properties": {
 		message: "supports custom-properties usage",
 	},
