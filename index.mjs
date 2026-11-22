@@ -19,14 +19,15 @@ const creator = (opts) => {
 	// system-ui and fallbacks match
 	const whitespace = '[\\f\\n\\r\\x09\\x20]';
 	const systemUiMatch = new RegExp(
-		`(^|,|${whitespace}+)(?:system-ui${whitespace}*)(?:,${whitespace}*(?:${systemUiFamily.join(
-			'|'
-		)})${whitespace}*)?(,|$)`,
+		`(^|,|${whitespace}+)(?:system-ui${whitespace}*)(?:,${whitespace}*(?:${systemUiFamily
+			.map(escapeRegExp)
+			.join('|')})${whitespace}*)?(,|$)`,
 		'i'
 	);
 
-	// system-ui fallback replacement
-	const systemUiReplace = `$1${systemUiFamily.join(', ')}$2`;
+	// system-ui fallback replacement, as a function so `$` in family names is literal
+	const systemUiFallback = systemUiFamily.join(', ');
+	const systemUiReplace = (match, before, after) => `${before}${systemUiFallback}${after}`;
 
 	const visited = new WeakSet();
 	return {
@@ -51,3 +52,5 @@ export default creator;
  * - custom properties (see https://www.w3.org/TR/css-variables-1/#custom-property)
  */
 const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
+
+const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

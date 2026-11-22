@@ -70,6 +70,12 @@ module.exports = {
 			preserve: false,
 		},
 	},
+	"family-special": {
+		message: "treats special characters in { family } literally",
+		options: {
+			family: "system-ui, M+ 1p, Foo (Pro, $& Sans",
+		},
+	},
 	"custom-properties": {
 		message: "supports custom-properties usage",
 	},
