@@ -3,4 +3,8 @@ test {
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Roboto Mono, sans-serif;
 	font: 12px system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, BlinkMacSystemFont, sans-serif;
+	font-family: Roboto, system-ui, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Ubuntu Mono;
+	--stack: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, var(--brand-font, Roboto), sans-serif;
 }

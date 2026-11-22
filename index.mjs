@@ -57,25 +57,79 @@ export default creator;
  */
 const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
 
-const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// unquoted system-ui as a whole family name
+const whitespace = '[\\f\\n\\r\\x09\\x20]';
+const systemUiMatch = new RegExp(`(^|,|${whitespace}+)system-ui${whitespace}*(,|$)`, 'i');
+// the comma (and whitespace) ending the family list before system-ui
+const headListEnd = new RegExp(`${whitespace}*,${whitespace}*$`);
+
+// split a value on commas outside of quotes and parentheses, keeping whitespace
+const splitList = (value) => {
+	const items = [];
+	let start = 0;
+	let depth = 0;
+	let quote = '';
+	for (let i = 0; i < value.length; i++) {
+		const char = value[i];
+		if (char === '\\') {
+			i++;
+		} else if (quote) {
+			if (char === quote) {
+				quote = '';
+			}
+		} else if (char === '"' || char === '\'') {
+			quote = char;
+		} else if (char === '(') {
+			depth++;
+		} else if (char === ')') {
+			depth = Math.max(0, depth - 1);
+		} else if (char === ',' && depth === 0) {
+			items.push(value.slice(start, i));
+			start = i + 1;
+		}
+	}
+	items.push(value.slice(start));
+	return items;
+};
+
+// family name for comparison: unquoted, whitespace collapsed, case-insensitive
+const normalizeName = (name) =>
+	name
+		.trim()
+		.replace(/^(["'])(.*)\1$/, '$2')
+		.replace(/\s+/g, ' ')
+		.toLowerCase();
 
 // replace system-ui in a declaration value with the given fallback list
 const createReplacer = (systemUiFamily) => {
-	// system-ui and any run of fallbacks already following it, so that existing
-	// fallbacks (e.g. from a previous run) are replaced instead of duplicated
-	const whitespace = '[\\f\\n\\r\\x09\\x20]';
-	const systemUiMatch = new RegExp(
-		`(^|,|${whitespace}+)(?:system-ui${whitespace}*)(?:,${whitespace}*(?:${systemUiFamily
-			.map(escapeRegExp)
-			.join('|')})${whitespace}*)*(,|$)`,
-		'i'
-	);
+	const fallbackNames = systemUiFamily.map(normalizeName);
+	// names to drop after system-ui: the fallbacks (e.g. from a previous run or
+	// a hand-written stack) and repeated system-ui
+	const knownNames = new Set([ ...fallbackNames, 'system-ui' ]);
 
-	// system-ui fallback replacement, as a function so `$` in family names is literal
-	const systemUiFallback = systemUiFamily.join(', ');
-	const systemUiReplace = (match, before, after) => `${before}${systemUiFallback}${after}`;
-
-	return (value) => value.replace(systemUiMatch, systemUiReplace);
+	return (value) => {
+		const match = systemUiMatch.exec(value);
+		if (!match) {
+			return value;
+		}
+		const [ whole, before, comma ] = match;
+		const head = value.slice(0, match.index);
+		// don't repeat fallbacks that are already listed before system-ui
+		const headNames = new Set(splitList(head).map(normalizeName));
+		const newNames = systemUiFamily.filter((name, i) => !headNames.has(fallbackNames[i]));
+		const rest = comma
+			? splitList(value.slice(match.index + whole.length)).filter(
+				(item) => !knownNames.has(normalizeName(item))
+			)
+			: [];
+		// every fallback is already listed before system-ui: drop system-ui
+		const headList = head.replace(headListEnd, '');
+		if (!newNames.length && headList !== head) {
+			return [ headList, ...rest ].join(',');
+		}
+		const fallback = (newNames.length ? newNames : systemUiFamily).join(', ');
+		return [ `${head}${before}${fallback}`, ...rest ].join(',');
+	};
 };
 
 // accept a comma-separated string or an array, dropping empty names
