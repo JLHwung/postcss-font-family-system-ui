@@ -1,12 +1,12 @@
 // tooling
-import getSystemUiFamily from "./lib/get-system-ui-family.mjs";
-import browserslist from "browserslist";
+import getSystemUiFamily from './lib/get-system-ui-family.mjs';
+import browserslist from 'browserslist';
 
 // plugin
 const creator = (opts) => {
 	const { family, preserve = true, browsers } = Object(opts);
 	let systemUiFamily = family;
-	if (typeof family === "string") {
+	if (typeof family === 'string') {
 		systemUiFamily = family.trim().split(/\s*,\s*/);
 	} else if (!family) {
 		// browsers supported by the configuration
@@ -17,20 +17,20 @@ const creator = (opts) => {
 	}
 
 	// system-ui and fallbacks match
-	const whitespace = "[\\f\\n\\r\\x09\\x20]";
+	const whitespace = '[\\f\\n\\r\\x09\\x20]';
 	const systemUiMatch = new RegExp(
 		`(^|,|${whitespace}+)(?:system-ui${whitespace}*)(?:,${whitespace}*(?:${systemUiFamily.join(
-			"|"
+			'|'
 		)})${whitespace}*)?(,|$)`,
-		"i"
+		'i'
 	);
 
 	// system-ui fallback replacement
-	const systemUiReplace = `$1${systemUiFamily.join(", ")}$2`;
+	const systemUiReplace = `$1${systemUiFamily.join(', ')}$2`;
 
 	const visited = new WeakSet();
 	return {
-		postcssPlugin: "postcss-font-family-system-ui",
+		postcssPlugin: 'postcss-font-family-system-ui',
 		// update font declarations to polyfill system-ui usage
 		Declaration(decl) {
 			if (decl.prop.match(fontPropertyMatch) && !visited.has(decl)) {
