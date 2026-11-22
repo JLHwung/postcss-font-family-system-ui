@@ -20,4 +20,8 @@ test {
 	--font: 12px Roboto, system-ui, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font: 0/0 Roboto, system-ui, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font: calc(1em + 2px) system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font: bold var(--fs)/1.5 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font: oblique 10deg 12px system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font: 12px / normal Roboto, system-ui, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 }

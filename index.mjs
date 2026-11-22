@@ -172,24 +172,92 @@ const systemUiOffset = (item, allowPrefix) => {
 	return allowPrefix && familyKey(shorthandFamily(item)) === 'system-ui' ? offset : -1;
 };
 
-// a font-size token of the font shorthand, optionally with `/line-height`
-const fontSizeToken =
-	/^(?:[+-]?(?:\d*\.)?\d+(?:[a-z]+|%)|0|xx-small|x-small|small|medium|large|x-large|xx-large|xxx-large|larger|smaller)(?:\/.*)?$/i;
-
-// the family in the first item of a font shorthand, e.g. `Roboto` in
-// `bold 12px/1.5 Roboto`. Without a size token, the item is a family name.
-const shorthandFamily = (item) => {
-	const words = item.trim().split(/\s+/);
-	const size = words.findIndex((word) => fontSizeToken.test(word));
-	if (size === -1) {
-		return item;
+// split a value on whitespace outside of quotes and parentheses
+const splitWords = (value) => {
+	const words = [];
+	let word = '';
+	let depth = 0;
+	let quote = '';
+	for (let i = 0; i < value.length; i++) {
+		const char = value[i];
+		if (char === '\\') {
+			word += value.slice(i, i + 2);
+			i++;
+			continue;
+		}
+		if (quote) {
+			if (char === quote) {
+				quote = '';
+			}
+		} else if (char === '"' || char === '\'') {
+			quote = char;
+		} else if (char === '(') {
+			depth++;
+		} else if (char === ')') {
+			depth = Math.max(0, depth - 1);
+		} else if (depth === 0 && whitespaceChar.test(char)) {
+			if (word) {
+				words.push(word);
+			}
+			word = '';
+			continue;
+		}
+		word += char;
 	}
-	let start = size + 1;
-	// line height in separate tokens: `12px / 1.5`, `12px /1.5` or `12px/ 1.5`
-	if (words[start] === '/' || words[size].endsWith('/')) {
-		start += words[start] === '/' ? 2 : 1;
-	} else if (words[start] && words[start][0] === '/') {
-		start += 1;
+	if (word) {
+		words.push(word);
+	}
+	return words;
+};
+
+// a CSS identifier, with escapes
+const identifier = /^(?:--|-?(?:[a-z_\u0080-￿]|\\[^]))(?:[\w\-\u0080-￿]|\\[^])*$/i;
+
+// keywords that can come before the family in a font shorthand
+const shorthandKeywords = new Set([
+	'normal',
+	'italic',
+	'oblique',
+	'small-caps',
+	'bold',
+	'bolder',
+	'lighter',
+	'ultra-condensed',
+	'extra-condensed',
+	'condensed',
+	'semi-condensed',
+	'semi-expanded',
+	'expanded',
+	'extra-expanded',
+	'ultra-expanded',
+	'xx-small',
+	'x-small',
+	'small',
+	'medium',
+	'large',
+	'x-large',
+	'xx-large',
+	'xxx-large',
+	'larger',
+	'smaller',
+]);
+
+const isFamilyWord = (word) =>
+	quotedName.test(word) || (identifier.test(word) && !shorthandKeywords.has(word.toLowerCase()));
+
+// the family in the first item of a font shorthand: the family words at its
+// end, e.g. `Roboto` in `bold 12px/1.5 Roboto`. Sizes, functions such as
+// calc() or var(), numbers, line heights and keywords end the family.
+const shorthandFamily = (item) => {
+	const words = splitWords(item);
+	let start = words.length;
+	while (
+		start > 0 &&
+		isFamilyWord(words[start - 1]) &&
+		// a word after `/` is the line height, e.g. `normal` in `12px / normal`
+		!(start > 1 && words[start - 2].endsWith('/'))
+	) {
+		start--;
 	}
 	return words.slice(start).join(' ');
 };
