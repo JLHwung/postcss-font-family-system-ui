@@ -16,4 +16,7 @@ test {
 	font: bold 12px / 1.5 Roboto, system-ui, sans-serif;
 	font-family: system-ui
 		, sans-serif;
+	font: 12px Foo system-ui, serif;
+	--font: 12px Roboto, system-ui, sans-serif;
+	font: 0/0 Roboto, system-ui;
 }

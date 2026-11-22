@@ -136,7 +136,8 @@ const familyKey = (item) => {
 };
 
 // the offset of an unquoted system-ui ending a list item, or -1. Only the first
-// item of a font shorthand may have other tokens (style, weight, size) before it.
+// item of a font shorthand may have other tokens (style, weight, size) before
+// it, and only if they are followed by system-ui alone, not e.g. `Foo system-ui`.
 const systemUiOffset = (item, allowPrefix) => {
 	const trimmed = item.replace(trailingWhitespace, '');
 	const offset = trimmed.length - 'system-ui'.length;
@@ -147,20 +148,23 @@ const systemUiOffset = (item, allowPrefix) => {
 	if (prefix && !whitespaceChar.test(prefix[prefix.length - 1])) {
 		return -1;
 	}
-	return allowPrefix || !prefix.trim() ? offset : -1;
+	if (!prefix.trim()) {
+		return offset;
+	}
+	return allowPrefix && familyKey(shorthandFamily(item)) === 'system-ui' ? offset : -1;
 };
 
 // a font-size token of the font shorthand, optionally with `/line-height`
 const fontSizeToken =
-	/^(?:[+-]?(?:\d*\.)?\d+(?:[a-z]+|%)|xx-small|x-small|small|medium|large|x-large|xx-large|xxx-large|larger|smaller)(?:\/.*)?$/i;
+	/^(?:[+-]?(?:\d*\.)?\d+(?:[a-z]+|%)|0|xx-small|x-small|small|medium|large|x-large|xx-large|xxx-large|larger|smaller)(?:\/.*)?$/i;
 
 // the family in the first item of a font shorthand, e.g. `Roboto` in
-// `bold 12px/1.5 Roboto`, or '' if it can't be found
+// `bold 12px/1.5 Roboto`. Without a size token, the item is a family name.
 const shorthandFamily = (item) => {
 	const words = item.trim().split(/\s+/);
 	const size = words.findIndex((word) => fontSizeToken.test(word));
 	if (size === -1) {
-		return '';
+		return item;
 	}
 	let start = size + 1;
 	// line height in separate tokens: `12px / 1.5`, `12px /1.5` or `12px/ 1.5`
@@ -199,10 +203,10 @@ const createReplacer = (systemUiFamily) => {
 			.slice(index + 1)
 			.filter((item) => !movedKeys.has(familyKey(item)));
 
-		// families already listed before system-ui; in the font shorthand, the
+		// families already listed before system-ui; in a font shorthand, the
 		// first one follows the style, weight and size
 		const headFamilies = head.slice();
-		if (head.length && /^font$/i.test(prop)) {
+		if (head.length && !familyOnly) {
 			headFamilies[0] = shorthandFamily(head[0]);
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
