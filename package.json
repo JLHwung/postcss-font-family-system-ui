@@ -8,7 +8,10 @@
     "Jonathan Neal <jonathantneal@hotmail.com>"
   ],
   "license": "CC0-1.0",
-  "repository": "JLHwung/postcss-font-family-system-ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JLHwung/postcss-font-family-system-ui.git"
+  },
   "homepage": "https://github.com/JLHwung/postcss-font-family-system-ui#readme",
   "bugs": "https://github.com/JLHwung/postcss-font-family-system-ui/issues",
   "main": "./dist/index.bundle.cjs",
@@ -42,7 +45,6 @@
     "eslint-config-dev": "3.3.1",
     "postcss": "8.5.33",
     "postcss-tape": "6.0.1",
-    "pre-commit": "2.0.0",
     "rollup": "4.68.8"
   },
   "peerDependencies": {

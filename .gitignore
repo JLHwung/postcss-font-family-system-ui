@@ -1,9 +1,27 @@
-node_modules
-dist/
+# Logs
 *.log*
+
+# Dependencies
+node_modules
+
+# Build output
+/dist/
+
+# Test output
 *.result.css
+
+# ESLint cache
 .eslintcache
-.yarn/unplugged
-.yarn/cache
-.yarn/build-state.yml
-.yarn/install-state.gz
+
+# Yarn, without zero-installs
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# OS and editor files
+.DS_Store
+.idea
