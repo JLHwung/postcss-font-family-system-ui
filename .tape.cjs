@@ -28,6 +28,32 @@ module.exports = {
 			family: "system-ui, Segoe UI",
 		},
 	},
+	"family-order": {
+		message: "keeps the order of { family } around system-ui",
+		options: {
+			family: "-apple-system, system-ui, Roboto",
+		},
+	},
+	"family-split:paren": {
+		message: "doesn't treat a leading parenthesis in { family } as a function",
+		options: {
+			family: "(Foo, Bar)",
+		},
+		source: "family-split.css",
+	},
+	"family-split:repeated": {
+		message: "adds names repeated in { family } once",
+		options: {
+			family: "Roboto, roboto, system-ui, Roboto",
+		},
+		source: "family-split.css",
+	},
+	"custom-property-head": {
+		message: "keeps keyword-like words of a family before system-ui in custom properties",
+		options: {
+			family: "system-ui, Sans",
+		},
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {

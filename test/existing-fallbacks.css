@@ -24,4 +24,5 @@ test {
 	font: bold var(--fs)/1.5 system-ui, sans-serif;
 	font: oblique 10deg 12px system-ui;
 	font: 12px / normal Roboto, system-ui;
+	font: 12px/1 system-ui , sans-serif;
 }

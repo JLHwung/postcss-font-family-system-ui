@@ -24,4 +24,5 @@ test {
 	font: bold var(--fs)/1.5 -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font: oblique 10deg 12px -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font: 12px / normal Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font: 12px/1 -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 }

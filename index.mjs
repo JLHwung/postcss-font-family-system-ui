@@ -258,8 +258,8 @@ const isFamilyWord = (word) => quotedName.test(word) || identifier.test(word);
 // end, e.g. `Roboto Condensed` in `bold 12px/1.5 Roboto Condensed`. Sizes,
 // functions such as calc() or var(), numbers and line heights end the family.
 // Without one of them, leading style, weight and size keywords are not part of
-// the family either, e.g. `bold large Roboto`.
-const shorthandFamily = (item) => {
+// the family either (e.g. `bold large Roboto`), unless `stripKeywords` is false.
+const shorthandFamily = (item, stripKeywords = true) => {
 	const words = splitWords(item);
 	let start = words.length;
 	while (
@@ -270,7 +270,7 @@ const shorthandFamily = (item) => {
 	) {
 		start--;
 	}
-	if (start === 0) {
+	if (start === 0 && stripKeywords) {
 		while (start < words.length && shorthandKeywords.has(words[start].toLowerCase())) {
 			start++;
 		}
@@ -298,12 +298,20 @@ const formatFamily = (name) => {
 
 // replace system-ui in a declaration value with the given fallback list
 const createReplacer = (familyNames) => {
-	const systemUiFamily = familyNames.map(formatFamily);
-	const keepSystemUi = systemUiFamily.some((name) => familyKey(name) === 'system-ui');
-	// the fallbacks to add, in order; system-ui itself is the item being replaced
-	const fallbacks = systemUiFamily
-		.map((name, order) => ({ name, order, key: familyKey(name) }))
-		.filter(({ key }) => key !== 'system-ui');
+	// the fallback list, without repeated names
+	const keys = new Set();
+	const fallbackList = [];
+	familyNames.map(formatFamily).forEach((name) => {
+		const key = familyKey(name);
+		if (!keys.has(key)) {
+			keys.add(key);
+			fallbackList.push({ name, key, order: fallbackList.length });
+		}
+	});
+	// system-ui keeps its place in the list, if it is in it (see `preserve`)
+	const systemUiEntry = fallbackList.find(({ key }) => key === 'system-ui');
+	// the fallbacks to add; system-ui itself is the item being replaced
+	const fallbacks = fallbackList.filter(({ key }) => key !== 'system-ui');
 
 	return (value, prop) => {
 		// font-family holds only family names; the font shorthand (and custom
@@ -326,16 +334,22 @@ const createReplacer = (familyNames) => {
 		// first one follows the style, weight and size
 		const headFamilies = head.slice();
 		if (head.length && !familyOnly) {
-			headFamilies[0] = shorthandFamily(head[0]);
+			headFamilies[0] = shorthandFamily(head[0], /^font$/i.test(prop));
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);
+		const hasGeneric = [ ...headKeys, ...restKeys ].some(
+			(key) => key !== 'system-ui' && genericFamilies.has(key)
+		);
 
 		// Families the author listed keep their place. Each missing fallback is
-		// inserted before the first listed fallback that comes after it, after the
-		// last listed one that comes before it, or else right after system-ui.
-		// Generic families are never used as such anchors.
-		const anchors = [];
+		// inserted before the first listed fallback (or system-ui) that comes after
+		// it in the fallback list, after the last listed one that comes before it,
+		// or else right after system-ui. Generic families are never used as such
+		// anchors; a missing one is added at the end, unless the value already
+		// ends in a generic family.
+		// Anchor positions are indexes in `rest`; -1 is system-ui.
+		const anchors = systemUiEntry ? [ { order: systemUiEntry.order, position: -1 } ] : [];
 		const missing = [];
 		fallbacks.forEach((fallback) => {
 			const position = restKeys.indexOf(fallback.key);
@@ -348,41 +362,52 @@ const createReplacer = (familyNames) => {
 				anchors.push({ order: fallback.order, position });
 			}
 		});
-		// names to insert before rest[position]
-		const inserts = rest.map(() => []).concat([ [] ]);
-		missing.forEach(({ name, order }) => {
+		// names to insert before rest[slot]; slot -1 is before system-ui
+		const inserts = new Map();
+		const namesAt = (slot) => inserts.get(slot) || [];
+		const insert = (slot, name) => inserts.set(slot, namesAt(slot).concat(name));
+		missing.forEach(({ name, key, order }) => {
+			if (genericFamilies.has(key)) {
+				if (!hasGeneric) {
+					insert(rest.length, name);
+				}
+				return;
+			}
 			const later = anchors.filter((anchor) => anchor.order > order);
 			const earlier = anchors.filter((anchor) => anchor.order < order);
-			let position = 0;
+			let slot = 0;
 			if (later.length) {
-				position = Math.min(...later.map((anchor) => anchor.position));
+				slot = Math.min(...later.map((anchor) => anchor.position));
 			} else if (earlier.length) {
-				position = Math.max(...earlier.map((anchor) => anchor.position)) + 1;
+				slot = Math.max(...earlier.map((anchor) => anchor.position)) + 1;
 			}
-			inserts[position].push(name);
+			insert(slot, name);
 		});
 
 		const item = items[index];
 		const prefix = item.slice(0, offset);
 		const [ suffix = '' ] = item.match(trailingWhitespace) || [];
 		const systemUi = item.slice(offset, item.length - suffix.length);
-		// system-ui, or what replaces it, and the names inserted right after it
-		const replaced = (keepSystemUi ? [ systemUi ] : []).concat(inserts[0]);
+		// system-ui, or what replaces it, with the names inserted around it
+		const after = namesAt(0);
+		const replaced = [ ...namesAt(-1), ...(systemUiEntry ? [ systemUi ] : []), ...after ];
+		// keep a line break before the next comma, but not a stray space
+		const keptSuffix = after.length && !/[\n\r\f]/.test(suffix) ? '' : suffix;
 		const output = head.slice();
 		if (replaced.length) {
-			output.push(`${prefix}${replaced.join(', ')}${suffix}`);
+			output.push(`${prefix}${replaced.join(', ')}${keptSuffix}`);
 		} else if (!head.length && rest.length) {
 			// system-ui is dropped from the start: keep the shorthand tokens before it
 			rest[0] = `${prefix}${rest[0].replace(leadingWhitespace, '')}`;
 		}
-		rest.forEach((restItem, position) => {
-			if (position > 0) {
-				output.push(...inserts[position].map((name) => ` ${name}`));
+		rest.forEach((restItem, slot) => {
+			if (slot > 0) {
+				output.push(...namesAt(slot).map((name) => ` ${name}`));
 			}
 			output.push(restItem);
 		});
 		if (rest.length) {
-			output.push(...inserts[rest.length].map((name) => ` ${name}`));
+			output.push(...namesAt(rest.length).map((name) => ` ${name}`));
 		}
 		return output.join(',');
 	};
@@ -439,7 +464,7 @@ const familyNameEnd = (value, start) => {
 			if (char === quote) {
 				quote = '';
 			}
-		} else if (char === '(' && /[\w-]/.test(value[i - 1])) {
+		} else if (char === '(' && i > 0 && /[\w-]/.test(value[i - 1])) {
 			depth++;
 		} else if (char === ')' && depth > 0) {
 			depth--;
