@@ -61,6 +61,12 @@ module.exports = {
 		},
 		source: "family-split.css",
 	},
+	"family-newer-generics": {
+		message: "places newer generic families from { family } like other families",
+		options: {
+			family: "ui-monospace, Menlo, emoji, monospace",
+		},
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {

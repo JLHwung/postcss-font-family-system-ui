@@ -398,11 +398,9 @@ const createReplacer = (familyNames) => {
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);
-		// a classic generic family before system-ui always matches, so nothing
-		// after it is used and no fallbacks are added
-		const unreachable = [ ...headKeys ].some((key) => classicGenericFamilies.has(key));
 		const hasGeneric = restKeys.some((key) => classicGenericFamilies.has(key));
-		// fallbacks after a classic generic family would never be used
+		// a classic generic family always matches a font, so fallbacks after it
+		// are only used for characters that font lacks: insert them before it
 		const firstGeneric = restKeys.findIndex((key) => classicGenericFamilies.has(key));
 		const lastSlot = firstGeneric === -1 ? rest.length : firstGeneric;
 
@@ -410,19 +408,19 @@ const createReplacer = (familyNames) => {
 		// inserted before the first listed fallback (or system-ui) that comes after
 		// it in the fallback list, after the last listed one that comes before it,
 		// or else right after system-ui, but never after a classic generic family.
-		// Generic families are never used as such anchors; a missing one is added
-		// at the end, unless the value already has a classic generic family.
+		// Classic generic families are never used as such anchors; a missing one
+		// is added at the end, unless the value already has one.
 		// Anchor positions are indexes in `rest`; -1 is system-ui.
 		const anchors = systemUiEntry ? [ { order: systemUiEntry.order, position: -1 } ] : [];
 		const missing = [];
 		fallbacks.forEach((fallback) => {
 			const position = restKeys.indexOf(fallback.key);
-			if (unreachable || headKeys.has(fallback.key)) {
+			if (headKeys.has(fallback.key)) {
 				return;
 			}
 			if (position === -1) {
 				missing.push(fallback);
-			} else if (!genericFamilies.has(fallback.key)) {
+			} else if (!classicGenericFamilies.has(fallback.key)) {
 				anchors.push({ order: fallback.order, position });
 			}
 		});
@@ -431,7 +429,7 @@ const createReplacer = (familyNames) => {
 		const namesAt = (slot) => inserts.get(slot) || [];
 		const insert = (slot, name) => inserts.set(slot, namesAt(slot).concat(name));
 		missing.forEach(({ name, key, order }) => {
-			if (genericFamilies.has(key)) {
+			if (classicGenericFamilies.has(key)) {
 				if (!hasGeneric) {
 					insert(rest.length, name);
 				}
