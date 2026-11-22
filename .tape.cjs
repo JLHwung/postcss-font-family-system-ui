@@ -14,7 +14,7 @@ module.exports = {
 			browsers: ["Chrome 60"],
 		},
 	},
-	"basic:browser:chrome_60": {
+	"basic:browser:chrome_60:not_preserve": {
 		message: "preserve: false is no-op when browsers are modern",
 		options: {
 			browsers: ["Chrome 60"],
