@@ -26,4 +26,8 @@ test {
 	font: 12px / normal Roboto, system-ui;
 	font: 12px/1 system-ui , sans-serif;
 	font-family: system-ui, sans-serif, Roboto;
+	font-family: system-ui, Arial, Helvetica Neue, sans-serif;
+	font-family: sans-serif, system-ui;
+	font-family: system-ui/* brand */, serif;
+	font: 12px/*x*/system-ui;
 }

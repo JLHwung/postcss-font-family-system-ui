@@ -16,7 +16,11 @@ const creator = (opts) => {
 	// file, so resolve them now and let invalid options fail early.
 	let fixedReplacer = null;
 	if (familyOption.length) {
-		fixedReplacer = createReplacer(familyOption);
+		// with `preserve: false`, drop system-ui unless it is the only name
+		const withoutSystemUi = familyOption.filter((name) => familyKey(name) !== 'system-ui');
+		fixedReplacer = createReplacer(
+			preserve === false && withoutSystemUi.length ? withoutSystemUi : familyOption
+		);
 	} else if (browsers != null) {
 		fixedReplacer = createReplacer(resolveFamily(undefined));
 	}
@@ -53,7 +57,12 @@ const creator = (opts) => {
 					) {
 						// look up the config only for files that use system-ui
 						replace ??= getReplacer(result.opts.from);
-						decl.value = replace(decl.value, decl.prop);
+						// PostCSS keeps comments next to other tokens in the value
+						const value = stripComments(decl.value);
+						const replaced = replace(value, decl.prop);
+						if (replaced !== value) {
+							decl.value = replaced;
+						}
 						visited.add(decl);
 					}
 				},
@@ -76,6 +85,35 @@ const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
 // @font-face takes a single family name, which must not become a list
 const isFontFaceDescriptor = (decl) =>
 	Object(decl.parent).type === 'atrule' && /^font-face$/i.test(decl.parent.name);
+
+// replace comments (outside of strings) with a space
+const stripComments = (value) => {
+	if (!value.includes('/*')) {
+		return value;
+	}
+	let result = '';
+	let quote = '';
+	for (let i = 0; i < value.length; i++) {
+		const char = value[i];
+		if (char === '\\') {
+			result += value.slice(i, i + 2);
+			i++;
+		} else if (quote) {
+			quote = char === quote ? '' : quote;
+			result += char;
+		} else if (char === '"' || char === '\'') {
+			quote = char;
+			result += char;
+		} else if (char === '/' && value[i + 1] === '*') {
+			const end = value.indexOf('*/', i + 2);
+			i = end === -1 ? value.length : end + 1;
+			result += ' ';
+		} else {
+			result += char;
+		}
+	}
+	return result;
+};
 
 // cheap check before looking up the config and parsing the value
 const systemUiPresent = /system-ui/i;
@@ -344,7 +382,11 @@ const createReplacer = (familyNames) => {
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);
-		const hasGeneric = [ ...headKeys, ...restKeys ].some((key) => classicGenericFamilies.has(key));
+		if ([ ...headKeys ].some((key) => classicGenericFamilies.has(key))) {
+			// a generic family before system-ui always matches, so it is never used
+			return value;
+		}
+		const hasGeneric = restKeys.some((key) => classicGenericFamilies.has(key));
 		// fallbacks after a classic generic family would never be used
 		const firstGeneric = restKeys.findIndex((key) => classicGenericFamilies.has(key));
 		const lastSlot = firstGeneric === -1 ? rest.length : firstGeneric;
@@ -380,15 +422,17 @@ const createReplacer = (familyNames) => {
 				}
 				return;
 			}
-			const later = anchors.filter((anchor) => anchor.order > order);
+			// right after the last listed fallback that comes before it, but not
+			// after one that comes after it, nor after a classic generic family
+			const slots = [ lastSlot ];
+			anchors.forEach((anchor) => {
+				if (anchor.order > order) {
+					slots.push(anchor.position);
+				}
+			});
 			const earlier = anchors.filter((anchor) => anchor.order < order);
-			let slot = 0;
-			if (later.length) {
-				slot = Math.min(...later.map((anchor) => anchor.position));
-			} else if (earlier.length) {
-				slot = Math.max(...earlier.map((anchor) => anchor.position)) + 1;
-			}
-			insert(Math.min(slot, lastSlot), name);
+			const slot = earlier.length ? Math.max(...earlier.map((anchor) => anchor.position)) + 1 : 0;
+			insert(Math.min(slot, ...slots), name);
 		});
 
 		const item = items[index];

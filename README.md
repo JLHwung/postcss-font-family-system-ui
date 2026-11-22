@@ -23,8 +23,9 @@ body {
 ```
 
 Only fallbacks that are missing are added, so a hand-written stack, or CSS the
-plugin already processed, keeps the families it lists in place. Each missing
-fallback is inserted next to the listed fallbacks around it:
+plugin already processed, keeps the families it lists in place. Missing
+fallbacks are inserted right after `system-ui`, or after the listed fallbacks
+that come before them:
 
 ```css
 body {
@@ -34,7 +35,7 @@ body {
 /* becomes */
 
 body {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 }
 ```
@@ -150,7 +151,9 @@ If not valid browserslist configuration is specified, the [default browserslist 
 ### preserve
 
 The `preserve: boolean` option controls whether `system-ui` should be preserved in the transformed CSS output.
-It accepts only boolean and the default is `true`
+It accepts only boolean and the default is `true`. With the `family` option,
+`preserve: false` removes `system-ui` from that list, unless it is the only
+name.
 
 ```js
 postcssSystemUiFont({

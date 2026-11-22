@@ -98,6 +98,13 @@ module.exports = {
 		},
 		expect: "basic.expect.css",
 	},
+	"basic:family:not_preserve": {
+		message: "applies { preserve: false } to { family }",
+		options: {
+			family: "system-ui, Segoe UI, Roboto, Helvetica Neue",
+			preserve: false,
+		},
+	},
 	"basic:false_family": {
 		message: "ignores a falsy { family }",
 		options: {
