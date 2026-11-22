@@ -22,6 +22,23 @@ body {
 }
 ```
 
+Fallbacks that are already listed after `system-ui`, for example in a
+hand-written stack or from an earlier run of the plugin, are moved into the
+plugin's order instead of being repeated. Other families keep their position:
+
+```css
+body {
+  font-family: system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* becomes */
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu,
+    Cantarell, Helvetica Neue, BlinkMacSystemFont, sans-serif;
+}
+```
+
 ## Usage
 
 Add [postcss-font-family-system-ui] to your build tool:
@@ -98,7 +115,8 @@ module.exports = (grunt) => {
 ### family
 
 The `family` option defines the fallback families used to polyfill `system-ui`.
-It accepts an array or a comma-separated string.
+It accepts a comma-separated string or an array of them. An empty value is
+ignored, as if the option was not set.
 
 ```js
 import postcssSystemUiFont from "postcss-font-family-system-ui";
@@ -110,9 +128,9 @@ postcssSystemUiFont({
 
 ### browsers
 
-Note: if `family` option is specified, the `browsers` option will not be activated.
+Note: if a non-empty `family` option is specified, the `browsers` option and the browserslist configuration are not used.
 
-The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse.
+The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse. Browsers that support `system-ui` only on macOS, through `-apple-system` (Firefox 43–91) or `BlinkMacSystemFont` (Chrome 53–55), also get the generic fallbacks for other platforms.
 
 [postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables. The configuration is looked up from the location of each CSS file (the PostCSS `from` option), or from the current working directory when `from` is not set.
 
