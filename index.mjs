@@ -96,9 +96,10 @@ const genericFamilies = new Set([
 	'fangsong',
 ]);
 
-// split a value on commas outside of quotes (and parentheses, unless
-// `parens` is false or they are unbalanced), keeping whitespace
-const splitList = (value, parens = true) => {
+// split a value on commas outside of quotes and parentheses, keeping
+// whitespace. An unclosed quote or parenthesis, e.g. in an unquoted family
+// name such as O'Reilly, is treated as a plain character.
+const splitList = (value, quotes = true, parens = true) => {
 	const items = [];
 	let start = 0;
 	let depth = 0;
@@ -111,7 +112,7 @@ const splitList = (value, parens = true) => {
 			if (char === quote) {
 				quote = '';
 			}
-		} else if (char === '"' || char === '\'') {
+		} else if (quotes && (char === '"' || char === '\'')) {
 			quote = char;
 		} else if (parens && char === '(') {
 			depth++;
@@ -122,9 +123,11 @@ const splitList = (value, parens = true) => {
 			start = i + 1;
 		}
 	}
+	if (quote) {
+		return splitList(value, false, parens);
+	}
 	if (depth > 0) {
-		// an unclosed parenthesis, e.g. from an unquoted family name
-		return splitList(value, false);
+		return splitList(value, quotes, false);
 	}
 	items.push(value.slice(start));
 	return items;
@@ -142,15 +145,16 @@ const unescapeCss = (string) =>
 		return valid ? String.fromCodePoint(codePoint) : '\ufffd';
 	});
 
-// family name for comparison: unquoted, whitespace collapsed, case-insensitive.
-// Quoted generic names (e.g. "system-ui") are font names, not the keywords, so
-// they keep their quotes.
+// family name for comparison: unquoted and case-insensitive, with whitespace
+// collapsed in unquoted names (in quoted ones it is part of the name). Quoted
+// generic names (e.g. "system-ui") are font names, not the keywords, so they
+// keep their quotes.
 const familyKey = (item) => {
 	const trimmed = item.trim();
 	const quoted = quotedName.exec(trimmed);
-	const name = unescapeCss(quoted ? quoted[2] : trimmed)
-		.replace(/\s+/g, ' ')
-		.toLowerCase();
+	const name = (
+		quoted ? unescapeCss(quoted[2]) : unescapeCss(trimmed).replace(/\s+/g, ' ')
+	).toLowerCase();
 	return quoted && genericFamilies.has(name) ? `"${name}"` : name;
 };
 
@@ -243,12 +247,13 @@ const shorthandKeywords = new Set([
 	'smaller',
 ]);
 
-const isFamilyWord = (word) =>
-	quotedName.test(word) || (identifier.test(word) && !shorthandKeywords.has(word.toLowerCase()));
+const isFamilyWord = (word) => quotedName.test(word) || identifier.test(word);
 
 // the family in the first item of a font shorthand: the family words at its
-// end, e.g. `Roboto` in `bold 12px/1.5 Roboto`. Sizes, functions such as
-// calc() or var(), numbers, line heights and keywords end the family.
+// end, e.g. `Roboto Condensed` in `bold 12px/1.5 Roboto Condensed`. Sizes,
+// functions such as calc() or var(), numbers and line heights end the family.
+// Without one of them, leading style, weight and size keywords are not part of
+// the family either, e.g. `bold large Roboto`.
 const shorthandFamily = (item) => {
 	const words = splitWords(item);
 	let start = words.length;
@@ -260,13 +265,27 @@ const shorthandFamily = (item) => {
 	) {
 		start--;
 	}
+	if (start === 0) {
+		while (start < words.length && shorthandKeywords.has(words[start].toLowerCase())) {
+			start++;
+		}
+	}
 	return words.slice(start).join(' ');
 };
 
-// a family name as given if it is valid unquoted CSS (one or more
-// identifiers), and quoted otherwise, e.g. "M+ 1p"
+// CSS-wide keywords, which are not valid as unquoted family names
+const cssWideKeywords = new Set([ 'inherit', 'initial', 'unset', 'revert', 'revert-layer', 'default' ]);
+// a CSS function such as var(--brand), whose parentheses splitWords balanced
+const cssFunction = /^[\w-]+\([^]*\)$/;
+
+// a family name as given if it is valid unquoted CSS (identifiers, or a
+// function such as var()), and quoted otherwise, e.g. "M+ 1p"
 const formatFamily = (name) => {
-	if (quotedName.test(name) || splitWords(name).every((word) => identifier.test(word))) {
+	const valid =
+		quotedName.test(name) ||
+		(!cssWideKeywords.has(name.toLowerCase()) &&
+			splitWords(name).every((word) => identifier.test(word) || cssFunction.test(word)));
+	if (valid) {
 		return name;
 	}
 	return `"${name.replace(/["\\]/g, '\\$&').replace(/\n/g, '\\a ')}"`;
@@ -352,9 +371,7 @@ const parseFamily = (family) => {
 					'postcss-font-family-system-ui: `family` must be a string or an array of strings'
 				);
 			}
-			// family names never contain parentheses, so don't let an unclosed one
-			// swallow the following names
-			return names.concat(splitList(entry, false));
+			return names.concat(splitList(entry));
 		}, [])
 		.map((name) => name.trim())
 		.filter(Boolean);

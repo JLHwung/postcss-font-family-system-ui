@@ -10,6 +10,12 @@ module.exports = {
 			family: "system-ui, Segoe UI, Roboto, Helvetica Neue",
 		},
 	},
+	"family-values": {
+		message: "keeps var(), apostrophes and keyword-like names in { family } intact",
+		options: {
+			family: "system-ui, var(--brand, Roboto), O'Reilly Sans, initial, Roboto Condensed, Arial",
+		},
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {
