@@ -1,3 +1,54 @@
+## 6.0.0 (2026-11-22)
+
+##### Behavior Changes
+
+- `system-ui` fallbacks are inserted among the families already listed instead of replacing the stack: listed families keep their position and spelling, missing fallbacks go right after `system-ui` (before any generic family), and running the plugin again changes nothing (#587) (5a1924e9)
+- `preserve: false` also removes `system-ui` from an explicit `family` list, which used to ignore it (#587) (5a1924e9)
+- Firefox 43–91, KaiOS and Chrome 53–55, whose `system-ui` support is Mac-only, also get the generic fallbacks; Safari 9 also gets `-apple-system` (#587) (5a1924e9)
+- the browserslist config is looked up for each CSS file, as Autoprefixer does, instead of once from the working directory, so CSS in a package with its own config uses that config (#587) (5a1924e9)
+
+##### Bug Fixes
+
+- polyfill browsers whose `system-ui` support is unknown in caniuse, such as Safari 9 (#585) (039452ea)
+- treat special characters in `family` names literally, and quote names that aren't valid unquoted CSS (e.g. `M+ 1p`, `O'Reilly Sans`) while keeping `var()` (#587) (5a1924e9)
+- keep the order of the `family` option around `system-ui`, add repeated names once, ignore an empty or falsy `family`, and reject non-string entries (#587) (5a1924e9)
+- find the family in the `font` shorthand after any size or line height, such as `calc()`, `var()`, `700 large` or `12px / normal` (#587) (5a1924e9)
+- leave `system-ui` alone inside quoted or multi-word family names, and in `@font-face` descriptors (#587) (5a1924e9)
+- polyfill `system-ui` next to a comment, and keep line breaks and the author's comma spacing (#587) (5a1924e9)
+
+##### Documentation Changes
+
+- fix the PostCSS, Gulp and Grunt usage examples and the cssdb badge, and update CONTRIBUTING links (#585) (039452ea)
+- describe how existing fallbacks, `preserve` with `family` and per-file browserslist configs are handled (#587) (5a1924e9)
+- add a security policy (#586) (a2802d45)
+- remove outdated Node.js usage (c3683b22)
+
+##### Chores
+
+- fix a duplicate test key that hid a test, and lint `lib/` (#585) (039452ea)
+- remove stale Yarn config and the unused `ajv`, and update Yarn to 4.19.0 (#585) (039452ea)
+- restore `@babel/eslint-parser` (#584) (fae7cbc9)
+- drop `pre-commit` and disable dependency install scripts (#586) (a2802d45)
+- adopt Renovate's recommended config, with automerge after a 3-day minimum release age (#585, #586) (a2802d45)
+- **ci:**
+  - update to Yarn 4 and current GitHub Actions, and test Node.js 20, 22 and 24 (#487) (d92eefcc)
+  - run on pull requests, pin actions to commit SHAs, restrict permissions, and test Node.js 20–26 on Linux, Windows and macOS (#586) (a2802d45)
+  - publish to npm from version tags with trusted publishing and provenance (#586) (a2802d45)
+  - update actions/checkout to v7 (#525), actions/setup-node to v7 (#531), and the GitHub artifact actions (#498)
+- **deps:**
+  - update dependency browserslist to v4.28.7 [security] (#488)
+  - update dependency caniuse-lite to v1.0.30001826 (#489, #494)
+  - update babel monorepo to v8 (#476, #493, #501, #513, #517, #520, #524, #548, #575, #578)
+  - update dependency @rollup/plugin-babel to v7 (#500)
+  - update dependency rollup to v4.68.8, including a security update (#481, #490, #491, #492, #496, #497, #502, #503, #505, #508, #516, #518, #521, #522, #523, #526, #536, #539, #542, #543, #544, #546, #547, #549, #550, #551, #552, #554, #555, #556, #557, #558, #560, #561, #562, #563, #565, #566, #568, #570, #571, #572, #573, #574, #576, #577, #579, #581, #582, #583)
+  - update dependency postcss to v8.5.33, including a security update (#477, #499, #506, #507, #510, #514, #515, #519, #527, #528, #529, #530, #532, #533, #534, #535, #537, #538, #540, #545, #553, #559, #564, #569, #580)
+  - update dependency postcss-tape to v6.0.1 (446625e9)
+  - update dependency eslint to v10 (#483, #484)
+  - update dependency eslint-config-dev to v3 (#428)
+  - update dependency ajv to v8.20.0 (#480, #495, #509), since removed
+  - update dependency pre-commit to v2 (#512), since removed
+  - update dependency yaspeller to v9 (6bbe5446), since removed
+
 ## 5.0.0 (2020-09-22)
 
 ##### Breaking Changes
