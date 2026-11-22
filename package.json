@@ -65,5 +65,6 @@
     "face",
     "type",
     "typeface"
-  ]
+  ],
+  "packageManager": "yarn@4.19.0"
 }
