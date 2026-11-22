@@ -6,7 +6,7 @@ export default {
 		{ file: "dist/index.bundle.cjs", format: "cjs", exports: "default" },
 		{ file: "dist/index.bundle.mjs", format: "es" }
 	],
-	external: ["browserslist", "caniuse-lite"],
+	external: ["browserslist", "caniuse-lite", "path"],
 	plugins: [
 		babel({
 			babelHelpers: "bundled",

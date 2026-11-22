@@ -1,6 +1,7 @@
 // tooling
 import getSystemUiFamily from './lib/get-system-ui-family.mjs';
 import browserslist from 'browserslist';
+import path from 'path';
 
 // plugin
 const creator = (opts) => {
@@ -14,7 +15,7 @@ const creator = (opts) => {
 	let fixedReplacer = null;
 	if (familyOption.length) {
 		fixedReplacer = createReplacer(familyOption);
-	} else if (browsers !== undefined) {
+	} else if (browsers != null) {
 		fixedReplacer = createReplacer(resolveFamily(undefined));
 	}
 
@@ -25,7 +26,8 @@ const creator = (opts) => {
 		if (fixedReplacer) {
 			return fixedReplacer;
 		}
-		const directory = from ? from.replace(/[\\/][^\\/]*$/, '') : '';
+		// null: no file, the config is looked up from the working directory
+		const directory = from ? path.dirname(path.resolve(from)) : null;
 		if (!replacersByDirectory.has(directory)) {
 			replacersByDirectory.set(directory, createReplacer(resolveFamily(from)));
 		}
@@ -198,7 +200,7 @@ const createReplacer = (systemUiFamily) => {
 
 // accept a comma-separated string or an array of them, dropping empty names
 const parseFamily = (family) => {
-	if (family == null) {
+	if (!family) {
 		return [];
 	}
 	const entries = Array.isArray(family) ? family : [ family ];

@@ -47,6 +47,13 @@ module.exports = {
 		},
 		expect: "basic.expect.css",
 	},
+	"basic:false_family": {
+		message: "ignores a falsy { family }",
+		options: {
+			family: false,
+		},
+		expect: "basic.expect.css",
+	},
 	"basic:browser:chrome_60": {
 		message: "supports simple { browsers } usage",
 		options: {
@@ -120,6 +127,15 @@ module.exports = {
 		options: {
 			browsers: ["IE 11", "Safari 10"],
 		},
+	},
+	"browserslistrc:browsers_null": {
+		message: "uses the browserslist config next to the CSS file when { browsers } is null",
+		options: {
+			browsers: null,
+		},
+		source: "browserslistrc/basic.css",
+		expect: "browserslistrc/basic.expect.css",
+		result: "browserslistrc/basic.result.css",
 	},
 	"existing-fallbacks:not_preserve": {
 		message: "drops system-ui when its fallbacks are already listed before it",
