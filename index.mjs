@@ -56,7 +56,9 @@ const creator = (opts) => {
 						systemUiPresent.test(decl.value)
 					) {
 						// look up the config only for files that use system-ui
-						replace ??= getReplacer(result.opts.from);
+						replace ??= getReplacer(
+							result.opts.from || Object(result.root.source).input?.file
+						);
 						// PostCSS keeps comments next to other tokens in the value
 						const value = stripComments(decl.value);
 						const replaced = replace(value, decl.prop);
@@ -215,8 +217,8 @@ const familyKey = (item) => {
 
 // the offset of an unquoted system-ui ending a list item, or -1. Only the first
 // item of a font shorthand may have other tokens (style, weight, size) before
-// it, and only if they are followed by system-ui alone, not e.g. `Foo system-ui`.
-const systemUiOffset = (item, allowPrefix, stripKeywords) => {
+// it, and not a family-like word, as in the family `Foo system-ui`.
+const systemUiOffset = (item, allowPrefix) => {
 	const trimmed = item.replace(trailingWhitespace, '');
 	const offset = trimmed.length - 'system-ui'.length;
 	if (offset < 0 || trimmed.slice(offset).toLowerCase() !== 'system-ui') {
@@ -229,9 +231,12 @@ const systemUiOffset = (item, allowPrefix, stripKeywords) => {
 	if (!prefix.trim()) {
 		return offset;
 	}
-	return allowPrefix && familyKey(shorthandFamily(item, stripKeywords)) === 'system-ui'
-		? offset
-		: -1;
+	if (!allowPrefix) {
+		return -1;
+	}
+	const words = splitWords(prefix);
+	const last = words[words.length - 1];
+	return !isFamilyWord(last) || shorthandKeywords.has(last.toLowerCase()) ? offset : -1;
 };
 
 // split a value on whitespace outside of quotes and parentheses
@@ -307,6 +312,20 @@ const shorthandKeywords = new Set([
 
 const isFamilyWord = (word) => quotedName.test(word) || identifier.test(word);
 
+// a font size or line height: a length, percentage or math function, possibly
+// with `/line-height`, or a line height after `/`; not an angle (`oblique 10deg`)
+// or a plain number (a weight)
+const isSizeWord = (word) => {
+	const [ size ] = word.split('/');
+	if (!size || word.endsWith('/')) {
+		return true;
+	}
+	return (
+		/^(?:calc|min|max|clamp)\(/i.test(size) ||
+		(/^[+-]?(?:\d*\.)?\d+(?:%|[a-z]+)$/i.test(size) && !/(?:deg|grad|rad|turn)$/i.test(size))
+	);
+};
+
 // the family in the first item of a font shorthand: the family words at its
 // end, e.g. `Roboto Condensed` in `bold 12px/1.5 Roboto Condensed`. Sizes,
 // functions such as calc() or var(), numbers and line heights end the family.
@@ -323,7 +342,9 @@ const shorthandFamily = (item, stripKeywords = true) => {
 	) {
 		start--;
 	}
-	if (start === 0 && stripKeywords) {
+	// keywords right after a font size or line height are part of the family
+	// (`12px Medium Sans`), otherwise they may be the size (`700 large Roboto`)
+	if (stripKeywords && !(start > 0 && isSizeWord(words[start - 1]))) {
 		while (start < words.length && shorthandKeywords.has(words[start].toLowerCase())) {
 			start++;
 		}
@@ -381,7 +402,7 @@ const createReplacer = (familyNames) => {
 		let index = -1;
 		let offset = -1;
 		while (offset === -1 && ++index < items.length) {
-			offset = systemUiOffset(items[index], !familyOnly && index === 0, shorthand);
+			offset = systemUiOffset(items[index], !familyOnly && index === 0);
 		}
 		if (offset === -1) {
 			return value;
@@ -419,7 +440,9 @@ const createReplacer = (familyNames) => {
 		const anchors = systemUiEntry ? [ { order: systemUiEntry.order, position: -1 } ] : [];
 		const missing = [];
 		fallbacks.forEach((fallback) => {
-			const position = restKeys.indexOf(fallback.key);
+			const listed = restKeys.indexOf(fallback.key);
+			// listed only after a classic generic family, where it isn't used
+			const position = listed > lastSlot ? -1 : listed;
 			if (headKeys.has(fallback.key)) {
 				return;
 			}

@@ -41,7 +41,7 @@ body {
 ```
 
 `font-family` descriptors in `@font-face` rules are left alone, as they take a
-single family name.
+single family name. When a value is changed, comments inside it are removed.
 
 ## Usage
 
