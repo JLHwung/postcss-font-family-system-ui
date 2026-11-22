@@ -73,6 +73,13 @@ module.exports = {
 			family: 'system-ui, "Foo  Bar"',
 		},
 	},
+	"family-split:generic-last": {
+		message: "adds a generic family from { family } after the names that follow it",
+		options: {
+			family: "system-ui, Segoe UI, sans-serif, Apple Color Emoji",
+		},
+		source: "family-split.css",
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {

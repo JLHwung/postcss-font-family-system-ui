@@ -153,7 +153,7 @@ If not valid browserslist configuration is specified, the [default browserslist 
 The `preserve: boolean` option controls whether `system-ui` should be preserved in the transformed CSS output.
 It accepts only boolean and the default is `true`. With the `family` option,
 `preserve: false` removes `system-ui` from that list, unless it is the only
-name.
+name, and `preserve: true` uses the list as given.
 
 ```js
 postcssSystemUiFont({

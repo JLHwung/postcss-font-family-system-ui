@@ -45,6 +45,14 @@ const creator = (opts) => {
 		postcssPlugin: 'postcss-font-family-system-ui',
 		prepare(result) {
 			const visited = new WeakSet();
+			// look up each source file's config once per run
+			const replacersByFile = new Map();
+			const getFileReplacer = (from) => {
+				if (!replacersByFile.has(from)) {
+					replacersByFile.set(from, getReplacer(from));
+				}
+				return replacersByFile.get(from);
+			};
 			return {
 				// update font declarations to polyfill system-ui usage
 				Declaration(decl) {
@@ -56,16 +64,18 @@ const creator = (opts) => {
 					) {
 						// look up the config only for declarations that use system-ui,
 						// from their own file, e.g. CSS inlined by postcss-import
-						const replace = getReplacer(
+						const replace = getFileReplacer(
 							Object(decl.source).input?.file ||
 								result.opts.from ||
 								Object(result.root.source).input?.file
 						);
 						// PostCSS keeps comments next to other tokens in the value, and
-						// leaves the spaces around the ones it removes (`raws.value`)
-						const value = decl.raws.value
-							? stripComments(decl.value).replace(/([^\s]) {2,}(?=[^\s])/g, '$1 ')
-							: stripComments(decl.value);
+						// removes others, leaving the spaces around them; start from the
+						// original value then, unless another plugin changed it
+						const raw = decl.raws.value;
+						const value = stripComments(
+							raw && raw.value === decl.value ? raw.raw : decl.value
+						);
 						const replaced = replace(value, decl.prop);
 						if (replaced !== value) {
 							decl.value = replaced;
@@ -497,9 +507,6 @@ const createReplacer = (familyNames) => {
 		const insert = (slot, name) => inserts.set(slot, namesAt(slot).concat(name));
 		missing.forEach(({ name, key, order }) => {
 			if (classicGenericFamilies.has(key)) {
-				if (!hasGeneric) {
-					insert(rest.length, name);
-				}
 				return;
 			}
 			// right after the last listed fallback that comes before it, but not
@@ -514,6 +521,14 @@ const createReplacer = (familyNames) => {
 			const slot = earlier.length ? Math.max(...earlier.map((anchor) => anchor.position)) + 1 : 0;
 			insert(Math.min(slot, ...slots), name);
 		});
+		// missing classic generic families go last, after all other names
+		if (!hasGeneric) {
+			missing.forEach(({ name, key }) => {
+				if (classicGenericFamilies.has(key)) {
+					insert(rest.length, name);
+				}
+			});
+		}
 
 		const item = items[index];
 		const prefix = item.slice(0, offset);

@@ -40,4 +40,5 @@ test {
 	font: 12px / normal system-ui;
 	font: 12px / 1.5 Normal system-ui;
 	font-family: Arial, /* x */ system-ui;
+	font-family: "Foo   Bar" /*x*/, system-ui;
 }
