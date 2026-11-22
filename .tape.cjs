@@ -121,6 +121,19 @@ module.exports = {
 			browsers: ["IE 11", "Safari 10"],
 		},
 	},
+	"existing-fallbacks:not_preserve": {
+		message: "drops system-ui when its fallbacks are already listed before it",
+		options: {
+			browsers: ["IE 11", "Safari 10"],
+			preserve: false,
+		},
+	},
+	"family-generic": {
+		message: "keeps generic families from { family } behind the families that follow system-ui",
+		options: {
+			family: "system-ui, -apple-system, sans-serif",
+		},
+	},
 	"browserslistrc": {
 		message: "uses the browserslist config next to the CSS file",
 		source: "browserslistrc/basic.css",

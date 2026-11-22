@@ -1,0 +1,15 @@
+test {
+	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Roboto Mono, sans-serif;
+	font: 12px -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, BlinkMacSystemFont, sans-serif;
+	font-family: Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Ubuntu Mono;
+	--stack: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, var(--brand-font, Roboto), sans-serif;
+	font-family: Segoe UI,Roboto,Noto Sans,Ubuntu,Cantarell,Helvetica Neue,-apple-system,sans-serif;
+	font: 12px Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, "system-ui", sans-serif;
+	font-family: "x, system-ui, y", Arial;
+	font-family: Foo system-ui, serif;
+}
