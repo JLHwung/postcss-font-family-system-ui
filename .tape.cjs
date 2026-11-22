@@ -96,6 +96,12 @@ module.exports = {
 			browsers: ["IE 11", "Safari 10"],
 		},
 	},
+	"browserslistrc": {
+		message: "uses the browserslist config next to the CSS file",
+		source: "browserslistrc/basic.css",
+		expect: "browserslistrc/basic.expect.css",
+		result: "browserslistrc/basic.result.css",
+	},
 	"custom-properties": {
 		message: "supports custom-properties usage",
 	},
