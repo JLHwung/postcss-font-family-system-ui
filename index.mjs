@@ -371,8 +371,55 @@ const parseFamily = (family) => {
 					'postcss-font-family-system-ui: `family` must be a string or an array of strings'
 				);
 			}
-			return names.concat(splitList(entry));
+			return names.concat(splitFamilyNames(entry));
 		}, [])
 		.map((name) => name.trim())
 		.filter(Boolean);
+};
+
+
+// split a family option string on commas. A quote only starts a quoted name at
+// the start of a name, and parentheses only group a function such as var(), so
+// apostrophes and parentheses inside unquoted names are plain characters. An
+// unclosed quote or function ends at the next comma.
+const splitFamilyNames = (value) => {
+	const names = [];
+	let start = 0;
+	while (start <= value.length) {
+		const end = familyNameEnd(value, start);
+		names.push(value.slice(start, end));
+		start = end + 1;
+	}
+	return names;
+};
+
+// the index of the comma ending the family name at `start`, or the length
+const familyNameEnd = (value, start) => {
+	let i = start;
+	while (i < value.length && whitespaceChar.test(value[i])) {
+		i++;
+	}
+	let quote = value[i] === '"' || value[i] === '\'' ? value[i++] : '';
+	let depth = 0;
+	for (; i < value.length; i++) {
+		const char = value[i];
+		if (char === '\\') {
+			i++;
+		} else if (quote) {
+			if (char === quote) {
+				quote = '';
+			}
+		} else if (char === '(' && /[\w-]/.test(value[i - 1])) {
+			depth++;
+		} else if (char === ')' && depth > 0) {
+			depth--;
+		} else if (char === ',' && depth === 0) {
+			return i;
+		}
+	}
+	if (quote || depth > 0) {
+		const comma = value.indexOf(',', start);
+		return comma === -1 ? value.length : comma;
+	}
+	return value.length;
 };

@@ -16,6 +16,12 @@ module.exports = {
 			family: "system-ui, var(--brand, Roboto), O'Reilly Sans, initial, Roboto Condensed, Arial",
 		},
 	},
+	"family-split": {
+		message: "splits { family } on commas, keeping quotes, apostrophes and var() intact",
+		options: {
+			family: "system-ui, O'Reilly Sans, Bob's Font, var(--a, Roboto), Foo (Pro, \"Foo, Bar\"",
+		},
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {
