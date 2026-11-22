@@ -133,7 +133,12 @@ const stripComments = (value) => {
 			if (before && after && !tokenDelimiter.test(before) && !tokenDelimiter.test(after)) {
 				result += ' ';
 			} else if (before && after && whitespaceChar.test(before) && whitespaceChar.test(after)) {
-				i++;
+				if (after === ' ' || after === '\t') {
+					i++;
+				} else {
+					// keep the line break, drop the space before the comment
+					result = result.replace(/[\t ]+$/, '');
+				}
 			} else if (before && after && whitespaceChar.test(before) && tokenDelimiter.test(after)) {
 				// no space before a comma, e.g. `Arial /* x */, system-ui`
 				result = result.replace(trailingWhitespace, '');
@@ -228,12 +233,15 @@ const unescapeCss = (string) =>
 // generic names (e.g. "system-ui") are font names, not the keywords, so they
 // keep their quotes.
 const familyKey = (item) => {
-	const trimmed = item.trim();
+	// CSS whitespace only: e.g. a no-break space is part of a name
+	const trimmed = item.replace(leadingWhitespace, '').replace(trailingWhitespace, '');
 	const quoted = quotedName.exec(trimmed);
 	const name = (
 		quoted
 			? unescapeCss(quoted[2])
-			: unescapeCss(trimmed.replace(/\\[^]|\s+/g, (match) => (match[0] === '\\' ? match : ' ')))
+			: unescapeCss(
+				trimmed.replace(/\\[^]|[\t\n\f\r ]+/g, (match) => (match[0] === '\\' ? match : ' '))
+			)
 	).toLowerCase();
 	return quoted && genericFamilies.has(name) ? `"${name}"` : name;
 };
@@ -547,21 +555,25 @@ const createReplacer = (familyNames) => {
 		const replaced = [ ...namesAt(-1), ...(systemUiEntry ? [ systemUi ] : []), ...after ];
 		// keep a line break before the next comma, but not a stray space
 		const keptSuffix = after.length && !/[\n\r\f]/.test(suffix) ? '' : suffix;
+		// match the author's separators: no space after commas in minified CSS
+		const space = items.length > 1 && items.slice(1).every((part) => !whitespaceChar.test(part[0]))
+			? ''
+			: ' ';
 		const output = head.slice();
 		if (replaced.length) {
-			output.push(`${prefix}${replaced.join(', ')}${keptSuffix}`);
+			output.push(`${prefix}${replaced.join(`,${space}`)}${keptSuffix}`);
 		} else if (!head.length && rest.length) {
 			// system-ui is dropped from the start: keep the shorthand tokens before it
 			rest[0] = `${prefix}${rest[0].replace(leadingWhitespace, '')}`;
 		}
 		rest.forEach((restItem, slot) => {
 			if (slot > 0) {
-				output.push(...namesAt(slot).map((name) => ` ${name}`));
+				output.push(...namesAt(slot).map((name) => `${space}${name}`));
 			}
 			output.push(restItem);
 		});
 		if (rest.length) {
-			const appended = namesAt(rest.length).map((name) => ` ${name}`);
+			const appended = namesAt(rest.length).map((name) => `${space}${name}`);
 			if (appended.length) {
 				// keep whitespace at the end of the value after the appended names
 				const last = output.length - 1;

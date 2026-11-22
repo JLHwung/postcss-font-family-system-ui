@@ -30,7 +30,7 @@ test {
 	font-family: sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, serif;
 	font: 12px system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
-	font-family: Roboto,system-ui, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+	font-family: Roboto,system-ui,-apple-system,Segoe UI,Noto Sans,Ubuntu,Cantarell,Helvetica Neue;
 	font: math system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font: 700 large system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font: 700 large Roboto, system-ui, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;

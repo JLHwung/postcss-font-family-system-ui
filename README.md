@@ -25,7 +25,8 @@ body {
 Only fallbacks that are missing are added, so a hand-written stack, or CSS the
 plugin already processed, keeps the families it lists in place. Missing
 fallbacks are inserted right after `system-ui`, or after the listed fallbacks
-that come before them:
+that come before them, but before a generic family such as `sans-serif`; a
+fallback listed only after a generic family is added before it as well:
 
 ```css
 body {
@@ -136,7 +137,7 @@ Note: if a non-empty `family` option is specified, the `browsers` option and the
 
 The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse. Browsers that support `system-ui` only on macOS, through `-apple-system` (Firefox 43–91) or `BlinkMacSystemFont` (Chrome 53–55), also get the generic fallbacks for other platforms.
 
-[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables. The configuration is looked up from the location of each CSS file (the PostCSS `from` option), or from the current working directory when `from` is not set. As with Autoprefixer, CSS from a package with its own `browserslist` configuration, for example in `node_modules`, uses that package's configuration; set the `browsers` option to use the same browsers for every file.
+[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables. The configuration is looked up from the location of each CSS file (the PostCSS `from` option), or from the current working directory when `from` is not set. As with Autoprefixer, CSS from a package with its own `browserslist` configuration, for example in `node_modules`, uses that package's configuration; set the `browsers` option to use the same browsers for every file. An invalid configuration is reported when the first `system-ui` declaration that uses it is processed.
 
 The `browsers` option should only be used when a standard browserslist configuration is not available.
 
