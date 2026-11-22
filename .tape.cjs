@@ -14,11 +14,17 @@ module.exports = {
 			browsers: ["Chrome 60"],
 		},
 	},
-	"basic:browser:chrome_60": {
+	"basic:browser:chrome_60:not_preserve": {
 		message: "preserve: false is no-op when browsers are modern",
 		options: {
 			browsers: ["Chrome 60"],
 			preserve: false,
+		},
+	},
+	"basic:browser:safari_9": {
+		message: "polyfills browsers whose support is unknown",
+		options: {
+			browsers: ["Safari 9"],
 		},
 	},
 	"basic:browser:whole_coverage": {

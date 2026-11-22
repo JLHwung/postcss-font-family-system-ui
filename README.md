@@ -32,16 +32,10 @@ npm install postcss postcss-font-family-system-ui --save-dev
 
 #### PostCSS
 
-Add [PostCSS] to your build tool:
-
-```bash
-npm install postcss --save-dev
-```
-
 Use [postcss-font-family-system-ui] as a plugin:
 
 ```js
-import postcss from "gulp-postcss";
+import postcss from "postcss";
 import postcssSystemUiFont from "postcss-font-family-system-ui";
 
 postcss([postcssSystemUiFont(/* options */)]).process(YOUR_CSS);
@@ -58,6 +52,7 @@ npm install gulp-postcss --save-dev
 Use [postcss-font-family-system-ui] in your Gulpfile:
 
 ```js
+import gulp from "gulp";
 import postcss from "gulp-postcss";
 import postcssSystemUiFont from "postcss-font-family-system-ui";
 
@@ -74,26 +69,28 @@ gulp.task("css", () =>
 Add [Grunt PostCSS] to your build tool:
 
 ```bash
-npm install grunt-postcss --save-dev
+npm install @lodder/grunt-postcss --save-dev
 ```
 
 Use [postcss-font-family-system-ui] in your Gruntfile:
 
 ```js
-import postcssSystemUiFont from "postcss-font-family-system-ui";
+const postcssSystemUiFont = require("postcss-font-family-system-ui");
 
-grunt.loadNpmTasks("grunt-postcss");
+module.exports = (grunt) => {
+  grunt.loadNpmTasks("@lodder/grunt-postcss");
 
-grunt.initConfig({
-  postcss: {
-    options: {
-      use: [postcssSystemUiFont(/* options */)],
+  grunt.initConfig({
+    postcss: {
+      options: {
+        processors: [postcssSystemUiFont(/* options */)],
+      },
+      dist: {
+        src: "*.css",
+      },
     },
-    dist: {
-      src: "*.css",
-    },
-  },
-});
+  });
+};
 ```
 
 ## Options
@@ -149,15 +146,15 @@ postcssSystemUiFont({
 });
 ```
 
-[css-img]: https://csstools.github.io/cssdb/badge/system-ui-font-family.svg
-[css-url]: https://csstools.github.io/cssdb/#system-ui-font-family
+[css-img]: https://cssdb.org/images/badges/system-ui-font-family.svg
+[css-url]: https://cssdb.org/#system-ui-font-family
 [npm-img]: https://img.shields.io/npm/v/postcss-font-family-system-ui.svg
 [npm-url]: https://www.npmjs.com/package/postcss-font-family-system-ui
 [git-img]: https://img.shields.io/badge/support-chat-blue.svg
 [git-url]: https://gitter.im/postcss/postcss
 [css fonts module level 4]: https://drafts.csswg.org/css-fonts-4/#system-ui-def
 [gulp postcss]: https://github.com/postcss/gulp-postcss
-[grunt postcss]: https://github.com/nDmitry/grunt-postcss
+[grunt postcss]: https://github.com/C-Lodder/grunt-postcss
 [postcss-font-family-system-ui]: https://github.com/JLHwung/postcss-font-family-system-ui
 [postcss]: https://github.com/postcss/postcss
 [browserslist]: https://github.com/browserslist/browserslist#readme

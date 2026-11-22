@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "rollup -c .rollup.mjs",
-    "check:js": "eslint *.[cm]js --cache --quiet",
+    "check:js": "eslint *.[cm]js lib/*.[cm]js --cache --quiet",
     "prepublishOnly": "yarn test",
     "check": "yarn check:js",
     "test": "yarn build && echo 'Running tests...'; yarn check && yarn test:tape",
@@ -38,7 +38,6 @@
     "@babel/preset-env": "8.0.7",
     "@eslint/eslintrc": "3.3.7",
     "@rollup/plugin-babel": "7.1.0",
-    "ajv": "8.20.0",
     "eslint": "10.15.0",
     "eslint-config-dev": "3.3.1",
     "postcss": "8.5.33",
@@ -66,5 +65,6 @@
     "face",
     "type",
     "typeface"
-  ]
+  ],
+  "packageManager": "yarn@4.19.0"
 }

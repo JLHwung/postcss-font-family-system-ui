@@ -52,14 +52,14 @@ scope and avoid unrelated commits.
    git push origin feature/thing
    ```
    ```bash
-   # Or, push the branch for your update
-   git push origin update/something
+   # Or, push the branch for your fix
+   git push origin fix/something
    ```
 
 That’s it! Now [open a pull request] with a clear title and description.
 
-[already been reported]: issues
-[fork this project]:     fork
+[already been reported]: https://github.com/JLHwung/postcss-font-family-system-ui/issues
+[fork this project]:     https://github.com/JLHwung/postcss-font-family-system-ui/fork
 [live example]:          https://codepen.io/pen
-[open a pull request]:   https://help.github.com/articles/using-pull-requests/
+[open a pull request]:   https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request
 [reduced test case]:     https://css-tricks.com/reduced-test-cases/
