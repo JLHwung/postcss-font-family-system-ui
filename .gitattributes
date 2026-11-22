@@ -1,0 +1,6 @@
+# Keep LF line endings on every platform, including Windows CI checkouts.
+* text=auto eol=lf
+
+# Vendored and generated files: don't diff them in reviews.
+/.yarn/releases/** binary linguist-vendored
+/yarn.lock linguist-generated

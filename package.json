@@ -8,7 +8,10 @@
     "Jonathan Neal <jonathantneal@hotmail.com>"
   ],
   "license": "CC0-1.0",
-  "repository": "JLHwung/postcss-font-family-system-ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JLHwung/postcss-font-family-system-ui.git"
+  },
   "homepage": "https://github.com/JLHwung/postcss-font-family-system-ui#readme",
   "bugs": "https://github.com/JLHwung/postcss-font-family-system-ui/issues",
   "main": "./dist/index.bundle.cjs",
