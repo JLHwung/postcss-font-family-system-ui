@@ -21,6 +21,12 @@ module.exports = {
 			preserve: false,
 		},
 	},
+	"basic:browser:safari_9": {
+		message: "polyfills browsers whose support is unknown",
+		options: {
+			browsers: ["Safari 9"],
+		},
+	},
 	"basic:browser:whole_coverage": {
 		message: "supports complex { browsers } usage",
 		options: {
