@@ -96,8 +96,9 @@ const genericFamilies = new Set([
 	'fangsong',
 ]);
 
-// split a value on commas outside of quotes and parentheses, keeping whitespace
-const splitList = (value) => {
+// split a value on commas outside of quotes (and parentheses, unless
+// `parens` is false or they are unbalanced), keeping whitespace
+const splitList = (value, parens = true) => {
 	const items = [];
 	let start = 0;
 	let depth = 0;
@@ -112,18 +113,33 @@ const splitList = (value) => {
 			}
 		} else if (char === '"' || char === '\'') {
 			quote = char;
-		} else if (char === '(') {
+		} else if (parens && char === '(') {
 			depth++;
-		} else if (char === ')') {
+		} else if (parens && char === ')') {
 			depth = Math.max(0, depth - 1);
 		} else if (char === ',' && depth === 0) {
 			items.push(value.slice(start, i));
 			start = i + 1;
 		}
 	}
+	if (depth > 0) {
+		// an unclosed parenthesis, e.g. from an unquoted family name
+		return splitList(value, false);
+	}
 	items.push(value.slice(start));
 	return items;
 };
+
+// decode CSS escapes: `\` followed by 1-6 hex digits (and an optional
+// whitespace), or by any other character
+const unescapeCss = (string) =>
+	string.replace(/\\(?:([0-9a-f]{1,6})[\t\n\f\r ]?|([^]))/gi, (match, hex, char) => {
+		if (!hex) {
+			return char;
+		}
+		const codePoint = parseInt(hex, 16);
+		return codePoint > 0 && codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : '\ufffd';
+	});
 
 // family name for comparison: unquoted, whitespace collapsed, case-insensitive.
 // Quoted generic names (e.g. "system-ui") are font names, not the keywords, so
@@ -131,7 +147,9 @@ const splitList = (value) => {
 const familyKey = (item) => {
 	const trimmed = item.trim();
 	const quoted = quotedName.exec(trimmed);
-	const name = (quoted ? quoted[2] : trimmed).replace(/\s+/g, ' ').toLowerCase();
+	const name = unescapeCss(quoted ? quoted[2] : trimmed)
+		.replace(/\s+/g, ' ')
+		.toLowerCase();
 	return quoted && genericFamilies.has(name) ? `"${name}"` : name;
 };
 
@@ -255,7 +273,9 @@ const parseFamily = (family) => {
 					'postcss-font-family-system-ui: `family` must be a string or an array of strings'
 				);
 			}
-			return names.concat(splitList(entry));
+			// family names never contain parentheses, so don't let an unclosed one
+			// swallow the following names
+			return names.concat(splitList(entry, false));
 		}, [])
 		.map((name) => name.trim())
 		.filter(Boolean);

@@ -2,4 +2,5 @@ test {
 	font-family: system-ui, sans-serif;
 	font-family: system-ui, M+ 1p, sans-serif;
 	font-family: system-ui, MM 1p, sans-serif;
+	font-family: system-ui, $& Sans, sans-serif;
 }

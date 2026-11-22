@@ -19,4 +19,5 @@ test {
 	font: 12px Foo system-ui, serif;
 	--font: 12px Roboto, system-ui, sans-serif;
 	font: 0/0 Roboto, system-ui;
+	font-family: system-ui, Segoe\ UI, \52 oboto, sans-serif;
 }
