@@ -1,11 +1,11 @@
 test {
 	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
-	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: -apple-system, Roboto, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Roboto Mono, sans-serif;
 	font: 12px -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
-	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, BlinkMacSystemFont, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font-family: Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
-	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, 'segoe   ui', Ubuntu Mono;
+	font-family: 'segoe   ui', -apple-system, Segoe UI, ROBOTO, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Ubuntu Mono;
 	--stack: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, var(--brand-font, Roboto), sans-serif;
 	font-family: Segoe UI,Roboto,Noto Sans,Ubuntu,Cantarell,Helvetica Neue,-apple-system,sans-serif;
 	font: 12px Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
@@ -19,7 +19,7 @@ test {
 	font: 12px Foo system-ui, serif;
 	--font: 12px Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font: 0/0 Roboto, -apple-system, Segoe UI, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
-	font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	font-family: -apple-system, Segoe\ UI, \52 oboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font: calc(1em + 2px) -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
 	font: bold var(--fs)/1.5 -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	font: oblique 10deg 12px -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;

@@ -299,12 +299,11 @@ const formatFamily = (name) => {
 // replace system-ui in a declaration value with the given fallback list
 const createReplacer = (familyNames) => {
 	const systemUiFamily = familyNames.map(formatFamily);
-	const fallbackKeys = systemUiFamily.map(familyKey);
-	// names dropped after system-ui, as they are moved into the fallback list:
-	// the fallbacks (e.g. from a previous run or a hand-written stack) except
-	// generic keywords, and repeated system-ui
-	const movedKeys = new Set(fallbackKeys.filter((key) => !genericFamilies.has(key)));
-	movedKeys.add('system-ui');
+	const keepSystemUi = systemUiFamily.some((name) => familyKey(name) === 'system-ui');
+	// the fallbacks to add, in order; system-ui itself is the item being replaced
+	const fallbacks = systemUiFamily
+		.map((name, order) => ({ name, order, key: familyKey(name) }))
+		.filter(({ key }) => key !== 'system-ui');
 
 	return (value, prop) => {
 		// font-family holds only family names; the font shorthand (and custom
@@ -320,9 +319,8 @@ const createReplacer = (familyNames) => {
 			return value;
 		}
 		const head = items.slice(0, index);
-		const rest = items
-			.slice(index + 1)
-			.filter((item) => !movedKeys.has(familyKey(item)));
+		// drop repeated system-ui keywords
+		const rest = items.slice(index + 1).filter((item) => familyKey(item) !== 'system-ui');
 
 		// families already listed before system-ui; in a font shorthand, the
 		// first one follows the style, weight and size
@@ -331,35 +329,62 @@ const createReplacer = (familyNames) => {
 			headFamilies[0] = shorthandFamily(head[0]);
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
-		const restKeys = new Set(rest.map(familyKey));
-		// skip fallbacks listed before system-ui, and generic keywords listed after
-		// it, so they don't hide the families in between
-		const fallback = systemUiFamily.filter((name, i) => {
-			const key = fallbackKeys[i];
-			return !headKeys.has(key) && !(genericFamilies.has(key) && restKeys.has(key));
+		const restKeys = rest.map(familyKey);
+
+		// Families the author listed keep their place. Each missing fallback is
+		// inserted before the first listed fallback that comes after it, after the
+		// last listed one that comes before it, or else right after system-ui.
+		// Generic families are never used as such anchors.
+		const anchors = [];
+		const missing = [];
+		fallbacks.forEach((fallback) => {
+			const position = restKeys.indexOf(fallback.key);
+			if (headKeys.has(fallback.key)) {
+				return;
+			}
+			if (position === -1) {
+				missing.push(fallback);
+			} else if (!genericFamilies.has(fallback.key)) {
+				anchors.push({ order: fallback.order, position });
+			}
+		});
+		// names to insert before rest[position]
+		const inserts = rest.map(() => []).concat([ [] ]);
+		missing.forEach(({ name, order }) => {
+			const later = anchors.filter((anchor) => anchor.order > order);
+			const earlier = anchors.filter((anchor) => anchor.order < order);
+			let position = 0;
+			if (later.length) {
+				position = Math.min(...later.map((anchor) => anchor.position));
+			} else if (earlier.length) {
+				position = Math.max(...earlier.map((anchor) => anchor.position)) + 1;
+			}
+			inserts[position].push(name);
 		});
 
 		const item = items[index];
 		const prefix = item.slice(0, offset);
-		if (!fallback.length) {
-			// every fallback is already listed around system-ui: drop system-ui
-			if (head.length) {
-				return [ ...head, ...rest ].join(',');
-			}
-			if (rest.length) {
-				const [ first, ...others ] = rest;
-				return [ `${prefix}${first.replace(leadingWhitespace, '')}`, ...others ].join(',');
-			}
+		const [ suffix = '' ] = item.match(trailingWhitespace) || [];
+		const systemUi = item.slice(offset, item.length - suffix.length);
+		// system-ui, or what replaces it, and the names inserted right after it
+		const replaced = (keepSystemUi ? [ systemUi ] : []).concat(inserts[0]);
+		const output = head.slice();
+		if (replaced.length) {
+			output.push(`${prefix}${replaced.join(', ')}${suffix}`);
+		} else if (!head.length && rest.length) {
+			// system-ui is dropped from the start: keep the shorthand tokens before it
+			rest[0] = `${prefix}${rest[0].replace(leadingWhitespace, '')}`;
 		}
-		const names = fallback.length ? fallback : systemUiFamily;
-		// keep the whitespace before the next comma, taken from the end of the
-		// run that is replaced: system-ui and the listed fallbacks right after it
-		let runEnd = index;
-		while (runEnd + 1 < items.length && movedKeys.has(familyKey(items[runEnd + 1]))) {
-			runEnd++;
+		rest.forEach((restItem, position) => {
+			if (position > 0) {
+				output.push(...inserts[position].map((name) => ` ${name}`));
+			}
+			output.push(restItem);
+		});
+		if (rest.length) {
+			output.push(...inserts[rest.length].map((name) => ` ${name}`));
 		}
-		const [ suffix = '' ] = items[runEnd].match(trailingWhitespace) || [];
-		return [ ...head, `${prefix}${names.join(', ')}${suffix}`, ...rest ].join(',');
+		return output.join(',');
 	};
 };
 

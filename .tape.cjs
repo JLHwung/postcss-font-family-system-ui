@@ -141,7 +141,7 @@ module.exports = {
 		},
 	},
 	"existing-fallbacks": {
-		message: "replaces existing fallbacks instead of duplicating them",
+		message: "adds only missing fallbacks, keeping listed families in place",
 		options: {
 			browsers: ["IE 11", "Safari 10"],
 		},

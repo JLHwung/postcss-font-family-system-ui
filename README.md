@@ -22,10 +22,9 @@ body {
 }
 ```
 
-Fallbacks that are already listed after `system-ui`, for example in a
-hand-written stack or from an earlier run of the plugin, are moved into the
-plugin's order instead of being repeated. Other families, including generic
-families such as `sans-serif`, keep their position:
+Only fallbacks that are missing are added, so a hand-written stack, or CSS the
+plugin already processed, keeps the families it lists in place. Each missing
+fallback is inserted next to the listed fallbacks around it:
 
 ```css
 body {
@@ -35,10 +34,13 @@ body {
 /* becomes */
 
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu,
-    Cantarell, Helvetica Neue, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui, BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
+    Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 }
 ```
+
+`font-family` descriptors in `@font-face` rules are left alone, as they take a
+single family name.
 
 ## Usage
 
@@ -133,7 +135,7 @@ Note: if a non-empty `family` option is specified, the `browsers` option and the
 
 The `browsers` option determines the supported browsers, which is used to tune levels of polyfill based on the [support matrix] of `system-ui` at caniuse. Browsers that support `system-ui` only on macOS, through `-apple-system` (Firefox 43–91) or `BlinkMacSystemFont` (Chrome 53–55), also get the generic fallbacks for other platforms.
 
-[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables. The configuration is looked up from the location of each CSS file (the PostCSS `from` option), or from the current working directory when `from` is not set.
+[postcss-font-family-system-ui] supports any standard [browserslist] configuration, which includes a `.browserslistrc` file, a `browserslist` key in `package.json`, or `browserslist` environment variables. The configuration is looked up from the location of each CSS file (the PostCSS `from` option), or from the current working directory when `from` is not set. As with Autoprefixer, CSS from a package with its own `browserslist` configuration, for example in `node_modules`, uses that package's configuration; set the `browsers` option to use the same browsers for every file.
 
 The `browsers` option should only be used when a standard browserslist configuration is not available.
 
