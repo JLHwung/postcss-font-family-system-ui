@@ -1,0 +1,3 @@
+test {
+	font-family: system-ui, "Foo(TM)", "\"Foo\" Bar \"Baz\"", env(x);
+}

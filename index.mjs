@@ -82,9 +82,14 @@ const systemUiPresent = /system-ui/i;
 const whitespaceChar = /[\f\n\r\t ]/;
 const trailingWhitespace = /[\f\n\r\t ]+$/;
 const leadingWhitespace = /^[\f\n\r\t ]+/;
-const quotedName = /^(["'])([^]*)\1$/;
+// a quoted string with no unescaped closing quote inside
+const quotedName = /^(["'])((?:\\[^]|(?!\1)[^\\])*)\1$/;
 
 // generic font family keywords, which are never dropped or moved
+// the generic families every browser supports, which always match a font, so
+// families after them are never used
+const classicGenericFamilies = new Set([ 'serif', 'sans-serif', 'monospace', 'cursive', 'fantasy' ]);
+
 const genericFamilies = new Set([
 	'serif',
 	'sans-serif',
@@ -280,8 +285,9 @@ const shorthandFamily = (item, stripKeywords = true) => {
 
 // CSS-wide keywords, which are not valid as unquoted family names
 const cssWideKeywords = new Set([ 'inherit', 'initial', 'unset', 'revert', 'revert-layer', 'default' ]);
-// a CSS function such as var(--brand), whose parentheses splitWords balanced
-const cssFunction = /^[\w-]+\([^]*\)$/;
+// a function that can stand for family names, e.g. var(--brand); splitWords
+// keeps its parentheses balanced
+const cssFunction = /^(?:var|env|attr)\([^]*\)$/i;
 
 // a family name as given if it is valid unquoted CSS (identifiers, or a
 // function such as var()), and quoted otherwise, e.g. "M+ 1p"
@@ -338,16 +344,17 @@ const createReplacer = (familyNames) => {
 		}
 		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = rest.map(familyKey);
-		const hasGeneric = [ ...headKeys, ...restKeys ].some(
-			(key) => key !== 'system-ui' && genericFamilies.has(key)
-		);
+		const hasGeneric = [ ...headKeys, ...restKeys ].some((key) => classicGenericFamilies.has(key));
+		// fallbacks after a classic generic family would never be used
+		const firstGeneric = restKeys.findIndex((key) => classicGenericFamilies.has(key));
+		const lastSlot = firstGeneric === -1 ? rest.length : firstGeneric;
 
 		// Families the author listed keep their place. Each missing fallback is
 		// inserted before the first listed fallback (or system-ui) that comes after
 		// it in the fallback list, after the last listed one that comes before it,
-		// or else right after system-ui. Generic families are never used as such
-		// anchors; a missing one is added at the end, unless the value already
-		// ends in a generic family.
+		// or else right after system-ui, but never after a classic generic family.
+		// Generic families are never used as such anchors; a missing one is added
+		// at the end, unless the value already has a classic generic family.
 		// Anchor positions are indexes in `rest`; -1 is system-ui.
 		const anchors = systemUiEntry ? [ { order: systemUiEntry.order, position: -1 } ] : [];
 		const missing = [];
@@ -381,7 +388,7 @@ const createReplacer = (familyNames) => {
 			} else if (earlier.length) {
 				slot = Math.max(...earlier.map((anchor) => anchor.position)) + 1;
 			}
-			insert(slot, name);
+			insert(Math.min(slot, lastSlot), name);
 		});
 
 		const item = items[index];

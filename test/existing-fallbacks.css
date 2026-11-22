@@ -25,4 +25,5 @@ test {
 	font: oblique 10deg 12px system-ui;
 	font: 12px / normal Roboto, system-ui;
 	font: 12px/1 system-ui , sans-serif;
+	font-family: system-ui, sans-serif, Roboto;
 }

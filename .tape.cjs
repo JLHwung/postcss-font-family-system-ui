@@ -54,6 +54,13 @@ module.exports = {
 			family: "system-ui, Sans",
 		},
 	},
+	"family-split:quoting": {
+		message: "quotes { family } names that aren't valid unquoted CSS",
+		options: {
+			family: 'system-ui, Foo(TM), "Foo" Bar "Baz", env(x)',
+		},
+		source: "family-split.css",
+	},
 	"family-array": {
 		message: "splits comma-separated entries in a { family } array",
 		options: {
