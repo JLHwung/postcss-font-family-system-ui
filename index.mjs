@@ -76,6 +76,7 @@ const fontPropertyMatch = /(?:^(?:-|\\002d){2})|(?:^font(?:-family)?$)/i;
 const systemUiPresent = /system-ui/i;
 const whitespaceChar = /[\f\n\r\t ]/;
 const trailingWhitespace = /[\f\n\r\t ]+$/;
+const leadingWhitespace = /^[\f\n\r\t ]+/;
 const quotedName = /^(["'])([^]*)\1$/;
 
 // generic font family keywords, which are never dropped or moved
@@ -149,6 +150,28 @@ const systemUiOffset = (item, allowPrefix) => {
 	return allowPrefix || !prefix.trim() ? offset : -1;
 };
 
+// a font-size token of the font shorthand, optionally with `/line-height`
+const fontSizeToken =
+	/^(?:[+-]?(?:\d*\.)?\d+(?:[a-z]+|%)|xx-small|x-small|small|medium|large|x-large|xx-large|xxx-large|larger|smaller)(?:\/.*)?$/i;
+
+// the family in the first item of a font shorthand, e.g. `Roboto` in
+// `bold 12px/1.5 Roboto`, or '' if it can't be found
+const shorthandFamily = (item) => {
+	const words = item.trim().split(/\s+/);
+	const size = words.findIndex((word) => fontSizeToken.test(word));
+	if (size === -1) {
+		return '';
+	}
+	let start = size + 1;
+	// line height in separate tokens: `12px / 1.5`, `12px /1.5` or `12px/ 1.5`
+	if (words[start] === '/' || words[size].endsWith('/')) {
+		start += words[start] === '/' ? 2 : 1;
+	} else if (words[start] && words[start][0] === '/') {
+		start += 1;
+	}
+	return words.slice(start).join(' ');
+};
+
 // replace system-ui in a declaration value with the given fallback list
 const createReplacer = (systemUiFamily) => {
 	const fallbackKeys = systemUiFamily.map(familyKey);
@@ -159,12 +182,14 @@ const createReplacer = (systemUiFamily) => {
 	movedKeys.add('system-ui');
 
 	return (value, prop) => {
-		const shorthand = !/^font-family$/i.test(prop);
+		// font-family holds only family names; the font shorthand (and custom
+		// properties, which may hold one) can have other tokens before the first
+		const familyOnly = /^font-family$/i.test(prop);
 		const items = splitList(value);
 		let index = -1;
 		let offset = -1;
 		while (offset === -1 && ++index < items.length) {
-			offset = systemUiOffset(items[index], shorthand && index === 0);
+			offset = systemUiOffset(items[index], !familyOnly && index === 0);
 		}
 		if (offset === -1) {
 			return value;
@@ -174,15 +199,13 @@ const createReplacer = (systemUiFamily) => {
 			.slice(index + 1)
 			.filter((item) => !movedKeys.has(familyKey(item)));
 
-		// families already listed before system-ui, including the one in the
-		// first item of a font shorthand, after the style, weight and size
-		const headKeys = new Set(head.map(familyKey));
-		if (shorthand && head.length) {
-			const words = head[0].trim().split(/\s+/);
-			for (let i = 1; i < words.length; i++) {
-				headKeys.add(familyKey(words.slice(i).join(' ')));
-			}
+		// families already listed before system-ui; in the font shorthand, the
+		// first one follows the style, weight and size
+		const headFamilies = head.slice();
+		if (head.length && /^font$/i.test(prop)) {
+			headFamilies[0] = shorthandFamily(head[0]);
 		}
+		const headKeys = new Set(headFamilies.map(familyKey));
 		const restKeys = new Set(rest.map(familyKey));
 		// skip fallbacks listed before system-ui, and generic keywords listed after
 		// it, so they don't hide the families in between
@@ -191,13 +214,27 @@ const createReplacer = (systemUiFamily) => {
 			return !headKeys.has(key) && !(genericFamilies.has(key) && restKeys.has(key));
 		});
 
-		if (!fallback.length && head.length) {
-			// everything is already listed before system-ui: drop system-ui
-			return [ ...head, ...rest ].join(',');
+		const item = items[index];
+		const prefix = item.slice(0, offset);
+		if (!fallback.length) {
+			// every fallback is already listed around system-ui: drop system-ui
+			if (head.length) {
+				return [ ...head, ...rest ].join(',');
+			}
+			if (rest.length) {
+				const [ first, ...others ] = rest;
+				return [ `${prefix}${first.replace(leadingWhitespace, '')}`, ...others ].join(',');
+			}
 		}
-		const prefix = items[index].slice(0, offset);
 		const names = fallback.length ? fallback : systemUiFamily;
-		return [ ...head, `${prefix}${names.join(', ')}`, ...rest ].join(',');
+		// keep the whitespace before the next comma, taken from the end of the
+		// run that is replaced: system-ui and the listed fallbacks right after it
+		let runEnd = index;
+		while (runEnd + 1 < items.length && movedKeys.has(familyKey(items[runEnd + 1]))) {
+			runEnd++;
+		}
+		const [ suffix = '' ] = items[runEnd].match(trailingWhitespace) || [];
+		return [ ...head, `${prefix}${names.join(', ')}${suffix}`, ...rest ].join(',');
 	};
 };
 

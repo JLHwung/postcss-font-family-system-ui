@@ -150,6 +150,12 @@ module.exports = {
 			family: "system-ui, -apple-system, sans-serif",
 		},
 	},
+	"family-generic:only": {
+		message: "drops system-ui when { family } only has generic families that follow it",
+		options: {
+			family: "sans-serif",
+		},
+	},
 	"browserslistrc": {
 		message: "uses the browserslist config next to the CSS file",
 		source: "browserslistrc/basic.css",

@@ -12,4 +12,8 @@ test {
 	font-family: system-ui, "system-ui", sans-serif;
 	font-family: "x, system-ui, y", Arial;
 	font-family: Foo system-ui, serif;
+	font: 12px Foo Roboto, system-ui;
+	font: bold 12px / 1.5 Roboto, system-ui, sans-serif;
+	font-family: system-ui
+		, sans-serif;
 }
