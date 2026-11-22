@@ -193,7 +193,7 @@ const splitList = (value, quotes = true, parens = true) => {
 // decode CSS escapes: `\` followed by 1-6 hex digits (and an optional
 // whitespace), or by any other character
 const unescapeCss = (string) =>
-	string.replace(/\\(?:([0-9a-f]{1,6})[\t\n\f\r ]?|([^]))/gi, (match, hex, char) => {
+	string.replace(/\\(?:([0-9a-f]{1,6})(?:\r\n|[\t\n\f\r ])?|([^]))/gi, (match, hex, char) => {
 		if (!hex) {
 			return char;
 		}
@@ -235,8 +235,15 @@ const systemUiOffset = (item, allowPrefix) => {
 		return -1;
 	}
 	const words = splitWords(prefix);
-	const last = words[words.length - 1];
-	return !isFamilyWord(last) || shorthandKeywords.has(last.toLowerCase()) ? offset : -1;
+	let start = words.length;
+	while (start > 0 && shorthandKeywords.has(words[start - 1].toLowerCase())) {
+		start--;
+	}
+	if (start < words.length) {
+		// keywords, unless they follow a font size (`12px Normal system-ui`)
+		return start > 0 && isSizeWord(words[start - 1]) ? -1 : offset;
+	}
+	return isFamilyWord(words[words.length - 1]) ? -1 : offset;
 };
 
 // split a value on whitespace outside of quotes and parentheses
@@ -278,7 +285,8 @@ const splitWords = (value) => {
 };
 
 // a CSS identifier, with escapes
-const identifier = /^(?:--|-?(?:[a-z_\u0080-￿]|\\[^]))(?:[\w\-\u0080-￿]|\\[^])*$/i;
+const identifier =
+	/^(?:--|-?(?:[a-z_\u0080-\uffff]|\\[^\n\r\f]))(?:[\w\-\u0080-\uffff]|\\[^\n\r\f])*$/i;
 
 // keywords that can come before the family in a font shorthand
 const shorthandKeywords = new Set([
@@ -363,7 +371,14 @@ const cssFunction = /^(?:var|env|attr)\([^]*\)$/i;
 const formatFamily = (name) => {
 	if (quotedName.test(name)) {
 		// a raw line break would end the string
-		return name.replace(/\r\n|[\n\r\f]/g, '\\a ');
+		// a raw line break would end the string; an escaped one is a line
+		// continuation, which stands for nothing
+		return name.replace(/\\(?:\r\n|[\s\S])|\r\n|[\n\r\f]/g, (match) => {
+			if (match[0] !== '\\') {
+				return '\\a ';
+			}
+			return /^\\(?:\r\n|[\n\r\f])$/.test(match) ? '' : match;
+		});
 	}
 	const words = splitWords(name);
 	const valid =
@@ -499,7 +514,15 @@ const createReplacer = (familyNames) => {
 			output.push(restItem);
 		});
 		if (rest.length) {
-			output.push(...namesAt(rest.length).map((name) => ` ${name}`));
+			const appended = namesAt(rest.length).map((name) => ` ${name}`);
+			if (appended.length) {
+				// keep whitespace at the end of the value after the appended names
+				const last = output.length - 1;
+				const [ end = '' ] = output[last].match(trailingWhitespace) || [];
+				output[last] = output[last].slice(0, output[last].length - end.length);
+				appended[appended.length - 1] += end;
+			}
+			output.push(...appended);
 		}
 		return output.join(',');
 	};

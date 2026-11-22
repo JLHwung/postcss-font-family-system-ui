@@ -36,4 +36,5 @@ test {
 	font: 700 large Roboto, system-ui;
 	font-family: system-ui, sans-serif, Segoe UI;
 	--font-heading: bold large system-ui;
+	font: 12px/1.5 Normal system-ui;
 }
