@@ -1,14 +1,16 @@
 // tooling
 import getSystemUiFamily from './lib/get-system-ui-family.mjs';
 import browserslist from 'browserslist';
-import path from 'path';
 
 // plugin
 const creator = (opts) => {
 	const { family, preserve = true, browsers } = Object(opts);
 	const familyOption = parseFamily(family);
-	const resolveFamily = (path) =>
-		getSystemUiFamily(browserslist(browsers, { path, ignoreUnknownVersions: true }), preserve);
+	const resolveFamily = (from) =>
+		getSystemUiFamily(
+			browserslist(browsers, { path: from, ignoreUnknownVersions: true }),
+			preserve
+		);
 
 	// With a family or browsers option, the fallbacks are the same for every
 	// file, so resolve them now and let invalid options fail early.
@@ -20,18 +22,19 @@ const creator = (opts) => {
 	}
 
 	// Otherwise they depend on the browserslist config, which is looked up from
-	// each CSS file's directory. Cache them per directory.
-	const replacersByDirectory = new Map();
+	// each CSS file's location. browserslist caches config files and queries
+	// (and clears them in watch mode), so only cache the compiled replacers.
+	const replacers = new Map();
 	const getReplacer = (from) => {
 		if (fixedReplacer) {
 			return fixedReplacer;
 		}
-		// null: no file, the config is looked up from the working directory
-		const directory = from ? path.dirname(path.resolve(from)) : null;
-		if (!replacersByDirectory.has(directory)) {
-			replacersByDirectory.set(directory, createReplacer(resolveFamily(from)));
+		const systemUiFamily = resolveFamily(from);
+		const key = systemUiFamily.join(',');
+		if (!replacers.has(key)) {
+			replacers.set(key, createReplacer(systemUiFamily));
 		}
-		return replacersByDirectory.get(directory);
+		return replacers.get(key);
 	};
 
 	return {
