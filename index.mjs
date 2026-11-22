@@ -138,7 +138,8 @@ const unescapeCss = (string) =>
 			return char;
 		}
 		const codePoint = parseInt(hex, 16);
-		return codePoint > 0 && codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : '\ufffd';
+		const valid = codePoint > 0 && codePoint <= 0x10ffff && (codePoint < 0xd800 || codePoint > 0xdfff);
+		return valid ? String.fromCodePoint(codePoint) : '\ufffd';
 	});
 
 // family name for comparison: unquoted, whitespace collapsed, case-insensitive.
@@ -262,8 +263,18 @@ const shorthandFamily = (item) => {
 	return words.slice(start).join(' ');
 };
 
+// a family name as given if it is valid unquoted CSS (one or more
+// identifiers), and quoted otherwise, e.g. "M+ 1p"
+const formatFamily = (name) => {
+	if (quotedName.test(name) || splitWords(name).every((word) => identifier.test(word))) {
+		return name;
+	}
+	return `"${name.replace(/["\\]/g, '\\$&').replace(/\n/g, '\\a ')}"`;
+};
+
 // replace system-ui in a declaration value with the given fallback list
-const createReplacer = (systemUiFamily) => {
+const createReplacer = (familyNames) => {
+	const systemUiFamily = familyNames.map(formatFamily);
 	const fallbackKeys = systemUiFamily.map(familyKey);
 	// names dropped after system-ui, as they are moved into the fallback list:
 	// the fallbacks (e.g. from a previous run or a hand-written stack) except
